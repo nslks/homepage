@@ -1,6 +1,6 @@
 name: Epic
 description: A larger body of work, broken down into user stories (sub-issues)
-labels: ["epic"]
+labels: ['epic']
 body:
   - type: textarea
     id: goal

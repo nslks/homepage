@@ -17,11 +17,7 @@
   "postCreateCommand": "sudo chown node node_modules && if [ -f package-lock.json ]; then npm ci; fi",
   "customizations": {
     "vscode": {
-      "extensions": [
-        "dbaeumer.vscode-eslint",
-        "esbenp.prettier-vscode",
-        "redhat.vscode-yaml"
-      ],
+      "extensions": ["dbaeumer.vscode-eslint", "esbenp.prettier-vscode", "redhat.vscode-yaml"],
       "settings": {
         "editor.formatOnSave": true,
         "editor.defaultFormatter": "esbenp.prettier-vscode"
