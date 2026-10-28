@@ -1,10 +1,57 @@
+# Dependencies
 node_modules/
+
+# Build output
 dist/
+dist-ssr/
+*.tsbuildinfo
+
+# Tool caches
+.vite/
+.cache/
+.eslintcache
+.prettiercache
+
+# Test output
 coverage/
 playwright-report/
 test-results/
-.vite/
+blob-report/
+
+# Logs
 *.log
+
+# Environment and secrets — only the documented example is committed
 .env
 .env.*
+!.env.example
+*.local
+*.pem
+*.key
+
+# Terraform (M2): state and variable files can contain secrets
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.tfvars.json
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraformrc
+terraform.rc
+
+# Editors — shared VS Code settings live in .devcontainer/devcontainer.json
+.vscode/
+.idea/
+*.swp
+*~
+
+# OS
 .DS_Store
+._*
+Thumbs.db
+Desktop.ini
