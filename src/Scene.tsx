@@ -1,14 +1,16 @@
 import { OrbitControls } from '@react-three/drei'
 import { Physics } from '@react-three/rapier'
-import { Character } from './character/Character'
+import { Player } from './player/Player'
+import { playerPosition, useAppStore } from './state/store'
 import { palette } from './world/palette'
 import { Decor } from './world/Decor'
 import { Island } from './world/Island'
 import { Paths } from './world/Paths'
-import { spawn } from './world/layout'
 
 // Append ?debug to the URL to render physics colliders
 const debug = new URLSearchParams(window.location.search).has('debug')
+// exposes live state for manual and automated checks in debug mode
+if (debug) Object.assign(window, { __homepage: { playerPosition, store: useAppStore } })
 
 export function Scene() {
   return (
@@ -30,12 +32,8 @@ export function Scene() {
         <Island />
         <Paths />
         <Decor />
+        <Player />
       </Physics>
-
-      {/* static at spawn until movement (#18) lands */}
-      <group position={[spawn.x, 0, spawn.z]}>
-        <Character variant="male" animation="Idle" />
-      </group>
 
       {/* temporary free camera until the follow camera (#19) lands */}
       <OrbitControls target={[0, -1, 0]} maxDistance={70} />

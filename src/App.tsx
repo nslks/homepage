@@ -1,13 +1,17 @@
+import { KeyboardControls } from '@react-three/drei'
 import { Canvas } from '@react-three/fiber'
 import { Suspense } from 'react'
+import { controlsMap } from './player/controls'
 import { Scene } from './Scene'
 
 export function App() {
   return (
-    <Canvas shadows camera={{ position: [0, 24, 34], fov: 40 }}>
-      <Suspense fallback={null}>
-        <Scene />
-      </Suspense>
-    </Canvas>
+    <KeyboardControls map={controlsMap}>
+      <Canvas shadows camera={{ position: [0, 24, 34], fov: 40 }}>
+        <Suspense fallback={null}>
+          <Scene />
+        </Suspense>
+      </Canvas>
+    </KeyboardControls>
   )
 }
