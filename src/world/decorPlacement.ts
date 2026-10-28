@@ -38,6 +38,22 @@ function isFree(p: Point, clearance: number, placed: Point[]) {
   return placed.every((q) => Math.hypot(p.x - q.x, p.z - q.z) > clearance * 1.6)
 }
 
+// Trees just south of a path or plaza sit between the camera and the character
+const OCCLUSION_DEPTH = 3.5
+function blocksView(p: Point) {
+  const shifted = (q: Point) => ({ x: q.x, z: q.z + OCCLUSION_DEPTH / 2 })
+  return (
+    paths.some(
+      ([a, b]) =>
+        distanceToSegment(p, shifted(a), shifted(b)) < PATH_WIDTH / 2 + OCCLUSION_DEPTH / 2,
+    ) ||
+    plazas.some(
+      ({ center, radius }) =>
+        Math.hypot(p.x - center.x, p.z - shifted(center).z) < radius + OCCLUSION_DEPTH / 2,
+    )
+  )
+}
+
 function scatter<T extends Point>(
   seed: number,
   count: number,
@@ -67,7 +83,7 @@ export const trees: Tree[] = scatter(
   26,
   1.3,
   placed,
-  (p) => p.z < LOW_DECOR_ONLY_SOUTH_OF,
+  (p) => p.z < LOW_DECOR_ONLY_SOUTH_OF && !blocksView(p),
   (p, random) => ({
     ...p,
     kind: random() < 0.55 ? 'pine' : 'round',

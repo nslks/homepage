@@ -1,5 +1,5 @@
-import { OrbitControls } from '@react-three/drei'
 import { Physics } from '@react-three/rapier'
+import { FollowCamera } from './player/FollowCamera'
 import { Player } from './player/Player'
 import { playerPosition, useAppStore } from './state/store'
 import { palette } from './world/palette'
@@ -35,8 +35,7 @@ export function Scene() {
         <Player />
       </Physics>
 
-      {/* temporary free camera until the follow camera (#19) lands */}
-      <OrbitControls target={[0, -1, 0]} maxDistance={70} />
+      <FollowCamera />
     </>
   )
 }
