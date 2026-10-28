@@ -23,6 +23,18 @@ export const islandOutline: Point[] = (() => {
 // How far inside the grass edge the invisible boundary sits
 export const BOUNDARY_INSET = 1.2
 
+// Island radius in the direction of a point, interpolated between outline vertices
+export function islandRadiusAt(p: Point): number {
+  const segments = islandOutline.length
+  const angle = (Math.atan2(p.z, p.x) + Math.PI * 2) % (Math.PI * 2)
+  const position = (angle / (Math.PI * 2)) * segments
+  const i = Math.floor(position) % segments
+  const a = islandOutline[i]!
+  const b = islandOutline[(i + 1) % segments]!
+  const t = position - Math.floor(position)
+  return Math.hypot(a.x, a.z) * (1 - t) + Math.hypot(b.x, b.z) * t
+}
+
 export type StationId = 'career' | 'work' | 'projects' | 'contact'
 
 export type Placement = Point & {

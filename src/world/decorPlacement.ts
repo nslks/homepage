@@ -1,4 +1,4 @@
-import { PATH_WIDTH, paths, plazas, type Point } from './layout'
+import { BOUNDARY_INSET, islandRadiusAt, PATH_WIDTH, paths, plazas, type Point } from './layout'
 import { createRandom } from './random'
 
 export type TreeKind = 'pine' | 'round'
@@ -19,8 +19,15 @@ function distanceToSegment(p: Point, a: Point, b: Point) {
   return Math.hypot(p.x - (a.x + t * dx), p.z - (a.z + t * dz))
 }
 
+// Obstacles right next to the invisible wall would form pockets the character gets stuck in;
+// they stand either clearly inside the walkable area or beyond the wall
+const WALL_GAP = 1.4
+
 function isFree(p: Point, clearance: number, placed: Point[]) {
-  if (Math.hypot(p.x, p.z) > MAX_RADIUS) return false
+  const radius = Math.hypot(p.x, p.z)
+  const wall = islandRadiusAt(p) - BOUNDARY_INSET
+  if (radius > Math.min(MAX_RADIUS, islandRadiusAt(p) - 0.6)) return false
+  if (radius > wall - WALL_GAP - clearance && radius < wall + clearance) return false
   if (paths.some(([a, b]) => distanceToSegment(p, a, b) < PATH_WIDTH / 2 + clearance)) return false
   if (
     plazas.some(
