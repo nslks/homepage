@@ -1,0 +1,33 @@
+import { OrbitControls } from '@react-three/drei'
+import { Physics } from '@react-three/rapier'
+import { palette } from './world/palette'
+import { Island } from './world/Island'
+
+// Append ?debug to the URL to render physics colliders
+const debug = new URLSearchParams(window.location.search).has('debug')
+
+export function Scene() {
+  return (
+    <>
+      <color attach="background" args={[palette.sky]} />
+      <hemisphereLight args={['#ffffff', '#c9b293', 1.1]} />
+      <directionalLight
+        position={[12, 20, 8]}
+        intensity={1.8}
+        castShadow
+        shadow-mapSize={[2048, 2048]}
+        shadow-camera-left={-22}
+        shadow-camera-right={22}
+        shadow-camera-top={22}
+        shadow-camera-bottom={-22}
+      />
+
+      <Physics debug={debug}>
+        <Island />
+      </Physics>
+
+      {/* temporary free camera until the follow camera (#19) lands */}
+      <OrbitControls target={[0, -1, 0]} maxDistance={70} />
+    </>
+  )
+}
