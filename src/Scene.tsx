@@ -1,6 +1,7 @@
 import { OrbitControls } from '@react-three/drei'
 import { Physics } from '@react-three/rapier'
 import { palette } from './world/palette'
+import { Decor } from './world/Decor'
 import { Island } from './world/Island'
 import { Paths } from './world/Paths'
 
@@ -26,6 +27,7 @@ export function Scene() {
       <Physics debug={debug}>
         <Island />
         <Paths />
+        <Decor />
       </Physics>
 
       {/* temporary free camera until the follow camera (#19) lands */}
