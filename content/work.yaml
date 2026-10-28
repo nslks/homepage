@@ -1,9 +1,33 @@
 entries:
-  - company: TODO
-    role: { de: TODO, en: '' }
-    period: { de: TODO, en: '' }
+  - company: Siempelkamp
+    role: { de: Softwareentwickler – Backend, DevOps & Fullstack, en: '' }
+    period: { de: '04/2022 – 09/2026', en: '' }
     highlights:
-      - { de: TODO, en: '' }
-      - { de: TODO, en: '' }
-      - { de: TODO, en: '' }
-    tech: []
+      - de: >-
+          Roadmap, Scopes und Epics für die Migration einer Legacy-Anwendung zu Microservices
+          erarbeitet und ein fünfköpfiges Team koordiniert.
+        en: ''
+      - de: Python-Microservices und Schnittstellen für die schrittweise Ablösung umgesetzt.
+        en: ''
+      - de: >-
+          Modulares CI/CD-Template entwickelt und Repository-Pipelines auf eine zentrale
+          Grundlage überführt – inklusive SAST, SBOM und Image Signing.
+        en: ''
+      - de: Strategie zur Konsolidierung von GitLab, Azure und TFS in GitHub Enterprise erarbeitet.
+        en: ''
+      - de: >-
+          Echtzeit-Kameraüberwachung in C++20/OpenCV entwickelt: acht parallele Streams mit je
+          150 Bildern pro Sekunde.
+        en: ''
+    tech: [Python, Microservices, Docker, GitLab CI/CD, Azure Pipelines, C++20, OpenCV]
+  - company: Schleupen SE
+    role: { de: Softwareentwickler Energie- & Wasserwirtschaft, en: '' }
+    period: { de: '04/2020 – 04/2022', en: '' }
+    highlights:
+      - de: ERP-System für die Energie- und Wasserwirtschaft mit C#/.NET weiterentwickelt.
+        en: ''
+      - de: Fachlogik nach Domain Driven Design umgesetzt.
+        en: ''
+      - de: Änderungen mit automatisierten Tests und Code-Reviews abgesichert.
+        en: ''
+    tech: [C#, .NET, MSSQL, TDD, DDD]

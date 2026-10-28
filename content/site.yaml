@@ -1,10 +1,11 @@
 name: Enes Alkis
 title:
   de: Software Engineer
-  en: Software Engineer
-tagline:
-  de: TODO
   en: ''
+tagline:
+  de: Backend, DevOps & Technical Delivery
+  en: ''
+# filled in with the legal modal (#39)
 legal:
   impressum:
     de: TODO

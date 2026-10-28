@@ -1,4 +1,8 @@
+# TODO: add LinkedIn once the profile URL is known
 links:
   - kind: github
     label: { de: GitHub, en: GitHub }
     url: https://github.com/nslks
+  - kind: email
+    label: { de: E-Mail, en: E-mail }
+    url: mailto:removed@example.invalid
