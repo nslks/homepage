@@ -6,4 +6,6 @@ export const palette = {
   dirt: '#9a6b47',
   rock: '#8a8178',
   rockDark: '#6e665e',
+  path: '#e3c48f',
+  plaza: '#d9b67c',
 } as const
