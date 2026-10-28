@@ -3,6 +3,7 @@ import { Canvas } from '@react-three/fiber'
 import { Suspense } from 'react'
 import { controlsMap } from './player/controls'
 import { Scene } from './Scene'
+import { Hud } from './ui/Hud'
 
 export function App() {
   return (
@@ -12,6 +13,7 @@ export function App() {
           <Scene />
         </Suspense>
       </Canvas>
+      <Hud />
     </KeyboardControls>
   )
 }

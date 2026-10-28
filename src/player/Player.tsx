@@ -10,6 +10,7 @@ import {
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { type Group, Vector3 } from 'three'
 import { Character, type CharacterAnimation } from '../character/Character'
+import { DustPuff } from '../character/DustPuff'
 import { playerPosition, useAppStore } from '../state/store'
 import { spawn } from '../world/layout'
 import type { Control } from './controls'
@@ -34,6 +35,14 @@ export function Player() {
   const [, getKeys] = useKeyboardControls<Control>()
   const [animation, setAnimation] = useState<CharacterAnimation>('Idle')
   const { world } = useRapier()
+  const variant = useAppStore((state) => state.character)
+  // a fresh puff plays on every swap, but not on the first render
+  const [swaps, setSwaps] = useState(0)
+  const [shownVariant, setShownVariant] = useState(variant)
+  if (variant !== shownVariant) {
+    setShownVariant(variant)
+    setSwaps((n) => n + 1)
+  }
 
   // Kinematic controller: slides along colliders instead of stopping dead at them
   const controller = useMemo(() => {
@@ -94,8 +103,13 @@ export function Player() {
     >
       <CapsuleCollider ref={collider} args={[CAPSULE_HALF_HEIGHT, CAPSULE_RADIUS]} />
       <group ref={model} position-y={-CENTER_Y} rotation-y={Math.PI}>
-        <Character variant="male" animation={animation} />
+        <Character key={variant} variant={variant} animation={animation} />
       </group>
+      {swaps > 0 && (
+        <group key={swaps} position-y={-CENTER_Y}>
+          <DustPuff />
+        </group>
+      )}
     </RigidBody>
   )
 }

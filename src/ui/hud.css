@@ -1,0 +1,38 @@
+/* minimal styling; the full HUD and design system follow in #34 and #35 */
+.hud {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hud__toggles {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: flex;
+  gap: 8px;
+  pointer-events: auto;
+}
+
+.hud__toggle {
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 0.75);
+  backdrop-filter: blur(8px);
+  font-size: 22px;
+  line-height: 1;
+  color: #2b2d42;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.15);
+}
+
+.hud__toggle:hover {
+  background: rgb(255 255 255 / 0.95);
+}
+
+.hud__toggle:focus-visible {
+  outline: 3px solid #e07a5f;
+  outline-offset: 2px;
+}
