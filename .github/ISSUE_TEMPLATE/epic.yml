@@ -1,0 +1,20 @@
+name: Epic
+description: A larger body of work, broken down into user stories (sub-issues)
+labels: ["epic"]
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope
+      description: What is in and out of scope
+  - type: textarea
+    id: refs
+    attributes:
+      label: References
+      description: Spec sections, ADRs

@@ -1,0 +1,25 @@
+name: User story
+description: A user-facing increment with acceptance criteria
+labels: ["story"]
+body:
+  - type: textarea
+    id: story
+    attributes:
+      label: User story
+      value: |
+        As a **<role>**, I want **<capability>** so that **<benefit>**.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      value: |
+        - [ ] **Given** … **when** … **then** …
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Technical hints, links to the spec or ADRs, out-of-scope items
