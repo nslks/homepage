@@ -2,6 +2,7 @@ import { OrbitControls } from '@react-three/drei'
 import { Physics } from '@react-three/rapier'
 import { palette } from './world/palette'
 import { Island } from './world/Island'
+import { Paths } from './world/Paths'
 
 // Append ?debug to the URL to render physics colliders
 const debug = new URLSearchParams(window.location.search).has('debug')
@@ -24,6 +25,7 @@ export function Scene() {
 
       <Physics debug={debug}>
         <Island />
+        <Paths />
       </Physics>
 
       {/* temporary free camera until the follow camera (#19) lands */}
