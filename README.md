@@ -18,9 +18,21 @@ experience, side projects and contact details. Day/night mode included.
 ## Development
 
 Development happens exclusively in the dev container
-([ADR 0002](docs/adr/0002-devcontainer-only.md)) — locally via VS Code Dev Containers
-(e.g. with OrbStack) or in GitHub Codespaces. Setup instructions follow with milestone
-`M0 – Foundation`.
+([ADR 0002](docs/adr/0002-devcontainer-only.md)). Nothing besides a container runtime is
+installed on the host.
+
+**Locally** (macOS):
+
+1. Install [OrbStack](https://orbstack.dev/) (or Docker Desktop) and VS Code with the
+   *Dev Containers* extension.
+2. Open the repository folder in VS Code → *Reopen in Container*.
+3. Run `npm run dev` in the container terminal and open <http://localhost:5173/homepage/>.
+
+**In the cloud:** *Code → Codespaces → Create codespace on main* on GitHub. Same setup,
+nothing local at all.
+
+The container uses Node 24 LTS (pinned in `.nvmrc`, also used by CI). `node_modules` is
+kept in a named Docker volume for performance.
 
 ## License
 

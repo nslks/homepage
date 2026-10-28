@@ -1,0 +1,31 @@
+{
+  "name": "homepage",
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:24",
+  "remoteUser": "node",
+  "mounts": [
+    // node_modules lives in a named volume: much faster than a macOS bind mount
+    "source=homepage-node_modules,target=${containerWorkspaceFolder}/node_modules,type=volume"
+  ],
+  "containerEnv": {
+    // file events from macOS bind mounts are not always propagated; vite falls back to polling
+    "VITE_USE_POLLING": "true"
+  },
+  "forwardPorts": [5173],
+  "portsAttributes": {
+    "5173": { "label": "Vite dev server", "onAutoForward": "notify" }
+  },
+  "postCreateCommand": "sudo chown node node_modules && if [ -f package-lock.json ]; then npm ci; fi",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "redhat.vscode-yaml"
+      ],
+      "settings": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+      }
+    }
+  }
+}
