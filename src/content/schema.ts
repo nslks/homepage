@@ -91,7 +91,52 @@ export const contactSchema = z.object({
     .min(1),
 })
 
-export const uiSchema = z.record(z.string().regex(/^[a-z][a-zA-Z0-9.]*$/), localized)
+// Fixed set of UI strings: a missing key fails the build and components get autocompletion
+export const uiSchema = z.strictObject({
+  loading: localized,
+  intro: z.strictObject({ skip: localized }),
+  controls: z.strictObject({
+    title: localized,
+    move: localized,
+    run: localized,
+    interact: localized,
+    dismiss: localized,
+  }),
+  stations: z.strictObject({
+    career: localized,
+    work: localized,
+    projects: localized,
+    contact: localized,
+  }),
+  prompt: z.strictObject({ interact: localized }),
+  panel: z.strictObject({
+    close: localized,
+    skills: localized,
+    tools: localized,
+    languages: localized,
+  }),
+  project: z.strictObject({
+    open: localized,
+    repo: localized,
+    comingSoon: localized,
+  }),
+  hud: z.strictObject({
+    contact: localized,
+    legal: localized,
+    themeToDay: localized,
+    themeToNight: localized,
+    characterToMale: localized,
+    characterToFemale: localized,
+  }),
+  legal: z.strictObject({
+    impressum: localized,
+    datenschutz: localized,
+  }),
+  desktopNotice: z.strictObject({
+    title: localized,
+    text: localized,
+  }),
+})
 
 // Maps content/<name>.yaml to its schema; used by the build-time validation plugin
 export const contentSchemas = {

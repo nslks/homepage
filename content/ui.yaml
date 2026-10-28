@@ -1,1 +1,42 @@
-{}
+loading: { de: 'Insel wird geladen …', en: '' }
+intro:
+  skip: { de: Beliebige Taste zum Überspringen, en: '' }
+controls:
+  title: { de: Steuerung, en: '' }
+  move: { de: 'WASD / Pfeiltasten: laufen', en: '' }
+  run: { de: 'Shift: rennen', en: '' }
+  interact: { de: 'E / Enter: Station öffnen', en: '' }
+  dismiss: { de: Los geht's, en: '' }
+stations:
+  career: { de: Mein Werdegang, en: '' }
+  work: { de: Arbeitsstellen, en: '' }
+  projects: { de: Private Projekte, en: '' }
+  contact: { de: Kontakt, en: '' }
+prompt:
+  interact: { de: E drücken, en: '' }
+panel:
+  close: { de: Schließen, en: '' }
+  skills: { de: Skills, en: '' }
+  tools: { de: Tools, en: '' }
+  languages: { de: Sprachen, en: '' }
+project:
+  open: { de: Zum Projekt, en: '' }
+  repo: { de: Quellcode, en: '' }
+  comingSoon: { de: Bald verfügbar, en: '' }
+hud:
+  contact: { de: Kontakt, en: '' }
+  legal: { de: Impressum · Datenschutz, en: '' }
+  themeToDay: { de: Zum Tagmodus wechseln, en: '' }
+  themeToNight: { de: Zum Nachtmodus wechseln, en: '' }
+  characterToMale: { de: Zur männlichen Figur wechseln, en: '' }
+  characterToFemale: { de: Zur weiblichen Figur wechseln, en: '' }
+legal:
+  impressum: { de: Impressum, en: '' }
+  datenschutz: { de: Datenschutz, en: '' }
+desktopNotice:
+  title: { de: Diese Seite ist für Desktop gemacht, en: '' }
+  text:
+    de: >-
+      Die 3D-Insel braucht Maus, Tastatur und einen größeren Bildschirm. Schau gern am Rechner
+      vorbei – oder melde dich direkt:
+    en: ''
