@@ -1,1 +1,20 @@
-entries: []
+# Placeholders until the "Real projects & links" epic; no URLs → button shows "Bald verfügbar"
+entries:
+  - name: Projekt A
+    summary:
+      de: Platzhalter für ein privates Projekt. Hier steht bald eine kurze Beschreibung.
+      en: ''
+    tech: [Python, FastAPI, Docker]
+    doorColor: '#c8553d'
+  - name: Projekt B
+    summary:
+      de: Platzhalter für ein privates Projekt. Hier steht bald eine kurze Beschreibung.
+      en: ''
+    tech: [TypeScript, React, three.js]
+    doorColor: '#3d7ac8'
+  - name: Projekt C
+    summary:
+      de: Platzhalter für ein privates Projekt. Hier steht bald eine kurze Beschreibung.
+      en: ''
+    tech: [Terraform, Azure, GitHub Actions]
+    doorColor: '#e0a63a'
