@@ -1,0 +1,9 @@
+entries:
+  - company: TODO
+    role: { de: TODO, en: '' }
+    period: { de: TODO, en: '' }
+    highlights:
+      - { de: TODO, en: '' }
+      - { de: TODO, en: '' }
+      - { de: TODO, en: '' }
+    tech: []

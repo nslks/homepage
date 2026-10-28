@@ -1,8 +1,9 @@
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
+import { contentPlugin } from './build/content-plugin'
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), contentPlugin()],
   // GitHub Pages serves the site under /homepage/; override for other hosts (see ADR 0005)
   base: process.env.VITE_BASE ?? '/homepage/',
   server: {
