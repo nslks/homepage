@@ -29,12 +29,6 @@ entries:
     summary:
       de: Studium der Informatik.
       en: ''
-  - period: { de: '2016', en: '' }
-    title: { de: Allgemeine Hochschulreife, en: '' }
-    place: REMOVED
-    summary:
-      de: Abitur.
-      en: ''
 skills:
   - group: { de: Entwicklung, en: '' }
     items: [Python, FastAPI, Microservices, C++20, OpenCV, C#/.NET, MSSQL]
