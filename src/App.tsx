@@ -7,7 +7,7 @@ import { Scene } from './Scene'
 export function App() {
   return (
     <KeyboardControls map={controlsMap}>
-      <Canvas shadows camera={{ position: [0, 24, 34], fov: 40 }}>
+      <Canvas shadows camera={{ fov: 40 }}>
         <Suspense fallback={null}>
           <Scene />
         </Suspense>
