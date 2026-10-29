@@ -127,7 +127,18 @@ A visitor must recognise **what** a station is and **that** it is interactive at
 
 1. **Loading screen:** name + progress bar, nothing else.
 2. **Intro flight:** camera flies over the island down to the character (< 2 s, skippable by any key/click).
-3. **Controls hint:** short overlay (WASD/arrows, E), dismissible.
+3. **Welcome card** (M2, replaces the controls hint): a short welcome that the page is interactive,
+   the controls (keys or taps) and two buttons — **Los geht's** and **Klassische Ansicht**. Shown once
+   per browser.
+
+### 5.1a Classic view (M2)
+
+- One plain page at `?ansicht=klassisch`: name & title, Über mich, Berufserfahrung, Eigene Projekte,
+  Kontakt, Impressum · Datenschutz — rendered from the same YAML, nothing maintained twice.
+- Loads **no 3D** code or assets; responsive, printable, keyboard accessible; "Zur 3D-Insel" leads back.
+- Reachable from the welcome card and permanently from the HUD; it also replaces the plain card for
+  browsers without WebGL 2.
+- The whole site addresses visitors with **"Sie"**.
 
 ### 5.2 HUD
 
