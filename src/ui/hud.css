@@ -20,21 +20,23 @@
   height: 44px;
   border: none;
   border-radius: 50%;
-  background: rgb(255 255 255 / 0.75);
+  background: var(--surface-control);
   backdrop-filter: blur(8px);
+  display: grid;
+  place-items: center;
   font-size: 22px;
   line-height: 1;
-  color: #2b2d42;
+  color: var(--text);
   cursor: pointer;
-  box-shadow: 0 2px 8px rgb(0 0 0 / 0.15);
+  box-shadow: 0 2px 8px var(--shadow);
 }
 
 .hud__toggle:hover {
-  background: rgb(255 255 255 / 0.95);
+  background: var(--surface-control-hover);
 }
 
 .hud__toggle:focus-visible {
-  outline: 3px solid #e07a5f;
+  outline: 3px solid var(--accent);
   outline-offset: 2px;
 }
 
@@ -51,21 +53,21 @@
   padding: 8px 14px;
   border: none;
   border-radius: 999px;
-  background: rgb(255 255 255 / 0.8);
+  background: var(--surface-control);
   backdrop-filter: blur(8px);
-  color: #2b2d42;
+  color: var(--text);
   font: inherit;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgb(0 0 0 / 0.15);
+  box-shadow: 0 2px 8px var(--shadow);
 }
 
 .hud__link:hover {
-  background: rgb(255 255 255 / 0.95);
+  background: var(--surface-control-hover);
 }
 
 .hud__link:focus-visible {
-  outline: 3px solid #e07a5f;
+  outline: 3px solid var(--accent);
   outline-offset: 2px;
 }

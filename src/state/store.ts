@@ -18,6 +18,7 @@ type AppState = {
   toggleCharacter: () => void
   theme: Theme
   setTheme: (theme: Theme) => void
+  toggleTheme: () => void
 }
 
 export type Theme = 'day' | 'night'
@@ -47,6 +48,14 @@ const safeLocalStorage: StateStorage = {
   },
 }
 
+function systemTheme(): Theme {
+  try {
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'night' : 'day'
+  } catch {
+    return 'day'
+  }
+}
+
 export const useAppStore = create<AppState>()(
   persist(
     (set) => ({
@@ -59,15 +68,16 @@ export const useAppStore = create<AppState>()(
       character: 'male',
       toggleCharacter: () =>
         set((state) => ({ character: state.character === 'male' ? 'female' : 'male' })),
-      // the toggle, its initial value from the system and persistence follow with #30
-      theme: 'day',
+      // without a stored choice, the system preference decides (spec §3.4)
+      theme: systemTheme(),
       setTheme: (theme) => set({ theme }),
+      toggleTheme: () => set((state) => ({ theme: state.theme === 'day' ? 'night' : 'day' })),
     }),
     {
       name: 'homepage-preferences',
       storage: createJSONStorage(() => safeLocalStorage),
       // only explicit user preferences are stored (ADR 0004)
-      partialize: ({ character }) => ({ character }),
+      partialize: ({ character, theme }) => ({ character, theme }),
     },
   ),
 )

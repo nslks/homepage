@@ -1,0 +1,38 @@
+/* Colour tokens for all HTML UI; <html data-theme> follows the day/night mode */
+:root {
+  --text: #2b2d42;
+  --text-muted: #6b6f85;
+  --accent: #e07a5f;
+  --surface-panel: rgb(255 255 255 / 0.97);
+  --surface-control: rgb(255 255 255 / 0.82);
+  --surface-control-hover: rgb(255 255 255 / 0.96);
+  --hover: rgb(0 0 0 / 0.06);
+  --tag-bg: rgb(61 64 91 / 0.08);
+  --button-bg: #3d405b;
+  --button-text: #fff;
+  --button-secondary-bg: rgb(61 64 91 / 0.1);
+  --button-disabled-bg: rgb(61 64 91 / 0.15);
+  --prompt-bg: #2b2d42;
+  --prompt-text: #fff;
+  --shadow: rgb(0 0 0 / 0.18);
+  color-scheme: light;
+}
+
+:root[data-theme='night'] {
+  --text: #eef0ff;
+  --text-muted: #a9aed3;
+  --accent: #f0936f;
+  --surface-panel: rgb(30 34 66 / 0.96);
+  --surface-control: rgb(30 34 66 / 0.82);
+  --surface-control-hover: rgb(44 49 92 / 0.96);
+  --hover: rgb(255 255 255 / 0.08);
+  --tag-bg: rgb(255 255 255 / 0.1);
+  --button-bg: #f0936f;
+  --button-text: #1b1f3b;
+  --button-secondary-bg: rgb(255 255 255 / 0.12);
+  --button-disabled-bg: rgb(255 255 255 / 0.08);
+  --prompt-bg: #f0936f;
+  --prompt-text: #1b1f3b;
+  --shadow: rgb(0 0 0 / 0.4);
+  color-scheme: dark;
+}
