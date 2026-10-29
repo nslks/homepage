@@ -10,6 +10,9 @@ import { useSwipeToClose } from './useSwipeToClose'
 type Tab = 'impressum' | 'datenschutz'
 const tabs: Tab[] = ['impressum', 'datenschutz']
 
+// set at build time (vite.config.ts); a visible marker keeps a missing variable from going unnoticed
+const impressumEmail = __IMPRESSUM_EMAIL__ || '[IMPRESSUM_EMAIL fehlt]'
+
 // Impressum and Datenschutz in one modal with two tabs (spec §5.4)
 export function LegalModal() {
   const open = useAppStore((state) => state.legalOpen)
@@ -89,7 +92,7 @@ export function LegalModal() {
             id={`legal-panel-${tab}`}
             aria-labelledby={`legal-tab-${tab}`}
           >
-            <RichText text={localize(site.legal[tab])} />
+            <RichText text={localize(site.legal[tab]).replace('{email}', impressumEmail)} />
           </div>
         </>
       )}

@@ -12,11 +12,12 @@ third-party request (e.g. Google Fonts, CDNs) adds consent and privacy obligatio
 
 - No cookies, no analytics, no tracking of any kind.
 - No requests to third parties: fonts, models and textures are self-hosted.
-- User preferences (theme, character) are kept in `localStorage` only on explicit user
-  action; nothing leaves the browser.
+- Nothing is stored in the browser — no `localStorage` either (revised 2026-10-29).
+  Theme follows the system preference, the character starts as the default on every visit.
 - Impressum and Datenschutz are provided in a modal with the minimum required content.
 
 ## Consequences
 
-- No consent banner needed.
+- No consent banner needed, and no storage section in the Datenschutz.
+- Theme and character choices don't survive a reload.
 - No usage data; success cannot be measured on the site itself.

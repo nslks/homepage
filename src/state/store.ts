@@ -1,5 +1,4 @@
 import { create } from 'zustand'
-import { createJSONStorage, persist, type StateStorage } from 'zustand/middleware'
 import type { CharacterVariant } from '../character/Character'
 import type { QualityTier } from '../quality/tiers'
 import type { StationId } from '../world/layout'
@@ -35,31 +34,6 @@ type AppState = {
 
 export type Theme = 'day' | 'night'
 
-// localStorage can be unavailable (private mode, blocked site data); preferences then just don't persist
-const safeLocalStorage: StateStorage = {
-  getItem: (name) => {
-    try {
-      return localStorage.getItem(name)
-    } catch {
-      return null
-    }
-  },
-  setItem: (name, value) => {
-    try {
-      localStorage.setItem(name, value)
-    } catch {
-      // ignore
-    }
-  },
-  removeItem: (name) => {
-    try {
-      localStorage.removeItem(name)
-    } catch {
-      // ignore
-    }
-  },
-}
-
 function systemTheme(): Theme {
   try {
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'night' : 'day'
@@ -68,46 +42,26 @@ function systemTheme(): Theme {
   }
 }
 
-export const useAppStore = create<AppState>()(
-  persist(
-    (set) => ({
-      openStation: null,
-      setOpenStation: (openStation) => set({ openStation }),
-      nearStation: null,
-      setNearStation: (nearStation) => set({ nearStation }),
-      character: 'male',
-      toggleCharacter: () =>
-        set((state) => ({ character: state.character === 'male' ? 'female' : 'male' })),
-      // without a stored choice, the system preference decides (spec §3.4)
-      theme: systemTheme(),
-      setTheme: (theme) => set({ theme }),
-      toggleTheme: () => set((state) => ({ theme: state.theme === 'day' ? 'night' : 'day' })),
-      sceneReady: false,
-      setSceneReady: () => set({ sceneReady: true }),
-      introDone: false,
-      finishIntro: () => set({ introDone: true }),
-      welcomeSeen: false,
-      dismissWelcome: () => set({ welcomeSeen: true }),
-      legalOpen: false,
-      setLegalOpen: (legalOpen) => set({ legalOpen }),
-      quality: 'medium',
-      setQuality: (quality) => set({ quality }),
-    }),
-    {
-      name: 'homepage-preferences',
-      storage: createJSONStorage(() => safeLocalStorage),
-      // only explicit user preferences are stored (ADR 0004)
-      partialize: ({ character, theme }) => ({ character, theme }),
-      // only these two come back from storage — older visits also stored e.g. `welcomeSeen`,
-      // which would otherwise keep the welcome card hidden for good
-      merge: (persisted, current) => {
-        const stored = (persisted ?? {}) as Partial<AppState>
-        return {
-          ...current,
-          ...(stored.character && { character: stored.character }),
-          ...(stored.theme && { theme: stored.theme }),
-        }
-      },
-    },
-  ),
-)
+export const useAppStore = create<AppState>()((set) => ({
+  openStation: null,
+  setOpenStation: (openStation) => set({ openStation }),
+  nearStation: null,
+  setNearStation: (nearStation) => set({ nearStation }),
+  character: 'male',
+  toggleCharacter: () =>
+    set((state) => ({ character: state.character === 'male' ? 'female' : 'male' })),
+  // nothing is stored (ADR 0004), so every visit starts from the system preference (spec §3.4)
+  theme: systemTheme(),
+  setTheme: (theme) => set({ theme }),
+  toggleTheme: () => set((state) => ({ theme: state.theme === 'day' ? 'night' : 'day' })),
+  sceneReady: false,
+  setSceneReady: () => set({ sceneReady: true }),
+  introDone: false,
+  finishIntro: () => set({ introDone: true }),
+  welcomeSeen: false,
+  dismissWelcome: () => set({ welcomeSeen: true }),
+  legalOpen: false,
+  setLegalOpen: (legalOpen) => set({ legalOpen }),
+  quality: 'medium',
+  setQuality: (quality) => set({ quality }),
+}))
