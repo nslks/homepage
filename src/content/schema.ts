@@ -96,6 +96,8 @@ export const uiSchema = z.strictObject({
     title: localized,
     move: localized,
     interact: localized,
+    tapMove: localized,
+    tapOpen: localized,
     dismiss: localized,
   }),
   stations: z.strictObject({

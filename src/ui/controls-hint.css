@@ -30,3 +30,26 @@
   text-align: center;
   color: var(--text-muted);
 }
+
+/* Narrow screens: a slim bar above the HUD instead of a card over the island */
+@media (max-width: 600px) {
+  .controls-hint {
+    bottom: calc(76px + env(safe-area-inset-bottom));
+    width: calc(100% - 32px);
+    box-sizing: border-box;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    justify-items: start;
+    gap: 4px 12px;
+    padding: 10px 12px 10px 16px;
+  }
+
+  .controls-hint__title {
+    display: none;
+  }
+
+  .controls-hint__list {
+    text-align: left;
+    font-size: 13px;
+  }
+}

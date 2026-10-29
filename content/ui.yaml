@@ -5,6 +5,8 @@ controls:
   title: { de: Steuerung, en: '' }
   move: { de: 'WASD / Pfeiltasten: laufen', en: '' }
   interact: { de: 'E / Enter: Station öffnen', en: '' }
+  tapMove: { de: 'Tippe auf den Boden, um zu laufen', en: '' }
+  tapOpen: { de: 'Tippe auf ein Schild, um es zu öffnen', en: '' }
   dismiss: { de: Los geht's, en: '' }
 stations:
   career: { de: Über mich, en: '' }
