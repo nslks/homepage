@@ -56,7 +56,9 @@ export function FollowCamera() {
 
     camera.position.copy(followPosition)
     camera.lookAt(target)
-  })
+    // negative priority: runs before the station labels project themselves with this camera,
+    // otherwise they lag one frame behind (visible after jumps such as skipping the intro)
+  }, -1)
 
   return null
 }
