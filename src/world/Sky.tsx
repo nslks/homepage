@@ -1,7 +1,7 @@
 import { useFrame } from '@react-three/fiber'
 import { useMemo, useRef } from 'react'
 import { BackSide, Color, type Mesh, ShaderMaterial } from 'three'
-import { dayLighting } from './environment'
+import { currentLighting, dayLighting } from './environment'
 
 // Large inverted sphere with a vertical gradient; centred on the camera so it never clips
 export function Sky() {
@@ -35,6 +35,8 @@ export function Sky() {
 
   useFrame(({ camera }) => {
     sphere.current?.position.copy(camera.position)
+    material.uniforms.top!.value.copy(currentLighting.skyTop)
+    material.uniforms.horizon!.value.copy(currentLighting.skyHorizon)
   })
 
   return (

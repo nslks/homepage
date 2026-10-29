@@ -1,4 +1,12 @@
-import { BOUNDARY_INSET, islandRadiusAt, PATH_WIDTH, paths, plazas, type Point } from './layout'
+import {
+  BOUNDARY_INSET,
+  islandRadiusAt,
+  lanterns,
+  PATH_WIDTH,
+  paths,
+  plazas,
+  type Point,
+} from './layout'
 import { createRandom } from './random'
 
 export type TreeKind = 'pine' | 'round'
@@ -76,7 +84,8 @@ function scatter<T extends Point>(
   return result
 }
 
-const placed: Point[] = []
+// lanterns stand first; decor keeps its distance from them
+const placed: Point[] = [...lanterns]
 
 export const trees: Tree[] = scatter(
   3,

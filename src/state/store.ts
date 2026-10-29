@@ -16,7 +16,11 @@ type AppState = {
   setNearProject: (project: number | null) => void
   character: CharacterVariant
   toggleCharacter: () => void
+  theme: Theme
+  setTheme: (theme: Theme) => void
 }
+
+export type Theme = 'day' | 'night'
 
 // localStorage can be unavailable (private mode, blocked site data); preferences then just don't persist
 const safeLocalStorage: StateStorage = {
@@ -55,6 +59,9 @@ export const useAppStore = create<AppState>()(
       character: 'male',
       toggleCharacter: () =>
         set((state) => ({ character: state.character === 'male' ? 'female' : 'male' })),
+      // the toggle, its initial value from the system and persistence follow with #30
+      theme: 'day',
+      setTheme: (theme) => set({ theme }),
     }),
     {
       name: 'homepage-preferences',

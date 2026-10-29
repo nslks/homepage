@@ -76,6 +76,17 @@ export const paths: [Point, Point][] = [
   [spawn, stations.contact],
 ]
 
+// Lanterns light the paths at night: beside the path edges, never on them
+export const lanterns: Point[] = [
+  { x: 1.6, z: 7 },
+  { x: -1.9, z: 1.9 },
+  { x: 1.9, z: -1.9 },
+  { x: -6.8, z: -1.5 },
+  { x: 1.5, z: -6.8 },
+  { x: 6.8, z: 1.5 },
+  { x: -2.6, z: 11.5 },
+]
+
 export const plazas: { center: Point; radius: number }[] = [
   { center: spawn, radius: 2.2 },
   { center: crossing, radius: 2 },

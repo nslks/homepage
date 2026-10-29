@@ -4,7 +4,9 @@ import { Player } from './player/Player'
 import { playerPosition, useAppStore } from './state/store'
 import { Stations } from './stations/Stations'
 import { Decor } from './world/Decor'
+import { Fireflies } from './world/Fireflies'
 import { Island } from './world/Island'
+import { Lanterns } from './world/Lanterns'
 import { Lighting } from './world/Lighting'
 import { Paths } from './world/Paths'
 import { Sky } from './world/Sky'
@@ -24,10 +26,12 @@ export function Scene() {
         <Island />
         <Paths />
         <Decor />
+        <Lanterns />
         <Player />
         <Stations />
       </Physics>
 
+      <Fireflies />
       <FollowCamera />
     </>
   )
