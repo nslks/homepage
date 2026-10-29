@@ -1,4 +1,5 @@
 import { Station } from './Station'
+import { WelcomeSign } from './WelcomeSign'
 
 // Placeholder pedestals; each station gets its own model in its story (#23–#26, #53)
 function Placeholder({ height = 1 }: { height?: number }) {
@@ -13,6 +14,7 @@ function Placeholder({ height = 1 }: { height?: number }) {
 export function Stations() {
   return (
     <>
+      <WelcomeSign />
       <Station id="career" labelHeight={2.6}>
         <Placeholder />
       </Station>

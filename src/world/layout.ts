@@ -45,7 +45,8 @@ export type Placement = Point & {
 // Spec §3.2: spawn in the south, career west, work north, projects east, contact next to spawn
 export const spawn: Point = { x: 0, z: 10 }
 export const crossing: Point = { x: 0, z: 0 }
-export const welcomeSign: Placement = { x: 2.6, z: 11.2, facing: 0 }
+// beside the spawn, angled towards the camera so it never hides the character
+export const welcomeSign: Placement = { x: 3.9, z: 9.4, facing: -0.35 }
 
 export const stations: Record<StationId, Placement> = {
   career: { x: -10, z: 0, facing: Math.PI / 2 },
