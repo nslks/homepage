@@ -1,14 +1,10 @@
 import { Info, Mail, Moon, Sun } from 'lucide-react'
-import { contact, localize, ui } from '../content'
+import { localize, ui } from '../content'
 import { useAppStore } from '../state/store'
-import { BrandIcon } from './BrandIcon'
-import { CvLink } from './CvLink'
 import './hud.css'
 
-// LinkedIn only appears once its URL is in contact.yaml — no dead button
-const linkedIn = contact.links.find((link) => link.kind === 'linkedin')
-
-// Everything important is one click away, without walking (spec §5.2)
+// Contact is reachable from anywhere at any time; LinkedIn and the CV live in the contact panel
+// and the welcome card (spec §5.2)
 export function Hud() {
   const character = useAppStore((state) => state.character)
   const toggleCharacter = useAppStore((state) => state.toggleCharacter)
@@ -49,17 +45,10 @@ export function Hud() {
       </div>
 
       <nav className="hud__bar">
-        {linkedIn && (
-          <a className="hud__link" href={linkedIn.url} target="_blank" rel="noopener noreferrer">
-            <BrandIcon kind="linkedin" size={16} />
-            <span className="hud__text">{localize(linkedIn.label)}</span>
-          </a>
-        )}
         <button type="button" className="hud__link" onClick={() => setOpenStation('contact')}>
           <Mail size={16} aria-hidden="true" />
           <span className="hud__text">{localize(ui.hud.contact)}</span>
         </button>
-        <CvLink className="hud__link" textClassName="hud__text" />
       </nav>
 
       <button type="button" className="hud__legal" onClick={() => setLegalOpen(true)}>

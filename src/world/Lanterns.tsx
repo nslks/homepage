@@ -69,7 +69,7 @@ export function Lanterns() {
             <coneGeometry args={[0.24, 0.16, 4]} />
             <meshStandardMaterial color="#2f3145" flatShading />
           </mesh>
-          <CylinderCollider args={[0.9, 0.15]} position-y={0.9} />
+          <CylinderCollider args={[0.9, 0.12]} position-y={0.9} />
         </group>
       ))}
       {Array.from({ length: lightCount }, (_, slot) => (
