@@ -26,7 +26,7 @@ const ingest: Node[] = [
 // titles sit at the outer edge so the lines can enter each lane on the inner side
 type Lane = { x: number; title: string; titleX: number; anchor: 'start' | 'end'; nodes: Node[] }
 const LANE_Y = 268
-const LANE_H = 220
+const LANE_H = 256
 const lanes: Lane[] = [
   {
     x: 4,
@@ -34,8 +34,8 @@ const lanes: Lane[] = [
     titleX: 14,
     anchor: 'start',
     nodes: [
-      { x: 12, y: 300, w: 136, label: 'Ollama', sub: 'lokales Sprachmodell' },
-      { x: 12, y: 368, w: 136, label: 'ntfy', sub: 'Push aufs Handy' },
+      { x: 12, y: 304, w: 136, label: 'Ollama', sub: 'lokales Sprachmodell' },
+      { x: 12, y: 384, w: 136, label: 'ntfy', sub: 'Push aufs Handy' },
     ],
   },
   {
@@ -44,18 +44,18 @@ const lanes: Lane[] = [
     titleX: 306,
     anchor: 'end',
     nodes: [
-      { x: 172, y: 300, w: 136, label: 'InfluxDB', sub: 'Zeitreihen-DB' },
-      { x: 172, y: 368, w: 136, label: 'MCP-Server', sub: 'liest den Verlauf' },
-      { x: 172, y: 436, w: 136, label: 'KI-Agent', sub: 'wertet Wochen aus' },
+      { x: 172, y: 304, w: 136, label: 'InfluxDB', sub: 'Zeitreihen-DB' },
+      { x: 172, y: 384, w: 136, label: 'MCP-Server', sub: 'liest den Verlauf' },
+      { x: 172, y: 464, w: 136, label: 'KI-Agent', sub: 'wertet Wochen aus' },
     ],
   },
 ]
 
 // paths run through node centres; the nodes are drawn on top, so dots "enter" each box
-const mainPath = 'M160 30 V262 H140 V322 H80 V390'
-const storePath = 'M160 262 H180 V322 H240'
+const mainPath = 'M160 30 V262 H140 V326 H80 V406'
+const storePath = 'M160 262 H180 V326 H240'
 // the agent asks for history through the MCP server and gets it back
-const historyPath = 'M240 458 V322'
+const historyPath = 'M240 486 V326'
 
 function FlowNode({ node }: { node: Node }) {
   return (
@@ -77,7 +77,7 @@ export function ClimoraFlow() {
   return (
     <svg
       className="flow"
-      viewBox="0 0 320 496"
+      viewBox="0 0 320 532"
       role="img"
       aria-label={localize(ui.project.climoraDiagram)}
     >
@@ -111,7 +111,7 @@ export function ClimoraFlow() {
               repeatCount="indefinite"
               path={storePath}
               keyPoints="0;0;1;1"
-              keyTimes="0;0.53;0.7;1"
+              keyTimes="0;0.51;0.68;1"
               calcMode="linear"
             />
           </circle>
@@ -136,8 +136,8 @@ export function ClimoraFlow() {
 
       {/* appears when the dot reaches ntfy and stays for about 3.5 s */}
       <g className="flow__push">
-        <rect x="12" y="424" width="136" height="26" rx="13" />
-        <text x="80" y="441">
+        <rect x="12" y="448" width="136" height="28" rx="14" />
+        <text x="80" y="466">
           Bad: 78 % – lüften!
         </text>
         {animate && (
