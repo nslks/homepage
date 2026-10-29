@@ -1,9 +1,33 @@
+import { ArrowRight } from 'lucide-react'
 import { career, localize, ui } from '../../content'
+import { useAppStore } from '../../state/store'
+import { CvHint } from '../../ui/CvLink'
 
 export function CareerPanel() {
+  const setOpenStation = useAppStore((state) => state.setOpenStation)
   return (
     <>
       <p className="panel__intro">{localize(career.intro)}</p>
+
+      {career.competencies.length > 0 && (
+        <section>
+          <h3 className="panel__section-title">{localize(ui.panel.competencies)}</h3>
+          <ul className="competencies">
+            {career.competencies.map((competency, i) => (
+              <li key={i}>{localize(competency)}</li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      <section>
+        <h3 className="panel__section-title">{localize(ui.panel.private)}</h3>
+        <p className="panel__text">{localize(career.private)}</p>
+        <button type="button" className="text-link" onClick={() => setOpenStation('projects')}>
+          {localize(ui.panel.toProjects)}
+          <ArrowRight size={16} aria-hidden="true" />
+        </button>
+      </section>
 
       {career.education.length > 0 && (
         <section>
@@ -51,6 +75,8 @@ export function CareerPanel() {
           </ul>
         </section>
       )}
+
+      <CvHint />
     </>
   )
 }

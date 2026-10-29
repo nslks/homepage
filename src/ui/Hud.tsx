@@ -1,6 +1,8 @@
-import { Info, Link, Mail, Moon, Sun } from 'lucide-react'
+import { Info, Mail, Moon, Sun } from 'lucide-react'
 import { contact, localize, site, ui } from '../content'
 import { useAppStore } from '../state/store'
+import { BrandIcon } from './BrandIcon'
+import { CvLink } from './CvLink'
 import './hud.css'
 
 // LinkedIn only appears once its URL is in contact.yaml — no dead button
@@ -51,7 +53,7 @@ export function Hud() {
       <nav className="hud__bar">
         {linkedIn && (
           <a className="hud__link" href={linkedIn.url} target="_blank" rel="noopener noreferrer">
-            <Link size={16} aria-hidden="true" />
+            <BrandIcon kind="linkedin" size={16} />
             <span className="hud__text">{localize(linkedIn.label)}</span>
           </a>
         )}
@@ -59,6 +61,7 @@ export function Hud() {
           <Mail size={16} aria-hidden="true" />
           <span className="hud__text">{localize(ui.hud.contact)}</span>
         </button>
+        <CvLink className="hud__link" textClassName="hud__text" />
       </nav>
 
       <button type="button" className="hud__legal" onClick={() => setLegalOpen(true)}>
