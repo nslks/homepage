@@ -34,8 +34,7 @@ The same 3D island on phones and tablets — see [§5.5](#55-mobile--touch).
 ### Explicitly out of scope for the MVP (own epics, see [§9](#9-milestones--roadmap))
 
 Azure hosting, CI expansion, English translation, classic fallback view and
-extended accessibility, sound, world polish, real project links, coupling to `cvgenerator`,
-custom domain, analytics (never planned, see [ADR 0004](adr/0004-no-cookies-no-tracking.md)).
+extended accessibility, world polish, real project links, custom domain, analytics (never planned, see [ADR 0004](adr/0004-no-cookies-no-tracking.md)).
 
 ## 3. World
 
@@ -240,5 +239,9 @@ summary:
 | **M0 – Foundation** | Dev container, Vite + R3F skeleton, minimal CI (lint, typecheck, build), deploy to GitHub Pages |
 | **M1 – MVP** | Everything in §2 *In scope for the MVP* |
 | **M1.1 – Mobile** | Phones and tablets: tap-to-move with pathfinding, bottom sheets, compact HUD, adaptive quality ([§5.5](#55-mobile--touch)) |
-| **M2 – Azure Hosting** | Terraform, Azure Static Web Apps, deployment pipeline, switch-over |
-| **Backlog** | Epics: CI expansion · i18n (EN) · Fallback & accessibility · Sound · Polish · Real projects & links · `cvgenerator` coupling · Custom domain |
+| **M2 – Content & Polish** | Real projects and links · world polish (design, camera rotation, collision fixes, "Über mich" model) |
+| **M3 – Quality & Accessibility** | CI expansion (tests, budgets) · classic fallback view, accessibility, SEO |
+| **M4 – English** | Translation of all content and UI strings, language toggle |
+| **M5 – Azure & Domain** | Terraform, Azure Static Web Apps, deployment pipeline, switch-over · custom domain — deliberately last |
+
+Dropped (2026-10-29): sound; coupling to `cvgenerator` (content is maintained once and rarely changes).
