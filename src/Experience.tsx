@@ -13,7 +13,7 @@ import { StationPanel } from './ui/StationPanel'
 export default function Experience() {
   return (
     <KeyboardControls map={controlsMap}>
-      <Canvas shadows="soft" camera={{ fov: 40, far: 1000 }}>
+      <Canvas shadows="soft" dpr={[1, 1.5]} camera={{ fov: 40, far: 1000 }}>
         <Suspense fallback={null}>
           <Scene />
         </Suspense>

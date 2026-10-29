@@ -2,6 +2,7 @@ import { useAnimations, useGLTF } from '@react-three/drei'
 import { useEffect, useMemo, useRef } from 'react'
 import { Box3, type Group, type Mesh, type MeshStandardMaterial } from 'three'
 import { clone } from 'three/examples/jsm/utils/SkeletonUtils.js'
+import { modelUrl } from './models'
 import { outfit } from './outfit'
 
 export type CharacterVariant = 'male' | 'female'
@@ -9,9 +10,6 @@ export type CharacterAnimation = 'Idle' | 'Walk' | 'Run'
 
 export const CHARACTER_HEIGHT = 1.7
 const FADE_SECONDS = 0.25
-
-const modelUrl = (variant: CharacterVariant) =>
-  `${import.meta.env.BASE_URL}models/character-${variant}.glb`
 
 type Props = {
   variant: CharacterVariant
@@ -55,6 +53,3 @@ export function Character({ variant, animation }: Props) {
     </group>
   )
 }
-
-useGLTF.preload(modelUrl('male'))
-useGLTF.preload(modelUrl('female'))
