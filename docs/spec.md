@@ -128,16 +128,16 @@ A visitor must recognise **what** a station is and **that** it is interactive at
 1. **Loading screen:** name + progress bar, nothing else.
 2. **Intro flight:** camera flies over the island down to the character (< 2 s, skippable by any key/click).
 3. **Welcome card** (M2, replaces the controls hint): a short welcome that the page is interactive,
-   the controls (keys or taps) and two buttons — **Los geht's** and **Klassische Ansicht**. Shown once
+   the controls (keys or taps) and two buttons — **Los geht's** and **Lebenslauf (PDF)**. Shown once
    per browser.
 
-### 5.1a Classic view (M2)
+### 5.1a CV download (M2)
 
-- One plain page at `?ansicht=klassisch`: name & title, Über mich, Berufserfahrung, Eigene Projekte,
-  Kontakt, Impressum · Datenschutz — rendered from the same YAML, nothing maintained twice.
-- Loads **no 3D** code or assets; responsive, printable, keyboard accessible; "Zur 3D-Insel" leads back.
-- Reachable from the welcome card and permanently from the HUD; it also replaces the plain card for
-  browsers without WebGL 2.
+- **"Lebenslauf (PDF)"** opens `public/lebenslauf.pdf` — the format recruiters forward and upload.
+  It replaces a separate classic HTML view (dropped 2026-10-29).
+- The button appears only when the file exists; reachable from the welcome card, the HUD and the
+  card for browsers without WebGL 2.
+- The PDF is a **public variant** from `cvgenerator`: no address, phone, birth date or photo.
 - The whole site addresses visitors with **"Sie"**.
 
 ### 5.2 HUD
@@ -152,7 +152,7 @@ A visitor must recognise **what** a station is and **that** it is interactive at
 └──────────────────────────────────────────────────────────────┘
 ```
 
-- There is **no CV PDF** on the site. "Kontakt" opens the contact panel without walking.
+- "Kontakt" opens the contact panel without walking; "Lebenslauf (PDF)" joins the HUD in M2 (§5.1a).
 
 ### 5.3 Panels
 
