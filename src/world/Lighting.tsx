@@ -1,5 +1,5 @@
 import { useFrame } from '@react-three/fiber'
-import { useRef } from 'react'
+import { useLayoutEffect, useRef } from 'react'
 import type { DirectionalLight, HemisphereLight } from 'three'
 import { useAppStore } from '../state/store'
 import { currentLighting, environment, lightingAt } from './environment'
@@ -9,6 +9,13 @@ const LIGHT_DISTANCE = 24
 // horizontal directions of sun (south-east) and moon (north-west)
 const SUN_AZIMUTH = Math.atan2(8, 12)
 const MOON_AZIMUTH = Math.atan2(-12, -10)
+
+// Sunset/sunrise duration (spec §3.4: about 1–2 s)
+const TRANSITION_SECONDS = 1.6
+const smoothstep = (t: number) => t * t * (3 - 2 * t)
+const targetDaylight = () => (useAppStore.getState().theme === 'day' ? 1 : 0)
+// linear progress of the transition; `environment.daylight` is its eased value
+let progress = 1
 
 function place(light: DirectionalLight, azimuth: number, elevation: number) {
   const horizontal = Math.cos(elevation) * LIGHT_DISTANCE
@@ -23,9 +30,18 @@ export function Lighting() {
   const hemisphere = useRef<HemisphereLight>(null)
   const sun = useRef<DirectionalLight>(null)
   const moon = useRef<DirectionalLight>(null)
-  useFrame(() => {
-    // until the animated transition (#30) lands, the theme switches the light instantly
-    environment.daylight = useAppStore.getState().theme === 'day' ? 1 : 0
+  // the first frame starts in the stored or system mode, without a transition
+  useLayoutEffect(() => {
+    progress = targetDaylight()
+    environment.daylight = progress
+  }, [])
+
+  useFrame((_, delta) => {
+    const target = targetDaylight()
+    const step = Math.min(delta, 0.1) / TRANSITION_SECONDS
+    progress =
+      target > progress ? Math.min(target, progress + step) : Math.max(target, progress - step)
+    environment.daylight = smoothstep(progress)
     const t = environment.daylight
     const lighting = lightingAt(t, currentLighting)
     if (hemisphere.current) {

@@ -5,6 +5,7 @@ import { controlsMap } from './player/controls'
 import { Scene } from './Scene'
 import { Hud } from './ui/Hud'
 import { StationPanel } from './ui/StationPanel'
+import { ThemeAttribute } from './ui/ThemeAttribute'
 
 export function App() {
   return (
@@ -16,6 +17,7 @@ export function App() {
       </Canvas>
       <Hud />
       <StationPanel />
+      <ThemeAttribute />
     </KeyboardControls>
   )
 }
