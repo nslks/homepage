@@ -3,6 +3,7 @@
   position: fixed;
   inset: 0;
   pointer-events: none;
+  font-family: system-ui, sans-serif;
 }
 
 .hud__toggles {
@@ -33,6 +34,38 @@
 }
 
 .hud__toggle:focus-visible {
+  outline: 3px solid #e07a5f;
+  outline-offset: 2px;
+}
+
+.hud__bar {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  display: flex;
+  gap: 8px;
+  pointer-events: auto;
+}
+
+.hud__link {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.8);
+  backdrop-filter: blur(8px);
+  color: #2b2d42;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.15);
+}
+
+.hud__link:hover {
+  background: rgb(255 255 255 / 0.95);
+}
+
+.hud__link:focus-visible {
   outline: 3px solid #e07a5f;
   outline-offset: 2px;
 }
