@@ -54,6 +54,14 @@ export const stations: Record<StationId, Placement> = {
   contact: { x: -4.6, z: 10.4, facing: 0 },
 }
 
+// Small standing signs in front of the stations, beside the paths, facing the camera
+export const stationSigns: Record<StationId, Point> = {
+  career: { x: -8.1, z: 1.9 },
+  work: { x: 1.9, z: -7.9 },
+  projects: { x: 8.1, z: 1.9 },
+  contact: { x: -6, z: 11.3 },
+}
+
 export const PATH_WIDTH = 1.8
 export const STATION_PLAZA_RADIUS = 2.6
 const CONTACT_PLAZA_RADIUS = 1.4

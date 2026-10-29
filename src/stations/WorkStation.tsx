@@ -109,7 +109,7 @@ function Office() {
 
 export function WorkStation() {
   return (
-    <Station id="work" labelHeight={5.4}>
+    <Station id="work">
       <Office />
     </Station>
   )

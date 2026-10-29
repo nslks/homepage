@@ -25,6 +25,7 @@ stations:
   contact: { de: Kontakt, en: '' }
 prompt:
   interact: { de: E drücken, en: '' }
+  tap: { de: Antippen, en: '' }
 panel:
   close: { de: Schließen, en: '' }
   competencies: { de: Kernkompetenzen, en: '' }

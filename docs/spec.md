@@ -74,12 +74,13 @@ Station positions are code constants (see [ADR 0003](adr/0003-content-in-yaml.md
 A visitor must recognise **what** a station is and **that** it is interactive at first sight:
 
 1. **Distinct silhouette** — a mailbox looks like a mailbox, an office like an office, a lab like a lab.
-2. **Floating label** above each station (icon + title), camera-facing, rendered as HTML so it
-   stays crisp, readable from a distance.
+2. **Standing sign** in front of each station: a small wooden board on a post with the title in
+   3D text (unlit, legible at night), tilted towards the camera; tapping it opens the station from
+   any distance. Keyboard and screen-reader users get a hidden station list that appears on focus.
 3. **Paths** from spawn to every station.
-4. **Proximity highlight** — subtle glow/outline when the character is in range, plus a
-   prompt ("E drücken").
-5. **Idle motion** — a gentle bob or particle hint that sets stations apart from decoration.
+4. **Proximity highlight** — the ground ring glows and the sign shows the prompt ("E drücken",
+   "Antippen" on touch).
+5. **Idle motion** — the sign wobbles gently, which sets stations apart from decoration.
 
 ### 3.4 Day / night
 

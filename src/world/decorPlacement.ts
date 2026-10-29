@@ -6,6 +6,7 @@ import {
   paths,
   plazas,
   type Point,
+  stationSigns,
 } from './layout'
 import { createRandom } from './random'
 
@@ -84,8 +85,8 @@ function scatter<T extends Point>(
   return result
 }
 
-// lanterns stand first; decor keeps its distance from them
-const placed: Point[] = [...lanterns]
+// lanterns and station signs stand first; decor keeps its distance from them
+const placed: Point[] = [...lanterns, ...Object.values(stationSigns)]
 
 export const trees: Tree[] = scatter(
   3,

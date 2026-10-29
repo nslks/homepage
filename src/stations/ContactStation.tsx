@@ -40,7 +40,7 @@ function Mailbox() {
 
 export function ContactStation() {
   return (
-    <Station id="contact" labelHeight={2.4}>
+    <Station id="contact">
       <Mailbox />
     </Station>
   )
