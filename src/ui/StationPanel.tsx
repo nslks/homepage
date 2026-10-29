@@ -6,24 +6,7 @@ import { PanelContent } from '../stations/panels/PanelContent'
 import { stationMeta } from '../stations/stationMeta'
 import { useStationKeys } from '../stations/useStationKeys'
 import './panel.css'
-
-const FOCUSABLE = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
-
-// Keeps Tab / Shift+Tab cycling inside the dialog instead of escaping to the browser UI
-function trapTab(event: React.KeyboardEvent<HTMLDialogElement>) {
-  if (event.key !== 'Tab') return
-  const focusable = [...event.currentTarget.querySelectorAll<HTMLElement>(FOCUSABLE)]
-  const first = focusable[0]
-  const last = focusable[focusable.length - 1]
-  if (!first || !last) return
-  if (event.shiftKey && document.activeElement === first) {
-    event.preventDefault()
-    last.focus()
-  } else if (!event.shiftKey && document.activeElement === last) {
-    event.preventDefault()
-    first.focus()
-  }
-}
+import { trapTab } from './trapTab'
 
 // Native modal dialog: closes on Esc and restores focus to where it was
 export function StationPanel() {
