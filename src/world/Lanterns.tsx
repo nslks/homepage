@@ -2,6 +2,8 @@ import { useFrame } from '@react-three/fiber'
 import { CylinderCollider, RigidBody } from '@react-three/rapier'
 import { useRef } from 'react'
 import type { MeshStandardMaterial, PointLight } from 'three'
+import { qualitySettings } from '../quality/tiers'
+import { useAppStore } from '../state/store'
 import { environment } from './environment'
 import { lanterns } from './layout'
 
@@ -11,11 +13,15 @@ const LIGHT_INTENSITY = 9
 // Warm lanterns along the paths; they switch on as daylight fades
 export function Lanterns() {
   const lights = useRef<(PointLight | null)[]>([])
+  // lower tiers keep the glowing glass everywhere but real lights only on the first lanterns
+  const lightCount = useAppStore((state) => qualitySettings[state.quality].lanternLights)
   const glass = useRef<(MeshStandardMaterial | null)[]>([])
 
   useFrame(() => {
     const night = 1 - environment.daylight
-    lights.current.forEach((light) => light && (light.intensity = night * LIGHT_INTENSITY))
+    lights.current
+      .slice(0, lightCount)
+      .forEach((light) => light && (light.intensity = night * LIGHT_INTENSITY))
     glass.current.forEach(
       (material) => material && (material.emissiveIntensity = 0.1 + night * 1.3),
     )
@@ -44,16 +50,18 @@ export function Lanterns() {
             <coneGeometry args={[0.24, 0.16, 4]} />
             <meshStandardMaterial color="#2f3145" flatShading />
           </mesh>
-          <pointLight
-            ref={(light) => {
-              lights.current[i] = light
-            }}
-            position-y={1.8}
-            color={GLOW}
-            intensity={0}
-            distance={7}
-            decay={2}
-          />
+          {i < lightCount && (
+            <pointLight
+              ref={(light) => {
+                lights.current[i] = light
+              }}
+              position-y={1.8}
+              color={GLOW}
+              intensity={0}
+              distance={7}
+              decay={2}
+            />
+          )}
           <CylinderCollider args={[0.9, 0.15]} position-y={0.9} />
         </group>
       ))}

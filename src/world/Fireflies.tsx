@@ -7,6 +7,8 @@ import {
   type Points,
   type PointsMaterial,
 } from 'three'
+import { qualitySettings } from '../quality/tiers'
+import { useAppStore } from '../state/store'
 import { environment } from './environment'
 import { createRandom } from './random'
 
@@ -50,6 +52,11 @@ export function Fireflies() {
       )
     })
     position.needsUpdate = true
+    // lower tiers draw fewer of them
+    points.current.geometry.setDrawRange(
+      0,
+      qualitySettings[useAppStore.getState().quality].fireflies,
+    )
     // each firefly pulses on its own; the overall glow fades with the night
     points.current.material.opacity = night * (0.75 + Math.sin(t * 2) * 0.25)
   })

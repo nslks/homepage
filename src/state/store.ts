@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { createJSONStorage, persist, type StateStorage } from 'zustand/middleware'
 import type { CharacterVariant } from '../character/Character'
+import type { QualityTier } from '../quality/tiers'
 import type { StationId } from '../world/layout'
 
 type AppState = {
@@ -32,6 +33,9 @@ type AppState = {
   // Impressum / Datenschutz modal; movement is locked while it is open
   legalOpen: boolean
   setLegalOpen: (open: boolean) => void
+  // adaptive rendering quality, decided at runtime from the frame rate (not persisted)
+  quality: QualityTier
+  setQuality: (quality: QualityTier) => void
 }
 
 export type Theme = 'day' | 'night'
@@ -94,6 +98,8 @@ export const useAppStore = create<AppState>()(
       dismissControlsHint: () => set({ controlsHintSeen: true }),
       legalOpen: false,
       setLegalOpen: (legalOpen) => set({ legalOpen }),
+      quality: 'medium',
+      setQuality: (quality) => set({ quality }),
     }),
     {
       name: 'homepage-preferences',
