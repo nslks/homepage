@@ -22,6 +22,7 @@
   --prompt-bg: #2b2d42;
   --prompt-text: #fff;
   --shadow: rgb(0 0 0 / 0.18);
+  --loading-bg: #e4f3fb;
   color-scheme: light;
 }
 
@@ -43,6 +44,7 @@
   --prompt-bg: #f0936f;
   --prompt-text: #1b1f3b;
   --shadow: rgb(0 0 0 / 0.4);
+  --loading-bg: #151b3d;
   color-scheme: dark;
 }
 

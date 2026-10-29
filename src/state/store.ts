@@ -19,6 +19,9 @@ type AppState = {
   theme: Theme
   setTheme: (theme: Theme) => void
   toggleTheme: () => void
+  // true once the scene (models, physics) has rendered its first frame
+  sceneReady: boolean
+  setSceneReady: () => void
 }
 
 export type Theme = 'day' | 'night'
@@ -72,6 +75,8 @@ export const useAppStore = create<AppState>()(
       theme: systemTheme(),
       setTheme: (theme) => set({ theme }),
       toggleTheme: () => set((state) => ({ theme: state.theme === 'day' ? 'night' : 'day' })),
+      sceneReady: false,
+      setSceneReady: () => set({ sceneReady: true }),
     }),
     {
       name: 'homepage-preferences',

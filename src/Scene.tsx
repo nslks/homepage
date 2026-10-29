@@ -1,6 +1,7 @@
 import { Physics } from '@react-three/rapier'
 import { FollowCamera } from './player/FollowCamera'
 import { Player } from './player/Player'
+import { SceneReady } from './SceneReady'
 import { playerPosition, useAppStore } from './state/store'
 import { Stations } from './stations/Stations'
 import { Decor } from './world/Decor'
@@ -35,6 +36,7 @@ export function Scene() {
 
       <Fireflies />
       <FollowCamera />
+      <SceneReady />
     </>
   )
 }
