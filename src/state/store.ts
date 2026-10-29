@@ -8,6 +8,9 @@ type AppState = {
   // the station whose panel is open; movement is locked while set
   openStation: StationId | null
   setOpenStation: (station: StationId | null) => void
+  // the station the character currently stands next to
+  nearStation: StationId | null
+  setNearStation: (station: StationId | null) => void
   character: CharacterVariant
   toggleCharacter: () => void
 }
@@ -42,6 +45,8 @@ export const useAppStore = create<AppState>()(
     (set) => ({
       openStation: null,
       setOpenStation: (openStation) => set({ openStation }),
+      nearStation: null,
+      setNearStation: (nearStation) => set({ nearStation }),
       character: 'male',
       toggleCharacter: () =>
         set((state) => ({ character: state.character === 'male' ? 'female' : 'male' })),

@@ -58,6 +58,14 @@ export const PATH_WIDTH = 1.8
 export const STATION_PLAZA_RADIUS = 2.6
 const CONTACT_PLAZA_RADIUS = 1.4
 
+// Standing within this distance of a station's centre puts it in range
+export const interactionRadius: Record<StationId, number> = {
+  career: STATION_PLAZA_RADIUS + 0.6,
+  work: STATION_PLAZA_RADIUS + 0.6,
+  projects: STATION_PLAZA_RADIUS + 0.6,
+  contact: CONTACT_PLAZA_RADIUS + 0.9,
+}
+
 // Straight path segments between points; the decor keeps clear of them
 export const paths: [Point, Point][] = [
   [spawn, crossing],

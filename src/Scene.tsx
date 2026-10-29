@@ -2,6 +2,7 @@ import { Physics } from '@react-three/rapier'
 import { FollowCamera } from './player/FollowCamera'
 import { Player } from './player/Player'
 import { playerPosition, useAppStore } from './state/store'
+import { Stations } from './stations/Stations'
 import { palette } from './world/palette'
 import { Decor } from './world/Decor'
 import { Island } from './world/Island'
@@ -33,6 +34,7 @@ export function Scene() {
         <Paths />
         <Decor />
         <Player />
+        <Stations />
       </Physics>
 
       <FollowCamera />
