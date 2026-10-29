@@ -1,5 +1,4 @@
 import { Code, ExternalLink } from 'lucide-react'
-import { useState } from 'react'
 import { localize, projects, ui } from '../../content'
 import type { Projects } from '../../content/schema'
 import { useAppStore } from '../../state/store'
@@ -56,7 +55,7 @@ function ProjectCard({ project }: { project: Project }) {
 
 // Opened at a door: that project. Opened via the station label: all projects
 export function ProjectsPanel() {
-  const [selected] = useState(() => useAppStore.getState().nearProject)
+  const selected = useAppStore((state) => state.focusProject)
   const shown = selected !== null ? [projects.entries[selected]!] : projects.entries
   return (
     <ul className="projects">

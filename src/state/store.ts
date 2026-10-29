@@ -6,7 +6,9 @@ import type { StationId } from '../world/layout'
 type AppState = {
   // the station whose panel is open; movement is locked while set
   openStation: StationId | null
-  setOpenStation: (station: StationId | null) => void
+  // project the projects panel focuses on when opened at a door; null shows all projects
+  focusProject: number | null
+  setOpenStation: (station: StationId | null, focusProject?: number | null) => void
   // the station the character currently stands next to
   nearStation: StationId | null
   setNearStation: (station: StationId | null) => void
@@ -71,7 +73,8 @@ export const useAppStore = create<AppState>()(
   persist(
     (set) => ({
       openStation: null,
-      setOpenStation: (openStation) => set({ openStation }),
+      focusProject: null,
+      setOpenStation: (openStation, focusProject = null) => set({ openStation, focusProject }),
       nearStation: null,
       setNearStation: (nearStation) => set({ nearStation }),
       nearProject: null,
