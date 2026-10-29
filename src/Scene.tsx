@@ -3,6 +3,7 @@ import { FollowCamera } from './player/FollowCamera'
 import { NavigationBuilder } from './navigation/NavigationBuilder'
 import { GroundClick } from './player/GroundClick'
 import { Player } from './player/Player'
+import { QualityMonitor } from './quality/QualityMonitor'
 import { TargetMarker } from './player/TargetMarker'
 import { SceneReady } from './SceneReady'
 import { useAppStore } from './state/store'
@@ -57,6 +58,7 @@ export function Scene() {
       <Fireflies />
       <FollowCamera />
       <SceneReady />
+      <QualityMonitor />
     </>
   )
 }

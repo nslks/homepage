@@ -9,10 +9,11 @@ const debug = new URLSearchParams(window.location.search).has('debug')
 export function SceneReady() {
   const gl = useThree((state) => state.gl)
   const camera = useThree((state) => state.camera)
+  const scene = useThree((state) => state.scene)
   // debug mode: expose renderer statistics and the camera for performance checks and tests
   useEffect(() => {
-    if (debug) Object.assign(window, { __renderer: gl, __camera: camera })
-  }, [gl, camera])
+    if (debug) Object.assign(window, { __renderer: gl, __camera: camera, __scene: scene })
+  }, [gl, camera, scene])
 
   useFrame(() => {
     const { sceneReady, setSceneReady, character } = useAppStore.getState()

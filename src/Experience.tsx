@@ -4,6 +4,7 @@ import { Suspense } from 'react'
 import { controlsMap } from './player/controls'
 import { Scene } from './Scene'
 import { ControlsHint } from './ui/ControlsHint'
+import { DebugBadge } from './ui/DebugBadge'
 import { Hud } from './ui/Hud'
 import { IntroSkip } from './ui/IntroSkip'
 import { LoadingScreen } from './ui/LoadingScreen'
@@ -25,6 +26,7 @@ export default function Experience() {
       <LoadingScreen />
       <IntroSkip />
       <ControlsHint />
+      <DebugBadge />
     </KeyboardControls>
   )
 }

@@ -1,6 +1,7 @@
 import { useFrame } from '@react-three/fiber'
-import { useLayoutEffect, useRef } from 'react'
+import { useEffect, useLayoutEffect, useRef } from 'react'
 import type { DirectionalLight, HemisphereLight } from 'three'
+import { qualitySettings } from '../quality/tiers'
 import { useAppStore } from '../state/store'
 import { currentLighting, environment, lightingAt } from './environment'
 
@@ -30,6 +31,16 @@ export function Lighting() {
   const hemisphere = useRef<HemisphereLight>(null)
   const sun = useRef<DirectionalLight>(null)
   const moon = useRef<DirectionalLight>(null)
+  const shadowMapSize = useAppStore((state) => qualitySettings[state.quality].shadowMapSize)
+
+  // a new shadow map size only takes effect once the old map is released
+  useEffect(() => {
+    const shadow = sun.current?.shadow
+    if (!shadow) return
+    shadow.mapSize.set(shadowMapSize, shadowMapSize)
+    shadow.map?.dispose()
+    shadow.map = null
+  }, [shadowMapSize])
   // the first frame starts in the stored or system mode, without a transition
   useLayoutEffect(() => {
     progress = targetDaylight()
@@ -68,7 +79,6 @@ export function Lighting() {
       <directionalLight
         ref={sun}
         castShadow
-        shadow-mapSize={[2048, 2048]}
         shadow-bias={-0.0005}
         shadow-normalBias={0.02}
         shadow-radius={4}
