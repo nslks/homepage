@@ -22,6 +22,9 @@ type AppState = {
   // true once the scene (models, physics) has rendered its first frame
   sceneReady: boolean
   setSceneReady: () => void
+  // the camera flight after loading; movement is locked until it is done or skipped
+  introDone: boolean
+  finishIntro: () => void
 }
 
 export type Theme = 'day' | 'night'
@@ -77,6 +80,8 @@ export const useAppStore = create<AppState>()(
       toggleTheme: () => set((state) => ({ theme: state.theme === 'day' ? 'night' : 'day' })),
       sceneReady: false,
       setSceneReady: () => set({ sceneReady: true }),
+      introDone: false,
+      finishIntro: () => set({ introDone: true }),
     }),
     {
       name: 'homepage-preferences',
