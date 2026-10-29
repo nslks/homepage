@@ -14,6 +14,7 @@ import { DustPuff } from '../character/DustPuff'
 import { useAppStore } from '../state/store'
 import { playerPosition } from './playerPosition'
 import { spawn } from '../world/layout'
+import { autopilot, stopAutopilot } from './autopilot'
 import type { Control } from './controls'
 
 // always at running pace; there is no separate walk (owner feedback, #74)
@@ -22,6 +23,10 @@ const TURN_SPEED = 12
 const CAPSULE_RADIUS = 0.35
 const CAPSULE_HALF_HEIGHT = 0.5
 const CENTER_Y = CAPSULE_HALF_HEIGHT + CAPSULE_RADIUS
+// a waypoint counts as reached within this distance
+const WAYPOINT_RADIUS = 0.25
+// following stops when the character is blocked this long (e.g. by something the grid missed)
+const STUCK_SECONDS = 0.8
 
 const input = new Vector3()
 const movement = new Vector3()
@@ -73,12 +78,40 @@ export function Player() {
     cameraRight.crossVectors(cameraForward, up)
     movement.copy(cameraRight).multiplyScalar(input.x).addScaledVector(cameraForward, -input.z)
 
+    const steering = movement.lengthSq() > 0
+    // keys take over from a tapped path; panels, the legal modal and the intro cancel it
+    if (steering || locked) stopAutopilot()
+    if (steering) movement.normalize().multiplyScalar(SPEED * dt)
+
+    const position = body.current.translation()
+    let intended = 0
+    if (!steering) {
+      // follow the tapped path waypoint by waypoint
+      while (autopilot.waypoints.length) {
+        const waypoint = autopilot.waypoints[0]!
+        const dx = waypoint.x - position.x
+        const dz = waypoint.z - position.z
+        const distance = Math.hypot(dx, dz)
+        if (distance < WAYPOINT_RADIUS) {
+          autopilot.waypoints.shift()
+          continue
+        }
+        intended = Math.min(SPEED * dt, distance)
+        movement.set(dx / distance, 0, dz / distance).multiplyScalar(intended)
+        break
+      }
+      if (!autopilot.waypoints.length && autopilot.target) stopAutopilot()
+    }
+
     const moving = movement.lengthSq() > 0
-    if (moving) movement.normalize().multiplyScalar(SPEED * dt)
 
     controller.computeColliderMovement(collider.current, movement)
     const corrected = controller.computedMovement()
-    const position = body.current.translation()
+    if (intended > 0) {
+      const progress = Math.hypot(corrected.x, corrected.z)
+      autopilot.stuckFor = progress < intended * 0.3 ? autopilot.stuckFor + dt : 0
+      if (autopilot.stuckFor > STUCK_SECONDS) stopAutopilot()
+    }
     const next = { x: position.x + corrected.x, y: CENTER_Y, z: position.z + corrected.z }
     body.current.setNextKinematicTranslation(next)
     playerPosition.set(next.x, 0, next.z)
