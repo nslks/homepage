@@ -3,10 +3,11 @@ import { FollowCamera } from './player/FollowCamera'
 import { Player } from './player/Player'
 import { playerPosition, useAppStore } from './state/store'
 import { Stations } from './stations/Stations'
-import { palette } from './world/palette'
 import { Decor } from './world/Decor'
 import { Island } from './world/Island'
+import { Lighting } from './world/Lighting'
 import { Paths } from './world/Paths'
+import { Sky } from './world/Sky'
 
 // Append ?debug to the URL to render physics colliders
 const debug = new URLSearchParams(window.location.search).has('debug')
@@ -16,18 +17,8 @@ if (debug) Object.assign(window, { __homepage: { playerPosition, store: useAppSt
 export function Scene() {
   return (
     <>
-      <color attach="background" args={[palette.sky]} />
-      <hemisphereLight args={['#ffffff', '#c9b293', 1.1]} />
-      <directionalLight
-        position={[12, 20, 8]}
-        intensity={1.8}
-        castShadow
-        shadow-mapSize={[2048, 2048]}
-        shadow-camera-left={-22}
-        shadow-camera-right={22}
-        shadow-camera-top={22}
-        shadow-camera-bottom={-22}
-      />
+      <Sky />
+      <Lighting />
 
       <Physics debug={debug}>
         <Island />

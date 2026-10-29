@@ -1,6 +1,5 @@
-// Day palette (spec §3.4); night variants follow with the day/night epic
+// Material colours; the time of day changes the light, not the materials (see environment.ts)
 export const palette = {
-  sky: '#bfe3f5',
   grass: '#7cc06b',
   grassEdge: '#6aad5a',
   dirt: '#9a6b47',
