@@ -1,0 +1,72 @@
+.welcome {
+  position: fixed;
+  bottom: calc(72px + env(safe-area-inset-bottom));
+  left: 50%;
+  z-index: 20;
+  display: grid;
+  gap: 10px;
+  width: min(460px, calc(100% - 32px));
+  box-sizing: border-box;
+  padding: 20px 22px;
+  transform: translateX(-50%);
+  border-radius: var(--radius);
+  background: var(--surface-panel);
+  backdrop-filter: blur(12px);
+  color: var(--text);
+  box-shadow: 0 10px 30px var(--shadow);
+}
+
+.welcome__title {
+  margin: 0;
+  font-size: 18px;
+}
+
+.welcome__text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.welcome__text--muted {
+  color: var(--text-muted);
+}
+
+.welcome__controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 2px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.welcome__controls li {
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--tag-bg);
+  font-size: 13px;
+}
+
+.welcome__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+/* Narrow screens: a compact card just above the HUD */
+@media (max-width: 600px) {
+  .welcome {
+    bottom: calc(72px + env(safe-area-inset-bottom));
+    gap: 8px;
+    padding: 14px 16px;
+  }
+
+  .welcome__title {
+    font-size: 16px;
+  }
+
+  .welcome__text {
+    font-size: 13px;
+  }
+}

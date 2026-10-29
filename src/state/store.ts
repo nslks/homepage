@@ -27,9 +27,9 @@ type AppState = {
   // the camera flight after loading; movement is locked until it is done or skipped
   introDone: boolean
   finishIntro: () => void
-  // the controls hint is shown once per browser
-  controlsHintSeen: boolean
-  dismissControlsHint: () => void
+  // the welcome card is shown once per browser
+  welcomeSeen: boolean
+  dismissWelcome: () => void
   // Impressum / Datenschutz modal; movement is locked while it is open
   legalOpen: boolean
   setLegalOpen: (open: boolean) => void
@@ -94,8 +94,8 @@ export const useAppStore = create<AppState>()(
       setSceneReady: () => set({ sceneReady: true }),
       introDone: false,
       finishIntro: () => set({ introDone: true }),
-      controlsHintSeen: false,
-      dismissControlsHint: () => set({ controlsHintSeen: true }),
+      welcomeSeen: false,
+      dismissWelcome: () => set({ welcomeSeen: true }),
       legalOpen: false,
       setLegalOpen: (legalOpen) => set({ legalOpen }),
       quality: 'medium',
@@ -105,10 +105,10 @@ export const useAppStore = create<AppState>()(
       name: 'homepage-preferences',
       storage: createJSONStorage(() => safeLocalStorage),
       // only explicit user preferences are stored (ADR 0004)
-      partialize: ({ character, theme, controlsHintSeen }) => ({
+      partialize: ({ character, theme, welcomeSeen }) => ({
         character,
         theme,
-        controlsHintSeen,
+        welcomeSeen,
       }),
     },
   ),

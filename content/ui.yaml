@@ -5,9 +5,19 @@ controls:
   title: { de: Steuerung, en: '' }
   move: { de: 'WASD / Pfeiltasten: laufen', en: '' }
   interact: { de: 'E / Enter: Station öffnen', en: '' }
-  tapMove: { de: 'Tippe auf den Boden, um zu laufen', en: '' }
-  tapOpen: { de: 'Tippe auf ein Schild, um es zu öffnen', en: '' }
+  tapMove: { de: 'Tippen auf den Boden: laufen', en: '' }
+  tapOpen: { de: 'Tippen auf ein Schild: Station öffnen', en: '' }
   dismiss: { de: Los geht's, en: '' }
+welcome:
+  title: { de: Willkommen auf meiner Insel, en: '' }
+  text:
+    de: >-
+      Diese Seite ist interaktiv: Erkunden Sie die kleine Insel und besuchen Sie die Stationen, um
+      mehr über mich, meine Berufserfahrung und meine Projekte zu erfahren.
+    en: ''
+  cvAlternative:
+    de: Lieber gleich alle Fakten auf einen Blick? Mein Lebenslauf steht auch als PDF bereit.
+    en: ''
 stations:
   career: { de: Über mich, en: '' }
   work: { de: Berufserfahrung, en: '' }

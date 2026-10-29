@@ -27,5 +27,5 @@ export function walkTo(to: Point) {
   autopilot.target = path.target
   autopilot.stuckFor = 0
   // walking by tap shows the visitor knows how to move
-  useAppStore.getState().dismissControlsHint()
+  useAppStore.getState().dismissWelcome()
 }

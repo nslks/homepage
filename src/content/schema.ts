@@ -105,6 +105,11 @@ export const uiSchema = z.strictObject({
     tapOpen: localized,
     dismiss: localized,
   }),
+  welcome: z.strictObject({
+    title: localized,
+    text: localized,
+    cvAlternative: localized,
+  }),
   stations: z.strictObject({
     career: localized,
     work: localized,
