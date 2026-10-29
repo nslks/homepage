@@ -128,7 +128,7 @@ export const uiSchema = z.strictObject({
     impressum: localized,
     datenschutz: localized,
   }),
-  desktopNotice: z.strictObject({
+  unsupportedNotice: z.strictObject({
     title: localized,
     text: localized,
   }),

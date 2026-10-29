@@ -1,22 +1,22 @@
-import { Code, Link, Mail, Monitor } from 'lucide-react'
+import { Box, Code, Link, Mail } from 'lucide-react'
 import { contact, localize, site, ui } from '../content'
 import { useAppStore } from '../state/store'
-import './desktop-notice.css'
+import './unsupported-notice.css'
 
 const icons = { github: Code, linkedin: Link, email: Mail }
 
-// Phones and tablets get a plain card instead of the 3D world — no 3D code or assets load
-export function DesktopNotice() {
+// Browsers without WebGL 2 get a plain card instead of the 3D world — no 3D code or assets load
+export function UnsupportedNotice() {
   const setLegalOpen = useAppStore((state) => state.setLegalOpen)
   return (
     <main className="notice">
       <div className="notice__card">
-        <Monitor size={28} aria-hidden="true" className="notice__icon" />
-        <h1 className="notice__title">{localize(ui.desktopNotice.title)}</h1>
+        <Box size={28} aria-hidden="true" className="notice__icon" />
+        <h1 className="notice__title">{localize(ui.unsupportedNotice.title)}</h1>
         <p className="notice__name">
           {site.name} · {localize(site.title)}
         </p>
-        <p className="notice__text">{localize(ui.desktopNotice.text)}</p>
+        <p className="notice__text">{localize(ui.unsupportedNotice.text)}</p>
         <ul className="notice__links">
           {contact.links.map((link) => {
             const Icon = icons[link.kind]
