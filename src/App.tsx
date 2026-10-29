@@ -3,6 +3,7 @@ import { Canvas } from '@react-three/fiber'
 import { Suspense } from 'react'
 import { controlsMap } from './player/controls'
 import { Scene } from './Scene'
+import { ControlsHint } from './ui/ControlsHint'
 import { Hud } from './ui/Hud'
 import { IntroSkip } from './ui/IntroSkip'
 import { LoadingScreen } from './ui/LoadingScreen'
@@ -22,6 +23,7 @@ export function App() {
       <ThemeAttribute />
       <LoadingScreen />
       <IntroSkip />
+      <ControlsHint />
     </KeyboardControls>
   )
 }

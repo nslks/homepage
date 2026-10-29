@@ -25,6 +25,9 @@ type AppState = {
   // the camera flight after loading; movement is locked until it is done or skipped
   introDone: boolean
   finishIntro: () => void
+  // the controls hint is shown once per browser
+  controlsHintSeen: boolean
+  dismissControlsHint: () => void
 }
 
 export type Theme = 'day' | 'night'
@@ -82,12 +85,18 @@ export const useAppStore = create<AppState>()(
       setSceneReady: () => set({ sceneReady: true }),
       introDone: false,
       finishIntro: () => set({ introDone: true }),
+      controlsHintSeen: false,
+      dismissControlsHint: () => set({ controlsHintSeen: true }),
     }),
     {
       name: 'homepage-preferences',
       storage: createJSONStorage(() => safeLocalStorage),
       // only explicit user preferences are stored (ADR 0004)
-      partialize: ({ character, theme }) => ({ character, theme }),
+      partialize: ({ character, theme, controlsHintSeen }) => ({
+        character,
+        theme,
+        controlsHintSeen,
+      }),
     },
   ),
 )

@@ -1,0 +1,32 @@
+.controls-hint {
+  position: fixed;
+  bottom: 72px;
+  left: 50%;
+  z-index: 20;
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  padding: 18px 24px;
+  transform: translateX(-50%);
+  border-radius: var(--radius);
+  background: var(--surface-panel);
+  backdrop-filter: blur(12px);
+  color: var(--text);
+  box-shadow: 0 10px 30px var(--shadow);
+}
+
+.controls-hint__title {
+  margin: 0;
+  font-size: 16px;
+}
+
+.controls-hint__list {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 14px;
+  text-align: center;
+  color: var(--text-muted);
+}
