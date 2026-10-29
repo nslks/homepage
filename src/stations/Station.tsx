@@ -4,7 +4,7 @@ import type { Mesh, MeshBasicMaterial } from 'three'
 import { playerPosition } from '../player/playerPosition'
 import { useAppStore } from '../state/store'
 import { interactionRadius, type StationId, stations } from '../world/layout'
-import { StationSign } from './StationSign'
+import { StationLabel } from './StationLabel'
 import { useTapTarget } from './useTapTarget'
 
 const RING_WIDTH = 0.22
@@ -15,7 +15,7 @@ type Props = {
 }
 
 // Wraps a station model with what makes it recognisable and interactive (spec §3.3):
-// a standing sign, the range ring and the model as tap target
+// a label in front of it, the range ring and the model as tap target
 export function Station({ id, children }: Props) {
   const placement = stations[id]
   const radius = interactionRadius[id]
@@ -46,7 +46,7 @@ export function Station({ id, children }: Props) {
           <meshBasicMaterial color="#fff6d8" transparent depthWrite={false} />
         </mesh>
       </group>
-      <StationSign id={id} />
+      <StationLabel id={id} />
     </>
   )
 }
