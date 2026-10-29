@@ -11,6 +11,9 @@ type AppState = {
   // the station the character currently stands next to
   nearStation: StationId | null
   setNearStation: (station: StationId | null) => void
+  // index into projects.yaml of the door closest to the character, while at the projects station
+  nearProject: number | null
+  setNearProject: (project: number | null) => void
   character: CharacterVariant
   toggleCharacter: () => void
 }
@@ -47,6 +50,8 @@ export const useAppStore = create<AppState>()(
       setOpenStation: (openStation) => set({ openStation }),
       nearStation: null,
       setNearStation: (nearStation) => set({ nearStation }),
+      nearProject: null,
+      setNearProject: (nearProject) => set({ nearProject }),
       character: 'male',
       toggleCharacter: () =>
         set((state) => ({ character: state.character === 'male' ? 'female' : 'male' })),

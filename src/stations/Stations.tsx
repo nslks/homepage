@@ -1,4 +1,5 @@
 import { CareerStation } from './CareerStation'
+import { ProjectsStation } from './ProjectsStation'
 import { Station } from './Station'
 import { WelcomeSign } from './WelcomeSign'
 import { WorkStation } from './WorkStation'
@@ -19,9 +20,7 @@ export function Stations() {
       <WelcomeSign />
       <CareerStation />
       <WorkStation />
-      <Station id="projects" labelHeight={2.6}>
-        <Placeholder />
-      </Station>
+      <ProjectsStation />
       <Station id="contact" labelHeight={2.2}>
         <Placeholder height={0.8} />
       </Station>
