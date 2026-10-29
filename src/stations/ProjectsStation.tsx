@@ -1,256 +1,385 @@
-import { Text } from '@react-three/drei'
-import { useFrame } from '@react-three/fiber'
-import { CuboidCollider, RigidBody } from '@react-three/rapier'
-import { projects } from '../content'
-import { playerPosition } from '../player/playerPosition'
-import { useAppStore } from '../state/store'
-import { fonts } from '../world/fonts'
-import { stations } from '../world/layout'
+import { CuboidCollider, CylinderCollider, RigidBody } from '@react-three/rapier'
+import { DoubleSide } from 'three'
 import { Station } from './Station'
-import { useTapTarget } from './useTapTarget'
 
-// Open lab pavilion on the northern half of the plaza, facing south (the camera); a workbench
-// with one monitor per project — up to three on the bench, projects four to six on a shelf above
-const center = stations.projects
-// the roof only shades the tool wall: the camera looks down steeply and must see the monitors
-const PAVILION = { width: 5.2, height: 2.9, roofDepth: 1.1 }
-const BACK_Z = center.z - 2.3
-const BENCH = { length: 4.6, height: 0.9, depth: 0.7, z: center.z - 1.55 }
-const POST_Z = BACK_Z + PAVILION.roofDepth - 0.15
-const SLOT_X = [-1.4, 0, 1.4]
-const DEFAULT_ACCENT = '#c8553d'
-
-const steel = '#5c6773'
+// One collected station for all projects (it scales with any number): a desk setup next to a
+// maker bench. Local coordinates, +z faces the camera
 const wood = '#b98a5e'
-const wall = '#e9e4dc'
-const roof = '#3d405b'
+const woodDark = '#8a6240'
+const steel = '#5c6773'
+const dark = '#20232e'
+const black = '#14161d'
 
-const monitors = projects.entries.map((project, i) => {
-  const shelf = i >= SLOT_X.length
-  const x = center.x + SLOT_X[i % SLOT_X.length]!
-  return {
-    project,
-    x,
-    y: shelf ? 2.15 : BENCH.height + 0.5,
-    z: shelf ? BACK_Z + 0.25 : BENCH.z - 0.15,
-    shelf,
-  }
-})
+// furniture is shown 35 % larger than life, so the details read from the follow camera
+const SCALE = 1.35
+const DESK = { x: -1.15, z: -1, width: 1.7, depth: 0.78, height: 0.76 }
+const BENCH = { x: 1.25, z: -1, width: 1.6, depth: 0.85, height: 0.9 }
 
-function Monitor({
-  monitor,
-  index,
-  near,
+function Legs({
+  width,
+  depth,
+  height,
+  color,
 }: {
-  monitor: (typeof monitors)[number]
-  index: number
-  near: boolean
+  width: number
+  depth: number
+  height: number
+  color: string
 }) {
-  const accent = monitor.project.accent ?? DEFAULT_ACCENT
-  const setOpenStation = useAppStore((state) => state.setOpenStation)
-  // a tap on the screen opens exactly its project
-  const tapTarget = useTapTarget(() => setOpenStation('projects', index))
-  return (
-    // tilted back a little towards the camera, so the names read well from above
-    <group position={[monitor.x, monitor.y, monitor.z]} rotation-x={-0.28} {...tapTarget}>
-      <mesh castShadow>
-        <boxGeometry args={[1.15, 0.74, 0.06]} />
-        <meshStandardMaterial color="#20232e" flatShading />
-      </mesh>
-      <mesh position-z={0.032}>
-        <planeGeometry args={[1.05, 0.64]} />
-        <meshStandardMaterial
-          color="#11131a"
-          emissive={accent}
-          emissiveIntensity={near ? 0.9 : 0.35}
-        />
-      </mesh>
-      <Text
-        font={fonts.semibold}
-        fontSize={0.14}
-        position={[0, 0, 0.04]}
-        color="#ffffff"
-        anchorX="center"
-        anchorY="middle"
-        maxWidth={0.95}
-        textAlign="center"
-      >
-        {monitor.project.name}
-      </Text>
-      {!monitor.shelf && (
-        <>
-          <mesh position={[0, -0.44, -0.02]}>
-            <boxGeometry args={[0.06, 0.16, 0.06]} />
-            <meshStandardMaterial color="#20232e" flatShading />
-          </mesh>
-          <mesh position={[0, -0.51, 0]}>
-            <boxGeometry args={[0.32, 0.03, 0.2]} />
-            <meshStandardMaterial color="#20232e" flatShading />
-          </mesh>
-        </>
-      )}
-    </group>
-  )
-}
-
-// Lab props on the bench: soldering station, microcontroller board, oscilloscope
-function Props() {
-  const top = BENCH.height
   return (
     <>
-      <group position={[center.x - 2.05, top, BENCH.z + 0.05]}>
-        <mesh position-y={0.08} castShadow>
-          <boxGeometry args={[0.3, 0.16, 0.24]} />
-          <meshStandardMaterial color="#c8553d" flatShading />
-        </mesh>
-        <mesh position={[0.05, 0.25, 0]} rotation-z={-0.5}>
-          <cylinderGeometry args={[0.015, 0.02, 0.28, 6]} />
-          <meshStandardMaterial color="#2f3145" flatShading />
-        </mesh>
-      </group>
-      <group position={[center.x - 0.65, top + 0.012, BENCH.z + 0.22]} rotation-y={0.2}>
-        <mesh>
-          <boxGeometry args={[0.32, 0.02, 0.2]} />
-          <meshStandardMaterial color="#2e7d4f" flatShading />
-        </mesh>
-        {[-0.08, 0.06].map((x) => (
-          <mesh key={x} position={[x, 0.02, 0]}>
-            <boxGeometry args={[0.08, 0.02, 0.08]} />
-            <meshStandardMaterial color="#1b1d24" flatShading />
-          </mesh>
-        ))}
-      </group>
-      <group position={[center.x + 2.05, top, BENCH.z - 0.05]}>
-        <mesh position-y={0.15} castShadow>
-          <boxGeometry args={[0.42, 0.3, 0.3]} />
-          <meshStandardMaterial color="#aab2ba" flatShading />
-        </mesh>
-        <mesh position={[-0.05, 0.16, 0.152]}>
-          <planeGeometry args={[0.24, 0.17]} />
-          <meshStandardMaterial color="#0d2414" emissive="#39d36b" emissiveIntensity={0.6} />
-        </mesh>
-      </group>
-    </>
-  )
-}
-
-function Pavilion() {
-  const postX = PAVILION.width / 2 - 0.12
-  return (
-    <RigidBody type="fixed" colliders={false}>
-      {/* back wall with a pegboard of tools */}
-      <mesh position={[center.x, PAVILION.height / 2, BACK_Z]} castShadow receiveShadow>
-        <boxGeometry args={[PAVILION.width, PAVILION.height, 0.16]} />
-        <meshStandardMaterial color={wall} flatShading />
-      </mesh>
-      <mesh position={[center.x, 1.55, BACK_Z + 0.09]}>
-        <boxGeometry args={[3.4, 0.5, 0.02]} />
-        <meshStandardMaterial color={wood} flatShading />
-      </mesh>
-      {[-1.3, -0.7, -0.1, 0.5, 1.1].map((x, i) => (
-        <mesh
-          key={x}
-          position={[center.x + x, 1.55, BACK_Z + 0.12]}
-          rotation-z={i % 2 ? 0.4 : -0.3}
-        >
-          <boxGeometry args={[0.05, 0.36, 0.03]} />
-          <meshStandardMaterial color={i % 2 ? steel : '#e0a63a'} flatShading />
-        </mesh>
-      ))}
-      {/* shelf for projects four to six */}
-      {monitors.some((monitor) => monitor.shelf) && (
-        <mesh position={[center.x, 1.7, BACK_Z + 0.25]} castShadow>
-          <boxGeometry args={[4.2, 0.06, 0.4]} />
-          <meshStandardMaterial color={wood} flatShading />
-        </mesh>
-      )}
-      {/* short canopy over the tool wall, on two posts */}
-      <mesh
-        position={[center.x, PAVILION.height + 0.06, BACK_Z + PAVILION.roofDepth / 2]}
-        castShadow
-      >
-        <boxGeometry args={[PAVILION.width + 0.3, 0.12, PAVILION.roofDepth]} />
-        <meshStandardMaterial color={roof} flatShading />
-      </mesh>
-      {[-1, 1].map((side) => (
-        <mesh
-          key={side}
-          position={[center.x + side * postX, PAVILION.height / 2, POST_Z]}
-          castShadow
-        >
-          <boxGeometry args={[0.14, PAVILION.height, 0.14]} />
-          <meshStandardMaterial color={roof} flatShading />
-        </mesh>
-      ))}
-
-      {/* workbench */}
-      <mesh position={[center.x, BENCH.height - 0.04, BENCH.z]} castShadow receiveShadow>
-        <boxGeometry args={[BENCH.length, 0.08, BENCH.depth]} />
-        <meshStandardMaterial color={wood} flatShading />
-      </mesh>
       {[-1, 1].flatMap((sx) =>
         [-1, 1].map((sz) => (
           <mesh
             key={`${sx}${sz}`}
-            position={[
-              center.x + sx * (BENCH.length / 2 - 0.1),
-              (BENCH.height - 0.08) / 2,
-              BENCH.z + sz * (BENCH.depth / 2 - 0.08),
-            ]}
+            position={[sx * (width / 2 - 0.06), height / 2, sz * (depth / 2 - 0.06)]}
           >
-            <boxGeometry args={[0.08, BENCH.height - 0.08, 0.08]} />
-            <meshStandardMaterial color={steel} flatShading />
+            <boxGeometry args={[0.06, height, 0.06]} />
+            <meshStandardMaterial color={color} flatShading />
           </mesh>
         )),
       )}
+    </>
+  )
+}
 
-      <CuboidCollider
-        args={[PAVILION.width / 2, PAVILION.height / 2, 0.1]}
-        position={[center.x, PAVILION.height / 2, BACK_Z]}
-      />
-      <CuboidCollider
-        args={[BENCH.length / 2, BENCH.height / 2, BENCH.depth / 2]}
-        position={[center.x, BENCH.height / 2, BENCH.z]}
-      />
-      {[-1, 1].map((side) => (
-        <CuboidCollider
-          key={side}
-          args={[0.1, PAVILION.height / 2, 0.1]}
-          position={[center.x + side * postX, PAVILION.height / 2, POST_Z]}
+// Curved monitor: a slice of a cylinder, concave towards the chair, glowing screen inside
+function CurvedMonitor() {
+  const radius = 1.3
+  const arc = 0.78
+  const height = 0.46
+  return (
+    <group position={[0, DESK.height + 0.42, -0.22 + radius]}>
+      <mesh>
+        <cylinderGeometry args={[radius, radius, height, 24, 1, true, Math.PI - arc / 2, arc]} />
+        <meshStandardMaterial
+          color="#0e1626"
+          emissive="#3d7ac8"
+          emissiveIntensity={0.55}
+          side={DoubleSide}
         />
+      </mesh>
+      <mesh>
+        <cylinderGeometry
+          args={[
+            radius + 0.03,
+            radius + 0.03,
+            height + 0.05,
+            24,
+            1,
+            true,
+            Math.PI - arc / 2 - 0.02,
+            arc + 0.04,
+          ]}
+        />
+        <meshStandardMaterial color={dark} side={DoubleSide} flatShading />
+      </mesh>
+      {/* stand */}
+      <mesh position={[0, -0.3, -radius - 0.05]}>
+        <boxGeometry args={[0.06, 0.2, 0.05]} />
+        <meshStandardMaterial color={dark} flatShading />
+      </mesh>
+      <mesh position={[0, -0.41, -radius + 0.02]}>
+        <boxGeometry args={[0.36, 0.02, 0.22]} />
+        <meshStandardMaterial color={dark} flatShading />
+      </mesh>
+    </group>
+  )
+}
+
+// Office chair: five-star base, seat, backrest — turned towards the desk
+function OfficeChair() {
+  return (
+    <group position={[0, 0, 0.12]} rotation-y={Math.PI + 0.25}>
+      {[0, 1, 2, 3, 4].map((i) => (
+        <mesh
+          key={i}
+          position={[
+            Math.sin((i / 5) * Math.PI * 2) * 0.2,
+            0.05,
+            Math.cos((i / 5) * Math.PI * 2) * 0.2,
+          ]}
+          rotation-y={(i / 5) * Math.PI * 2}
+        >
+          <boxGeometry args={[0.05, 0.04, 0.4]} />
+          <meshStandardMaterial color={black} flatShading />
+        </mesh>
       ))}
+      <mesh position-y={0.27}>
+        <cylinderGeometry args={[0.03, 0.03, 0.4, 6]} />
+        <meshStandardMaterial color={steel} flatShading />
+      </mesh>
+      <mesh position-y={0.5} castShadow>
+        <boxGeometry args={[0.5, 0.08, 0.48]} />
+        <meshStandardMaterial color="#c8553d" flatShading />
+      </mesh>
+      <mesh position={[0, 0.85, -0.22]} rotation-x={-0.12} castShadow>
+        <boxGeometry args={[0.46, 0.6, 0.07]} />
+        <meshStandardMaterial color="#c8553d" flatShading />
+      </mesh>
+    </group>
+  )
+}
+
+function DeskSetup() {
+  const top = DESK.height
+  return (
+    <group position={[DESK.x, 0, DESK.z]}>
+      <mesh position-y={top - 0.025} castShadow receiveShadow>
+        <boxGeometry args={[DESK.width, 0.05, DESK.depth]} />
+        <meshStandardMaterial color={wood} flatShading />
+      </mesh>
+      <Legs width={DESK.width} depth={DESK.depth} height={top - 0.05} color={dark} />
+      <CurvedMonitor />
+      {/* keyboard and mouse */}
+      <mesh position={[0, top + 0.012, 0.14]}>
+        <boxGeometry args={[0.5, 0.025, 0.15]} />
+        <meshStandardMaterial color={dark} flatShading />
+      </mesh>
+      <mesh position={[0.36, top + 0.015, 0.16]}>
+        <boxGeometry args={[0.06, 0.03, 0.1]} />
+        <meshStandardMaterial color={dark} flatShading />
+      </mesh>
+      {/* desk lamp */}
+      <group position={[-0.68, top, -0.15]}>
+        <mesh position-y={0.015}>
+          <cylinderGeometry args={[0.08, 0.09, 0.03, 8]} />
+          <meshStandardMaterial color={black} flatShading />
+        </mesh>
+        <mesh position={[0.06, 0.2, 0]} rotation-z={-0.35}>
+          <cylinderGeometry args={[0.015, 0.015, 0.4, 6]} />
+          <meshStandardMaterial color={black} flatShading />
+        </mesh>
+        <mesh position={[0.17, 0.38, 0.02]} rotation-z={1.1}>
+          <coneGeometry args={[0.08, 0.14, 8, 1, true]} />
+          <meshStandardMaterial
+            color="#e0a63a"
+            emissive="#ffcf7a"
+            emissiveIntensity={0.35}
+            side={DoubleSide}
+            flatShading
+          />
+        </mesh>
+      </group>
+      {/* mug and plant */}
+      <mesh position={[0.62, top + 0.06, -0.05]}>
+        <cylinderGeometry args={[0.045, 0.04, 0.11, 10]} />
+        <meshStandardMaterial color="#f3ece1" flatShading />
+      </mesh>
+      <group position={[0.7, top, -0.25]}>
+        <mesh position-y={0.06}>
+          <cylinderGeometry args={[0.07, 0.055, 0.12, 8]} />
+          <meshStandardMaterial color="#c8553d" flatShading />
+        </mesh>
+        <mesh position-y={0.2} scale={[1, 1.3, 1]}>
+          <icosahedronGeometry args={[0.1, 0]} />
+          <meshStandardMaterial color="#4f9a4a" flatShading />
+        </mesh>
+      </group>
+      <group position={[0, 0, 0.6]}>
+        <OfficeChair />
+      </group>
+    </group>
+  )
+}
+
+// Maker bench: soldering station, helping hands, Arduino, breadboard, multimeter, parts box, pegboard
+function MakerBench() {
+  const top = BENCH.height
+  const wires = ['#d64933', '#3d7ac8', '#e0a63a', '#2e7d4f']
+  return (
+    <group position={[BENCH.x, 0, BENCH.z]}>
+      <mesh position-y={top - 0.03} castShadow receiveShadow>
+        <boxGeometry args={[BENCH.width, 0.06, BENCH.depth]} />
+        <meshStandardMaterial color={woodDark} flatShading />
+      </mesh>
+      {/* green work mat */}
+      <mesh position-y={top + 0.002}>
+        <boxGeometry args={[BENCH.width - 0.1, 0.004, BENCH.depth - 0.1]} />
+        <meshStandardMaterial color="#2a6f4e" flatShading />
+      </mesh>
+      <Legs width={BENCH.width} depth={BENCH.depth} height={top - 0.06} color={steel} />
+      {/* pegboard with tools */}
+      <mesh position={[0, top + 0.55, -BENCH.depth / 2 + 0.02]} castShadow>
+        <boxGeometry args={[BENCH.width, 0.9, 0.04]} />
+        <meshStandardMaterial color="#d9c6a5" flatShading />
+      </mesh>
+      {[-0.55, -0.3, 0, 0.3, 0.55].map((x, i) => (
+        <mesh
+          key={x}
+          position={[x, top + 0.6, -BENCH.depth / 2 + 0.06]}
+          rotation-z={i % 2 ? 0.35 : -0.25}
+        >
+          <boxGeometry args={[0.04, i === 2 ? 0.4 : 0.3, 0.03]} />
+          <meshStandardMaterial color={i % 2 ? steel : '#d64933'} flatShading />
+        </mesh>
+      ))}
+      {/* soldering station with the iron resting in its stand */}
+      <group position={[-0.55, top, -0.12]}>
+        <mesh position-y={0.06} castShadow>
+          <boxGeometry args={[0.24, 0.12, 0.2]} />
+          <meshStandardMaterial color="#d64933" flatShading />
+        </mesh>
+        <mesh position={[0, 0.07, 0.101]}>
+          <planeGeometry args={[0.12, 0.05]} />
+          <meshStandardMaterial color="#111111" emissive="#ff6a3d" emissiveIntensity={0.8} />
+        </mesh>
+        <mesh position={[0.22, 0.09, 0]} rotation-z={0.6}>
+          <cylinderGeometry args={[0.035, 0.02, 0.16, 8, 1, true]} />
+          <meshStandardMaterial color={steel} side={DoubleSide} flatShading />
+        </mesh>
+        <mesh position={[0.28, 0.14, 0]} rotation-z={0.6}>
+          <cylinderGeometry args={[0.012, 0.018, 0.26, 6]} />
+          <meshStandardMaterial color="#2b2d42" flatShading />
+        </mesh>
+      </group>
+      {/* solder spool */}
+      <mesh position={[-0.28, top + 0.04, 0.2]} rotation-x={Math.PI / 2}>
+        <torusGeometry args={[0.04, 0.02, 6, 12]} />
+        <meshStandardMaterial color="#c9c9c9" metalness={0.4} flatShading />
+      </mesh>
+      {/* helping hands with magnifier */}
+      <group position={[0.02, top, -0.1]}>
+        <mesh position-y={0.015}>
+          <boxGeometry args={[0.16, 0.03, 0.1]} />
+          <meshStandardMaterial color={black} flatShading />
+        </mesh>
+        <mesh position-y={0.12}>
+          <cylinderGeometry args={[0.008, 0.008, 0.2, 6]} />
+          <meshStandardMaterial color={steel} flatShading />
+        </mesh>
+        {[-1, 1].map((side) => (
+          <mesh key={side} position={[side * 0.07, 0.2, 0.02]} rotation-z={side * 0.9}>
+            <cylinderGeometry args={[0.006, 0.006, 0.14, 6]} />
+            <meshStandardMaterial color="#d64933" flatShading />
+          </mesh>
+        ))}
+        <mesh position={[0, 0.26, 0.03]} rotation-x={-0.4}>
+          <cylinderGeometry args={[0.05, 0.05, 0.01, 12]} />
+          <meshStandardMaterial color="#9cc7e0" transparent opacity={0.6} />
+        </mesh>
+      </group>
+      {/* Arduino board: blue PCB, USB port, chip, header rows */}
+      <group position={[0.25, top + 0.012, 0.18]} rotation-y={-0.25}>
+        <mesh>
+          <boxGeometry args={[0.27, 0.016, 0.2]} />
+          <meshStandardMaterial color="#1c6fa8" flatShading />
+        </mesh>
+        <mesh position={[-0.13, 0.02, 0.05]}>
+          <boxGeometry args={[0.05, 0.035, 0.05]} />
+          <meshStandardMaterial color="#c9c9c9" metalness={0.5} flatShading />
+        </mesh>
+        <mesh position={[0.04, 0.015, 0.03]}>
+          <boxGeometry args={[0.1, 0.012, 0.03]} />
+          <meshStandardMaterial color={black} flatShading />
+        </mesh>
+        {[-0.085, 0.085].map((z) => (
+          <mesh key={z} position={[0.03, 0.02, z]}>
+            <boxGeometry args={[0.18, 0.02, 0.015]} />
+            <meshStandardMaterial color={black} flatShading />
+          </mesh>
+        ))}
+      </group>
+      {/* breadboard with jumper wires and a lit LED */}
+      <group position={[0.38, top, -0.12]}>
+        <mesh position-y={0.014}>
+          <boxGeometry args={[0.3, 0.025, 0.12]} />
+          <meshStandardMaterial color="#f3f1ea" flatShading />
+        </mesh>
+        {wires.map((color, i) => (
+          <mesh key={color} position={[-0.1 + i * 0.065, 0.045, 0]} rotation-x={Math.PI / 2}>
+            <torusGeometry args={[0.03, 0.005, 4, 10, Math.PI]} />
+            <meshStandardMaterial color={color} flatShading />
+          </mesh>
+        ))}
+        <mesh position={[0.11, 0.045, 0.03]}>
+          <sphereGeometry args={[0.014, 8, 6]} />
+          <meshStandardMaterial color="#ff3b30" emissive="#ff3b30" emissiveIntensity={1.2} />
+        </mesh>
+      </group>
+      {/* multimeter */}
+      <group position={[0.66, top, 0.15]} rotation-y={-0.4}>
+        <mesh position-y={0.022} castShadow>
+          <boxGeometry args={[0.12, 0.04, 0.2]} />
+          <meshStandardMaterial color="#e0a63a" flatShading />
+        </mesh>
+        <mesh position={[0, 0.044, -0.05]} rotation-x={-Math.PI / 2}>
+          <planeGeometry args={[0.08, 0.05]} />
+          <meshStandardMaterial color="#1b2a1b" emissive="#7cff9b" emissiveIntensity={0.4} />
+        </mesh>
+        <mesh position={[0, 0.047, 0.04]}>
+          <cylinderGeometry args={[0.025, 0.025, 0.01, 10]} />
+          <meshStandardMaterial color={black} flatShading />
+        </mesh>
+      </group>
+      {/* parts organiser */}
+      <group position={[0.62, top, -0.22]}>
+        <mesh position-y={0.09} castShadow>
+          <boxGeometry args={[0.24, 0.18, 0.14]} />
+          <meshStandardMaterial color="#3d405b" flatShading />
+        </mesh>
+        {[0, 1, 2].flatMap((row) =>
+          [0, 1, 2].map((col) => (
+            <mesh
+              key={`${row}${col}`}
+              position={[-0.075 + col * 0.075, 0.035 + row * 0.055, 0.072]}
+            >
+              <boxGeometry args={[0.06, 0.04, 0.01]} />
+              <meshStandardMaterial color={wires[(row + col) % wires.length]} flatShading />
+            </mesh>
+          )),
+        )}
+      </group>
+      {/* stool */}
+      <group position={[0, 0, 0.62]}>
+        <mesh position-y={0.62}>
+          <cylinderGeometry args={[0.18, 0.18, 0.05, 10]} />
+          <meshStandardMaterial color={black} flatShading />
+        </mesh>
+        <mesh position-y={0.31}>
+          <cylinderGeometry args={[0.03, 0.03, 0.6, 6]} />
+          <meshStandardMaterial color={steel} flatShading />
+        </mesh>
+        <mesh position-y={0.02}>
+          <cylinderGeometry args={[0.16, 0.18, 0.04, 10]} />
+          <meshStandardMaterial color={black} flatShading />
+        </mesh>
+      </group>
+    </group>
+  )
+}
+
+// colliders are sized directly instead of inheriting the group scale
+const S = (v: number) => v * SCALE
+
+function Workspace() {
+  return (
+    <RigidBody type="fixed" colliders={false}>
+      <group scale={SCALE}>
+        <DeskSetup />
+        <MakerBench />
+      </group>
+      <CuboidCollider
+        args={[S(DESK.width / 2), S(DESK.height / 2), S(DESK.depth / 2)]}
+        position={[S(DESK.x), S(DESK.height / 2), S(DESK.z)]}
+      />
+      <CylinderCollider args={[S(0.5), S(0.32)]} position={[S(DESK.x), S(0.5), S(DESK.z + 0.72)]} />
+      <CuboidCollider
+        args={[S(BENCH.width / 2), S((BENCH.height + 0.9) / 2), S(BENCH.depth / 2)]}
+        position={[S(BENCH.x), S((BENCH.height + 0.9) / 2), S(BENCH.z)]}
+      />
+      <CylinderCollider
+        args={[S(0.35), S(0.2)]}
+        position={[S(BENCH.x), S(0.35), S(BENCH.z + 0.62)]}
+      />
     </RigidBody>
   )
 }
 
 export function ProjectsStation() {
-  const nearProject = useAppStore((state) => state.nearProject)
-
-  // While at the station, the monitor closest to the character is the one E opens
-  useFrame(() => {
-    const store = useAppStore.getState()
-    let closest: number | null = null
-    if (store.nearStation === 'projects') {
-      let best = Infinity
-      monitors.forEach((monitor, i) => {
-        const distance = Math.hypot(playerPosition.x - monitor.x, playerPosition.z - monitor.z)
-        if (distance < best) {
-          best = distance
-          closest = i
-        }
-      })
-    }
-    if (closest !== store.nearProject) store.setNearProject(closest)
-  })
-
   return (
-    <>
-      <Station id="projects">{null}</Station>
-      <Pavilion />
-      <Props />
-      {monitors.map((monitor, i) => (
-        <Monitor key={i} monitor={monitor} index={i} near={nearProject === i} />
-      ))}
-    </>
+    <Station id="projects">
+      <Workspace />
+    </Station>
   )
 }
