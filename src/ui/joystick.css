@@ -1,7 +1,7 @@
 .joystick {
   position: fixed;
   left: calc(20px + env(safe-area-inset-left));
-  bottom: calc(80px + env(safe-area-inset-bottom));
+  bottom: calc(20px + env(safe-area-inset-bottom));
   z-index: 16;
   display: grid;
   place-items: center;

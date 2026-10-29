@@ -197,8 +197,9 @@ gemacht"). *M1.1* replaces it with the full experience:
   the nearest reachable point.
 - **Tap targets:** tapping a station label or model opens its panel; the projects station lists all
   projects in one panel.
-- **Mobile joystick:** a compact, translucent 88 px thumbstick at the lower left on coarse-pointer
-  viewports below 1024 px. Camera-relative movement with a dead zone; manual steering cancels
+- **Mobile joystick:** a compact, translucent 88 px thumbstick at the lower-left edge on
+  viewports below 1024 px, including browser previews. Contact moves to the upper left.
+  Camera-relative movement with a dead zone; manual steering cancels
   tap-to-move. Release, cancellation, loss of focus, rotation to desktop layout and opening a
   panel reset input. Hidden during loading, intro, welcome and open panels/modals.
 - **Gestures:** pinch and drag on the 3D canvas do nothing (no accidental zoom, no camera

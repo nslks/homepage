@@ -92,7 +92,12 @@
 }
 
 /* Narrow screens: icon-only controls, every target at least 44 × 44 px (spec §5.5) */
-@media (max-width: 600px) {
+@media (max-width: 1023px) {
+  .hud__bar {
+    top: calc(16px + env(safe-area-inset-top));
+    bottom: auto;
+  }
+
   .hud__link,
   .hud__legal {
     justify-content: center;
