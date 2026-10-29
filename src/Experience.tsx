@@ -5,7 +5,6 @@ import { controlsMap } from './player/controls'
 import { Scene } from './Scene'
 import { WelcomeCard } from './ui/WelcomeCard'
 import { DebugBadge } from './ui/DebugBadge'
-import { StationNav } from './ui/StationNav'
 import { Hud } from './ui/Hud'
 import { IntroSkip } from './ui/IntroSkip'
 import { LoadingScreen } from './ui/LoadingScreen'
@@ -22,7 +21,6 @@ export default function Experience() {
           <Scene />
         </Suspense>
       </Canvas>
-      <StationNav />
       <Hud />
       <StationPanel />
       <LoadingScreen />

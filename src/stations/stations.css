@@ -1,0 +1,65 @@
+/* Station labels: crisp HTML pills floating in front of the stations */
+.station-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.station-label__title {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  background: var(--surface-control);
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 600;
+  box-shadow: 0 2px 10px var(--shadow);
+  border: none;
+  font-family: inherit;
+  cursor: pointer;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+
+.station-label--near .station-label__title {
+  transform: scale(1.08);
+  box-shadow:
+    0 0 0 3px var(--accent),
+    0 4px 14px var(--shadow);
+}
+
+.station-label__prompt {
+  padding: 3px 10px;
+  border-radius: 6px;
+  background: var(--prompt-bg);
+  color: var(--prompt-text);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.station-label__title:hover {
+  transform: scale(1.05);
+}
+
+.station-label__title:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+@media (max-width: 600px) {
+  .station-label__title {
+    gap: 4px;
+    padding: 4px 9px;
+    font-size: 13px;
+  }
+
+  .station-label__prompt {
+    font-size: 12px;
+  }
+}

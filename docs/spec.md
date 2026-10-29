@@ -74,13 +74,13 @@ Station positions are code constants (see [ADR 0003](adr/0003-content-in-yaml.md
 A visitor must recognise **what** a station is and **that** it is interactive at first sight:
 
 1. **Distinct silhouette** — a mailbox looks like a mailbox, an office like an office, a lab like a lab.
-2. **Standing sign** in front of each station: a small wooden board on a post with the title in
-   3D text (unlit, legible at night), tilted towards the camera; tapping it opens the station from
-   any distance. Keyboard and screen-reader users get a hidden station list that appears on focus.
+2. **Label** (icon + title) rendered as crisp HTML, floating at eye level **in front of** each
+   station — not above the model, so it is visible as soon as the plaza is, even for the tall office;
+   a button, so it can be clicked from any distance and reached with Tab.
 3. **Paths** from spawn to every station.
-4. **Proximity highlight** — the ground ring glows and the sign shows the prompt ("E drücken",
-   "Antippen" on touch).
-5. **Idle motion** — the sign wobbles gently, which sets stations apart from decoration.
+4. **Proximity highlight** — the ground ring glows, the label gets an accent outline and the
+   prompt ("E drücken", "Antippen" on touch).
+5. **Idle motion** — the label bobs gently, which sets stations apart from decoration.
 
 ### 3.4 Day / night
 

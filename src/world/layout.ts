@@ -55,7 +55,7 @@ export const stations: Record<StationId, Placement> = {
   contact: { x: -4.6, z: 10.4, facing: 0 },
 }
 
-// Small standing signs in front of the stations, beside the paths, facing the camera
+// Where the station labels float: in front of the stations, beside the paths
 export const stationSigns: Record<StationId, Point> = {
   career: { x: -8.1, z: 1.9 },
   work: { x: 1.9, z: -7.9 },
