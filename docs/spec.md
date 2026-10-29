@@ -88,7 +88,7 @@ A visitor must recognise **what** a station is and **that** it is interactive at
 - **Night:** cool blue-violet, moonlight, clearly **warm** lanterns as contrast; stations stay legible.
 - Initial mode follows `prefers-color-scheme`.
 - Toggling plays an animated transition of ~1–2 s (sun sets, moon rises, lanterns switch on).
-- The choice is persisted (see [§7](#7-constraints), *Persistence*).
+- The choice is not persisted; every visit starts from `prefers-color-scheme` (see [§7](#7-constraints), *Persistence*).
 
 ### 3.5 Layout variants
 
@@ -113,7 +113,7 @@ follows the character and sits at the closest lanterns.
   male/female pair and idle/walk/run animations.
 - Generic look; only outfit colours are adapted to the island palette.
 - **Gender toggle** (♂/♀) next to the day/night toggle; swap plays a small dust-puff effect.
-  Default: male. Choice is persisted.
+  Default: male. Choice is not persisted.
 
 ### 4.2 Controls
 
@@ -252,7 +252,7 @@ summary:
 | Browsers | Current Chrome, Firefox, Safari, Edge with WebGL 2 — desktop, and from M1.1 iOS Safari and Android Chrome |
 | Performance | 60 fps on an average laptop · 30+ fps on a mid-range phone from ~2023 (M1.1) · initial payload < 5 MB · interactive after ~3 s |
 | Privacy | No cookies, no analytics, no tracking, no third-party requests (fonts/assets self-hosted) |
-| Persistence | User preferences (theme, character) are stored in `localStorage` — no cookies, nothing transmitted |
+| Persistence | Nothing is stored in the browser (no cookies, no `localStorage`); every visit starts from defaults |
 | Development | Only inside the dev container (local OrbStack or GitHub Codespaces), nothing installed on the host |
 | Licensing | Code MIT; personal content all rights reserved; third-party assets listed in `CREDITS.md` |
 

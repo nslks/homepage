@@ -28,6 +28,8 @@ jobs:
       - run: npm run build
         env:
           VITE_BASE: /homepage/
+          # repository variable (Settings → Secrets and variables → Actions → Variables)
+          IMPRESSUM_EMAIL: ${{ vars.IMPRESSUM_EMAIL }}
       - uses: actions/upload-pages-artifact@v5
         with:
           path: dist
