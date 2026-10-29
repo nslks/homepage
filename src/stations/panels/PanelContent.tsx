@@ -1,16 +1,17 @@
 import type { StationId } from '../../world/layout'
 import { CareerPanel } from './CareerPanel'
+import { ContactPanel } from './ContactPanel'
 import { ProjectsPanel } from './ProjectsPanel'
 import { WorkPanel } from './WorkPanel'
 
-// Filled station by station (#24–#26, #53)
-const panels: Partial<Record<StationId, () => React.JSX.Element>> = {
+const panels: Record<StationId, () => React.JSX.Element> = {
   career: CareerPanel,
   work: WorkPanel,
   projects: ProjectsPanel,
+  contact: ContactPanel,
 }
 
 export function PanelContent({ station }: { station: StationId }) {
   const Content = panels[station]
-  return Content ? <Content /> : null
+  return <Content />
 }

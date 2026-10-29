@@ -265,3 +265,17 @@
   outline: 3px solid #e07a5f;
   outline-offset: 2px;
 }
+
+.contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.button--large {
+  padding: 12px 18px;
+  font-size: 15px;
+}
