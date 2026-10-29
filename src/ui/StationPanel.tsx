@@ -1,5 +1,5 @@
 import { X } from 'lucide-react'
-import { useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import { localize, ui } from '../content'
 import { useAppStore } from '../state/store'
 import { PanelContent } from '../stations/panels/PanelContent'
@@ -7,6 +7,7 @@ import { stationMeta } from '../stations/stationMeta'
 import { useStationKeys } from '../stations/useStationKeys'
 import './panel.css'
 import { trapTab } from './trapTab'
+import { useSwipeToClose } from './useSwipeToClose'
 
 // Native modal dialog: closes on Esc and restores focus to where it was
 export function StationPanel() {
@@ -14,6 +15,10 @@ export function StationPanel() {
   const setOpenStation = useAppStore((state) => state.setOpenStation)
   const dialog = useRef<HTMLDialogElement>(null)
   useStationKeys()
+  useSwipeToClose(
+    dialog,
+    useCallback(() => setOpenStation(null), [setOpenStation]),
+  )
 
   useEffect(() => {
     const element = dialog.current
@@ -38,6 +43,7 @@ export function StationPanel() {
     >
       {meta && (
         <>
+          <div className="panel__grip" aria-hidden="true" />
           <header className="panel__header">
             <h2 id="panel-title" className="panel__title">
               <meta.icon size={22} aria-hidden="true" />
