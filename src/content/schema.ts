@@ -102,6 +102,7 @@ export const uiSchema = z.strictObject({
     move: localized,
     interact: localized,
     tapMove: localized,
+    joystickMove: localized,
     tapOpen: localized,
     dismiss: localized,
   }),
