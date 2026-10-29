@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { localize, ui } from '../content'
+import { localize, site, ui } from '../content'
 import { controlsMap } from '../player/controls'
 import { useAppStore } from '../state/store'
 import { CvLink } from './CvLink'
@@ -19,10 +19,10 @@ const controls = isTouch
   ? [ui.controls.tapMove, ui.controls.tapOpen]
   : [ui.controls.move, ui.controls.interact]
 
-// Shown once after the intro (spec §5.1): the page is interactive — or take the CV as PDF.
-// Walking off, Esc or "Los geht's" dismisses it for good
+// Shown once, as soon as the island has loaded (spec §5.1): who this is, that the page is
+// interactive — or take the CV as PDF. Walking off, Esc, the backdrop or "Los geht's" dismiss it
 export function WelcomeCard() {
-  const visible = useAppStore((state) => state.introDone && !state.welcomeSeen)
+  const visible = useAppStore((state) => state.sceneReady && !state.welcomeSeen)
   const dismiss = useAppStore((state) => state.dismissWelcome)
 
   useEffect(() => {
@@ -36,23 +36,32 @@ export function WelcomeCard() {
 
   if (!visible) return null
   return (
-    <section className="welcome" aria-labelledby="welcome-title">
-      <h2 id="welcome-title" className="welcome__title">
-        {localize(ui.welcome.title)}
-      </h2>
-      <p className="welcome__text">{localize(ui.welcome.text)}</p>
-      <ul className="welcome__controls" aria-label={localize(ui.controls.title)}>
-        {controls.map((line, i) => (
-          <li key={i}>{localize(line)}</li>
-        ))}
-      </ul>
-      <p className="welcome__text welcome__text--muted">{localize(ui.welcome.cvAlternative)}</p>
-      <div className="welcome__actions">
-        <button type="button" className="button" onClick={dismiss}>
-          {localize(ui.controls.dismiss)}
-        </button>
-        <CvLink className="button button--secondary" />
-      </div>
-    </section>
+    <div
+      className="welcome-backdrop"
+      onClick={(event) => event.target === event.currentTarget && dismiss()}
+    >
+      <section className="welcome" role="dialog" aria-modal="true" aria-labelledby="welcome-title">
+        <h2 id="welcome-title" className="welcome__title">
+          {localize(ui.welcome.title)}
+        </h2>
+        <p className="welcome__name">
+          {site.name} · {localize(site.title)}
+        </p>
+        <p className="welcome__text">{localize(ui.welcome.text)}</p>
+        <ul className="welcome__controls" aria-label={localize(ui.controls.title)}>
+          {controls.map((line, i) => (
+            <li key={i}>{localize(line)}</li>
+          ))}
+        </ul>
+        <p className="welcome__text welcome__text--muted">{localize(ui.welcome.cvAlternative)}</p>
+        <div className="welcome__actions">
+          {/* focused first, so keyboard users can start right away */}
+          <button type="button" className="button button--large" onClick={dismiss} autoFocus>
+            {localize(ui.controls.dismiss)}
+          </button>
+          <CvLink className="button button--large button--secondary" />
+        </div>
+      </section>
+    </div>
   )
 }
