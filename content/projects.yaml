@@ -9,9 +9,9 @@ entries:
     accent: '#c8553d'
   - name: Climora
     summary:
-      de: Schimmelprävention mit eigenen Sensoren. Arduino-Sensoren messen Temperatur und Luftfeuchte, eine lokale KI entscheidet, ob gelüftet oder geheizt werden soll, und schickt die Empfehlung als Push-Nachricht aufs Handy. Über einen eigenen MCP-Server kann ein KI-Agent auch längere Verläufe auswerten.
+      de: Schimmelprävention mit eigenen Sensoren. ESP32-Sensoren messen Temperatur und Luftfeuchte und senden per MQTT. Zwei Wege – in Echtzeit entscheidet ein lokales Sprachmodell, ob gelüftet oder geheizt werden soll, und schickt die Empfehlung aufs Handy; für den Verlauf wertet ein KI-Agent über einen eigenen MCP-Server die Zeitreihen aus und zieht Learnings.
       en: ''
-    tech: [Arduino, MQTT, Python, FastAPI, InfluxDB, Ollama, MCP, ntfy, Docker]
+    tech: [ESP32, MQTT, Python, FastAPI, InfluxDB, Ollama, MCP, ntfy, Docker]
     status: wip
     diagram: climora
     accent: '#3d7ac8'
