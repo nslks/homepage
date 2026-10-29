@@ -53,20 +53,19 @@ Azure hosting, CI expansion, English translation, extended accessibility and SEO
           [ Work experience ]
                  |
  [ About me ] -- + -- [ Projects ]
-  (signpost)     |     (houses with doors)
+  (reading corner) |   (lab)
                  |
-     [ Mailbox ] [ Welcome sign ]
+     [ Mailbox ]
               SPAWN
                  S
 ```
 
 | Station | Position | Look | Content |
 |---|---|---|---|
-| Welcome sign | South, at spawn | Large wooden sign | Name + title (from YAML) |
 | **Contact** | Next to spawn | Mailbox | Links: LinkedIn, GitHub, mail |
-| **About me** ("Über mich") | West | Signpost | Intro text, education, skills, languages |
-| **Work experience** ("Berufserfahrung") | North | Small office building | One entry per employer — jobs appear only here |
-| **Projects** ("Eigene Projekte") | East | Small houses on an arc, one door per project | Summary, tech, link |
+| **About me** ("Über mich") | West | Reading corner: armchair, floor lamp, books on a rug | Intro, core competencies, private projects teaser, education, skills, languages |
+| **Work experience** ("Berufserfahrung") | North | Glass-front office block | Roles and bullet points as in the CV — jobs appear only here |
+| **Projects** ("Eigene Projekte") | East | Open lab pavilion: workbench with one monitor per project, soldering station, board, oscilloscope | Summary, tech, link |
 
 Station positions are code constants (see [ADR 0003](adr/0003-content-in-yaml.md)).
 
@@ -74,7 +73,7 @@ Station positions are code constants (see [ADR 0003](adr/0003-content-in-yaml.md
 
 A visitor must recognise **what** a station is and **that** it is interactive at first sight:
 
-1. **Distinct silhouette** — a mailbox looks like a mailbox, an office like an office, doors like doors.
+1. **Distinct silhouette** — a mailbox looks like a mailbox, an office like an office, a lab like a lab.
 2. **Floating label** above each station (icon + title), camera-facing, rendered as HTML so it
    stays crisp, readable from a distance.
 3. **Paths** from spawn to every station.
@@ -109,7 +108,7 @@ A visitor must recognise **what** a station is and **that** it is interactive at
 | `Esc` | Close the open panel |
 | Click on a station label | Open that station's panel directly, from any distance |
 | Click / tap on the ground | Walk there along a path around obstacles (M1.1, [§5.5](#55-mobile--touch)) |
-| Click / tap on a station model or a project door | Open that station / that project directly (M1.1) |
+| Click / tap on a station model or a project monitor | Open that station / that project directly (M1.1) |
 
 - **No jumping.**
 - Movement is blocked while a panel is open.
@@ -179,7 +178,7 @@ gemacht"). *M1.1* replaces it with the full experience:
   on a navigation grid of the island (A\*), around trees, rocks and buildings. A pulsing ring in
   the accent colour marks the target until the character arrives; unreachable spots resolve to
   the nearest reachable point.
-- **Tap targets:** tapping a station label or model opens its panel; tapping a project door opens
+- **Tap targets:** tapping a station label or model opens its panel; tapping a project monitor opens
   that project.
 - **Gestures:** pinch and drag on the 3D canvas do nothing (no accidental zoom, no camera
   rotation — see Polish #63); browser zoom stays available outside the canvas.
@@ -213,7 +212,7 @@ summary:
 | `site.yaml` | `name`, `title`, `tagline`, `legal.impressum`, `legal.datenschutz` |
 | `career.yaml` | `intro`, `education[]: { period, title, place }`, `skills[]: { group, items[] }`, `languages[]` |
 | `work.yaml` | `entries[]: { company, role, period, highlights[] (3–5), tech[] }` |
-| `projects.yaml` | `entries[]: { name, summary, tech[], url?, repoUrl?, doorColor? }` — **max 6** |
+| `projects.yaml` | `entries[]: { name, summary, tech[], url?, repoUrl?, accent? }` — **max 6**, one monitor each in the lab |
 | `contact.yaml` | `links[]: { kind, label, url }` |
 | `ui.yaml` | all UI strings (button labels, prompts, hints) |
 

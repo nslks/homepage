@@ -72,7 +72,7 @@ export const projectsSchema = z.object({
         tech: z.array(z.string().min(1)),
         url: url.optional(),
         repoUrl: url.optional(),
-        doorColor: z
+        accent: z
           .string()
           .regex(/^#[0-9a-fA-F]{6}$/)
           .optional(),
