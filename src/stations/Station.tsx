@@ -23,6 +23,7 @@ export function Station({ id, labelHeight, children }: Props) {
   const placement = stations[id]
   const radius = interactionRadius[id]
   const near = useAppStore((state) => state.nearStation === id)
+  const setOpenStation = useAppStore((state) => state.setOpenStation)
   const ring = useRef<Mesh<never, MeshBasicMaterial>>(null)
   const label = useRef<Group>(null)
   const { icon: Icon, title } = stationMeta[id]
@@ -53,10 +54,15 @@ export function Station({ id, labelHeight, children }: Props) {
       <group ref={label} position-y={labelHeight}>
         <Html center zIndexRange={[10, 0]}>
           <div className={`station-label${near ? ' station-label--near' : ''}`}>
-            <span className="station-label__title">
+            {/* clickable from any distance, so nobody has to walk (spec §4.2) */}
+            <button
+              type="button"
+              className="station-label__title"
+              onClick={() => setOpenStation(id)}
+            >
               <Icon size={18} aria-hidden="true" />
               {localize(title)}
-            </span>
+            </button>
             {near && <span className="station-label__prompt">{localize(ui.prompt.interact)}</span>}
           </div>
         </Html>

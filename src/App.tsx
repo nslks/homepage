@@ -4,6 +4,7 @@ import { Suspense } from 'react'
 import { controlsMap } from './player/controls'
 import { Scene } from './Scene'
 import { Hud } from './ui/Hud'
+import { StationPanel } from './ui/StationPanel'
 
 export function App() {
   return (
@@ -14,6 +15,7 @@ export function App() {
         </Suspense>
       </Canvas>
       <Hud />
+      <StationPanel />
     </KeyboardControls>
   )
 }
