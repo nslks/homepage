@@ -8,7 +8,7 @@
   gap: 18px;
   background: var(--loading-bg);
   color: var(--text);
-  transition-property: opacity;
+  transition: opacity 600ms;
 }
 
 .loading--done {

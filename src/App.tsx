@@ -1,31 +1,32 @@
-import { KeyboardControls } from '@react-three/drei'
-import { Canvas } from '@react-three/fiber'
-import { Suspense } from 'react'
-import { controlsMap } from './player/controls'
-import { Scene } from './Scene'
-import { ControlsHint } from './ui/ControlsHint'
-import { Hud } from './ui/Hud'
+import { lazy, Suspense } from 'react'
+import { DesktopNotice } from './ui/DesktopNotice'
 import { LegalModal } from './ui/LegalModal'
-import { IntroSkip } from './ui/IntroSkip'
-import { LoadingScreen } from './ui/LoadingScreen'
-import { StationPanel } from './ui/StationPanel'
+import { LoadingShell } from './ui/LoadingShell'
 import { ThemeAttribute } from './ui/ThemeAttribute'
+
+const Experience = lazy(() => import('./Experience'))
+
+// Spec §7: the MVP targets desktop browsers with mouse and keyboard
+const isDesktop = (() => {
+  try {
+    return window.matchMedia('(pointer: fine) and (min-width: 1024px)').matches
+  } catch {
+    return true
+  }
+})()
 
 export function App() {
   return (
-    <KeyboardControls map={controlsMap}>
-      <Canvas shadows="soft" camera={{ fov: 40, far: 1000 }}>
-        <Suspense fallback={null}>
-          <Scene />
+    <>
+      {isDesktop ? (
+        <Suspense fallback={<LoadingShell progress={0} />}>
+          <Experience />
         </Suspense>
-      </Canvas>
-      <Hud />
-      <StationPanel />
+      ) : (
+        <DesktopNotice />
+      )}
       <LegalModal />
       <ThemeAttribute />
-      <LoadingScreen />
-      <IntroSkip />
-      <ControlsHint />
-    </KeyboardControls>
+    </>
   )
 }
