@@ -4,20 +4,19 @@ intro:
 controls:
   title: { de: Steuerung, en: '' }
   move: { de: 'WASD / Pfeiltasten: laufen', en: '' }
-  run: { de: 'Shift: rennen', en: '' }
   interact: { de: 'E / Enter: Station öffnen', en: '' }
   dismiss: { de: Los geht's, en: '' }
 stations:
-  career: { de: Mein Werdegang, en: '' }
-  work: { de: Arbeitsstellen, en: '' }
-  projects: { de: Private Projekte, en: '' }
+  career: { de: Über mich, en: '' }
+  work: { de: Berufserfahrung, en: '' }
+  projects: { de: Eigene Projekte, en: '' }
   contact: { de: Kontakt, en: '' }
 prompt:
   interact: { de: E drücken, en: '' }
 panel:
   close: { de: Schließen, en: '' }
+  education: { de: Ausbildung, en: '' }
   skills: { de: Skills, en: '' }
-  tools: { de: Tools, en: '' }
   languages: { de: Sprachen, en: '' }
 project:
   open: { de: Zum Projekt, en: '' }

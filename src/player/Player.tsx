@@ -15,8 +15,8 @@ import { playerPosition, useAppStore } from '../state/store'
 import { spawn } from '../world/layout'
 import type { Control } from './controls'
 
-const WALK_SPEED = 3.2
-const RUN_SPEED = 6
+// always at running pace; there is no separate walk (owner feedback, #74)
+const SPEED = 7
 const TURN_SPEED = 12
 const CAPSULE_RADIUS = 0.35
 const CAPSULE_HALF_HEIGHT = 0.5
@@ -72,8 +72,7 @@ export function Player() {
     movement.copy(cameraRight).multiplyScalar(input.x).addScaledVector(cameraForward, -input.z)
 
     const moving = movement.lengthSq() > 0
-    const running = moving && keys.run
-    if (moving) movement.normalize().multiplyScalar((running ? RUN_SPEED : WALK_SPEED) * dt)
+    if (moving) movement.normalize().multiplyScalar(SPEED * dt)
 
     controller.computeColliderMovement(collider.current, movement)
     const corrected = controller.computedMovement()
@@ -89,7 +88,7 @@ export function Player() {
       model.current.rotation.y = current + diff * Math.min(1, TURN_SPEED * dt)
     }
 
-    const nextAnimation: CharacterAnimation = running ? 'Run' : moving ? 'Walk' : 'Idle'
+    const nextAnimation: CharacterAnimation = moving ? 'Run' : 'Idle'
     if (nextAnimation !== animation) setAnimation(nextAnimation)
   })
 

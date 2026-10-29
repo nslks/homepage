@@ -5,18 +5,21 @@ export function CareerPanel() {
     <>
       <p className="panel__intro">{localize(career.intro)}</p>
 
-      <ol className="timeline">
-        {career.entries.map((entry, i) => (
-          <li key={i} className="timeline__entry">
-            <span className="timeline__period">{localize(entry.period)}</span>
-            <div>
-              <h3 className="timeline__title">{localize(entry.title)}</h3>
-              <p className="timeline__place">{entry.place}</p>
-              <p className="timeline__summary">{localize(entry.summary)}</p>
-            </div>
-          </li>
-        ))}
-      </ol>
+      {career.education.length > 0 && (
+        <section>
+          <h3 className="panel__section-title">{localize(ui.panel.education)}</h3>
+          <ul className="education">
+            {career.education.map((entry, i) => (
+              <li key={i} className="education__entry">
+                <span className="education__period">{localize(entry.period)}</span>
+                <span>
+                  <strong>{localize(entry.title)}</strong> · {entry.place}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       {career.skills.length > 0 && (
         <section>
@@ -33,19 +36,6 @@ export function CareerPanel() {
               </ul>
             </div>
           ))}
-        </section>
-      )}
-
-      {career.tools.length > 0 && (
-        <section>
-          <h3 className="panel__section-title">{localize(ui.panel.tools)}</h3>
-          <ul className="tags">
-            {career.tools.map((tool) => (
-              <li key={tool} className="tag">
-                {tool}
-              </li>
-            ))}
-          </ul>
         </section>
       )}
 

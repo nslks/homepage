@@ -4,39 +4,17 @@ intro:
     Software. Mein Schwerpunkt liegt auf Python-Backends, Microservices sowie DevOps und
     DevSecOps – von Echtzeit-Bildverarbeitung bis zur Ablösung gewachsener Legacy-Systeme.
   en: ''
-entries:
-  - period: { de: '2025 – 2026', en: '' }
-    title: { de: Backend- & DevOps-Entwicklung, en: '' }
-    place: Siempelkamp
-    summary:
-      de: Legacy-Migration zu Microservices koordiniert, zentrale CI/CD-Templates aufgebaut.
-      en: ''
-  - period: { de: '2022 – 2025', en: '' }
-    title: { de: Hardwarenahe Fullstack-Entwicklung, en: '' }
-    place: Siempelkamp
-    summary:
-      de: Kamerabasiertes Echtzeit-Überwachungssystem in C++20 und OpenCV entwickelt.
-      en: ''
-  - period: { de: '2020 – 2022', en: '' }
-    title: { de: Softwareentwicklung Energie- & Wasserwirtschaft, en: '' }
-    place: Schleupen SE
-    summary:
-      de: ERP-System mit C#/.NET nach Domain Driven Design weiterentwickelt.
-      en: ''
+education:
   - period: { de: '2016 – 2020', en: '' }
     title: { de: B.Sc. Informatik, en: '' }
     place: Hochschule Niederrhein
-    summary:
-      de: Studium der Informatik.
-      en: ''
 skills:
   - group: { de: Entwicklung, en: '' }
     items: [Python, FastAPI, Microservices, C++20, OpenCV, C#/.NET, MSSQL]
   - group: { de: DevOps & DevSecOps, en: '' }
     items: [GitLab CI/CD, Azure Pipelines, GitHub Actions, Docker, SAST, SBOM, Image Signing]
   - group: { de: Architektur & Planung, en: '' }
-    items: [REST, Clean Architecture, DDD, TDD, Technical Scoping]
-tools: [Docker, GitLab, GitHub, Azure DevOps, Jira, Confluence]
+    items: [REST, Clean Architecture, DDD, TDD, Technical Scoping, Jira, Confluence]
 languages:
   - name: { de: Deutsch, en: '' }
     level: { de: Muttersprache, en: '' }

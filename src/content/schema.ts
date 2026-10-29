@@ -21,23 +21,19 @@ export const siteSchema = z.object({
 
 export const careerSchema = z.object({
   intro: localized,
-  entries: z
-    .array(
-      z.object({
-        period: localized,
-        title: localized,
-        place: z.string().min(1),
-        summary: localized,
-      }),
-    )
-    .min(1),
+  education: z.array(
+    z.object({
+      period: localized,
+      title: localized,
+      place: z.string().min(1),
+    }),
+  ),
   skills: z.array(
     z.object({
       group: localized,
       items: z.array(z.string().min(1)).min(1),
     }),
   ),
-  tools: z.array(z.string().min(1)),
   languages: z.array(
     z.object({
       name: localized,
@@ -99,7 +95,6 @@ export const uiSchema = z.strictObject({
   controls: z.strictObject({
     title: localized,
     move: localized,
-    run: localized,
     interact: localized,
     dismiss: localized,
   }),
@@ -112,8 +107,8 @@ export const uiSchema = z.strictObject({
   prompt: z.strictObject({ interact: localized }),
   panel: z.strictObject({
     close: localized,
+    education: localized,
     skills: localized,
-    tools: localized,
     languages: localized,
   }),
   project: z.strictObject({
