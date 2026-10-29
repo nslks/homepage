@@ -62,9 +62,9 @@ custom domain, analytics (never planned, see [ADR 0004](adr/0004-no-cookies-no-t
 |---|---|---|---|
 | Welcome sign | South, at spawn | Large wooden sign | Name + title (from YAML) |
 | **Contact** | Next to spawn | Mailbox | Links: LinkedIn, GitHub, mail |
-| **Career** ("Mein Werdegang") | West | Path with milestone stones/signposts — a walkable timeline | Intro text, compact timeline, skills/tools/languages |
-| **Work experience** ("Arbeitsstellen") | North | Small office building | One entry per employer |
-| **Projects** ("Private Projekte") | East | Row of small houses, one door per project | Summary, tech, link |
+| **About me** ("Über mich") | West | Signpost | Intro text, education, skills, languages |
+| **Work experience** ("Berufserfahrung") | North | Small office building | One entry per employer — jobs appear only here |
+| **Projects** ("Eigene Projekte") | East | Small houses on an arc, one door per project | Summary, tech, link |
 
 Station positions are code constants (see [ADR 0003](adr/0003-content-in-yaml.md)).
 
@@ -102,8 +102,7 @@ A visitor must recognise **what** a station is and **that** it is interactive at
 
 | Input | Action |
 |---|---|
-| `W A S D` / arrow keys | Walk (camera-relative: `W` = up on screen) |
-| `Shift` (held) | Run |
+| `W A S D` / arrow keys | Move at running pace (camera-relative: `W` = up on screen); there is no separate walk or run key |
 | `E` / `Enter` | Open the station in range |
 | `Esc` | Close the open panel |
 | Click on a station label | Open that station's panel directly, from any distance |
@@ -122,7 +121,7 @@ A visitor must recognise **what** a station is and **that** it is interactive at
 
 1. **Loading screen:** name + progress bar, nothing else.
 2. **Intro flight:** camera flies over the island down to the character (< 2 s, skippable by any key/click).
-3. **Controls hint:** short overlay (WASD/arrows, Shift, E), dismissible.
+3. **Controls hint:** short overlay (WASD/arrows, E), dismissible.
 
 ### 5.2 HUD
 
@@ -171,7 +170,7 @@ summary:
 | File | Fields |
 |---|---|
 | `site.yaml` | `name`, `title`, `tagline`, `legal.impressum`, `legal.datenschutz` |
-| `career.yaml` | `intro`, `entries[]: { period, title, place, summary }`, `skills[]`, `tools[]`, `languages[]` |
+| `career.yaml` | `intro`, `education[]: { period, title, place }`, `skills[]: { group, items[] }`, `languages[]` |
 | `work.yaml` | `entries[]: { company, role, period, highlights[] (3–5), tech[] }` |
 | `projects.yaml` | `entries[]: { name, summary, tech[], url?, repoUrl?, doorColor? }` — **max 6** |
 | `contact.yaml` | `links[]: { kind, label, url }` |
