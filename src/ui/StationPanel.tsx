@@ -2,6 +2,7 @@ import { X } from 'lucide-react'
 import { useEffect, useRef } from 'react'
 import { localize, ui } from '../content'
 import { useAppStore } from '../state/store'
+import { PanelContent } from '../stations/panels/PanelContent'
 import { stationMeta } from '../stations/stationMeta'
 import { useStationKeys } from '../stations/useStationKeys'
 import './panel.css'
@@ -69,8 +70,9 @@ export function StationPanel() {
               <X size={20} aria-hidden="true" />
             </button>
           </header>
-          {/* station content follows with each station story */}
-          <div className="panel__body" />
+          <div className="panel__body">
+            <PanelContent station={openStation!} />
+          </div>
         </>
       )}
     </dialog>
