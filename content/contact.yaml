@@ -1,5 +1,7 @@
-# TODO: add LinkedIn once the profile URL is known
 links:
+  - kind: linkedin
+    label: { de: LinkedIn, en: LinkedIn }
+    url: https://www.linkedin.com/in/enes-alkis-77587a1b5/
   - kind: github
     label: { de: GitHub, en: GitHub }
     url: https://github.com/nslks

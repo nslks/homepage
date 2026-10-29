@@ -21,6 +21,10 @@ export const siteSchema = z.object({
 
 export const careerSchema = z.object({
   intro: localized,
+  // core competencies as short bullet points
+  competencies: z.array(localized),
+  // a few words about private tinkering; the panel points to the projects station
+  private: localized,
   education: z.array(
     z.object({
       period: localized,
@@ -49,7 +53,8 @@ export const workSchema = z.object({
         company: z.string().min(1),
         role: localized,
         period: localized,
-        highlights: z.array(localized).min(3).max(5),
+        // as many as the CV lists for this role
+        highlights: z.array(localized).min(1).max(6),
         tech: z.array(z.string().min(1)),
       }),
     )
@@ -109,6 +114,10 @@ export const uiSchema = z.strictObject({
   prompt: z.strictObject({ interact: localized }),
   panel: z.strictObject({
     close: localized,
+    competencies: localized,
+    private: localized,
+    toProjects: localized,
+    cvHint: localized,
     education: localized,
     skills: localized,
     languages: localized,
@@ -118,6 +127,7 @@ export const uiSchema = z.strictObject({
     repo: localized,
     comingSoon: localized,
   }),
+  cv: z.strictObject({ download: localized }),
   hud: z.strictObject({
     contact: localized,
     legal: localized,

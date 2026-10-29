@@ -1,20 +1,36 @@
 intro:
   de: >-
-    Software Engineer mit rund 6 Jahren Erfahrung in industrieller und betriebswirtschaftlicher
-    Software. Mein Schwerpunkt liegt auf Python-Backends, Microservices sowie DevOps und
-    DevSecOps – von Echtzeit-Bildverarbeitung bis zur Ablösung gewachsener Legacy-Systeme.
+    Ich bin Software Engineer mit rund sechs Jahren Erfahrung in industrieller und
+    betriebswirtschaftlicher Software – vom Python-Backend über zentrale CI/CD-Pipelines bis zur
+    Echtzeit-Bildverarbeitung direkt an der Anlage.
+  en: ''
+competencies:
+  - de: 'Backend-Entwicklung mit Python, FastAPI und Microservices – von API-Design bis Unit-Tests'
+    en: ''
+  - de: 'DevOps & DevSecOps: zentrale CI/CD-Templates mit SAST, SBOM und Image-Signing, GitLab-Administration'
+    en: ''
+  - de: 'Technische Planung: Roadmaps, Backlogs in Milestones und Epics, Sprintplanung über Teams hinweg'
+    en: ''
+  - de: 'Hardwarenahe Entwicklung in C++20 und OpenCV: Echtzeit-Bildverarbeitung, eigene Treiber und I/O'
+    en: ''
+  - de: 'Nachvollziehbare Arbeitsweise: ADRs, Docs-as-Code, Code-Reviews, TDD und Erfahrung im ISO-27001-Audit'
+    en: ''
+private:
+  de: >-
+    Auch privat lässt mich Technik nicht los: Am liebsten baue ich an Projekten mit Hardware –
+    Mikrocontroller, Sensoren und kleine IoT-Systeme, vom Breadboard bis zur Auswertung im Container.
   en: ''
 education:
-  - period: { de: '2016 – 2020', en: '' }
+  - period: { de: '10/2016 – 01/2020', en: '' }
     title: { de: B.Sc. Informatik, en: '' }
     place: Hochschule Niederrhein
 skills:
   - group: { de: Entwicklung, en: '' }
     items: [Python, FastAPI, Microservices, C++20, OpenCV, C#/.NET, MSSQL]
   - group: { de: DevOps & DevSecOps, en: '' }
-    items: [GitLab CI/CD, Azure Pipelines, GitHub Actions, Docker, SAST, SBOM, Image Signing]
+    items: [GitLab CI/CD, Azure DevOps, Docker, GitLab-Admin, SAST, SBOM, Image Signing, ISO 27001]
   - group: { de: Architektur & Planung, en: '' }
-    items: [REST, Clean Architecture, DDD, TDD, Technical Scoping, Jira, Confluence]
+    items: [REST, Clean Architecture, DDD, TDD, ADRs, Docs-as-Code, Roadmaps, Backlog, Jira]
 languages:
   - name: { de: Deutsch, en: '' }
     level: { de: Muttersprache, en: '' }

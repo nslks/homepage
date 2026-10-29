@@ -1,33 +1,63 @@
+# Mirrors the CV (public/cv.pdf); towns are left out on the site
 entries:
   - company: Siempelkamp
-    role: { de: 'Softwareentwickler – Backend, DevOps & Fullstack', en: '' }
-    period: { de: '04/2022 – 09/2026', en: '' }
+    role: { de: 'Backend- und DevOps-Entwicklung, technische Projektkoordination', en: '' }
+    period: { de: '04/2025 – 09/2026', en: '' }
     highlights:
       - de: >-
-          Roadmap, Scopes und Epics für die Migration einer Legacy-Anwendung zu Microservices
-          erarbeitet und ein fünfköpfiges Team koordiniert.
-        en: ''
-      - de: Python-Microservices und Schnittstellen für die schrittweise Ablösung umgesetzt.
+          Python/FastAPI-Anwendung als technischer Owner weiterentwickelt: klarere API und
+          Datenmodelle, Unit-Tests als Sicherheitsnetz, abgestimmte Schnittstellen zum Frontend.
         en: ''
       - de: >-
-          Modulares CI/CD-Template entwickelt und Repository-Pipelines auf eine zentrale
-          Grundlage überführt – inklusive SAST, SBOM und Image Signing.
-        en: ''
-      - de: Strategie zur Konsolidierung von GitLab, Azure und TFS in GitHub Enterprise erarbeitet.
+          Modernisierung eines Legacy-Produkts zu Microservices planbar gemacht: Roadmap abgeleitet,
+          Backlog in Milestones und Epics strukturiert, zuletzt Sprintplanung koordiniert.
         en: ''
       - de: >-
-          Echtzeit-Kameraüberwachung in C++20/OpenCV entwickelt: acht parallele Streams mit je
-          150 Bildern pro Sekunde.
+          Drei parallele DevOps-Systeme (GitLab, Azure DevOps, TFS) auf GitLab als gemeinsame
+          Plattform ausgerichtet: Zielbild erarbeitet, TFS-Repositories migriert, Nutzer eingewiesen.
         en: ''
-    tech: [Python, Microservices, Docker, GitLab CI/CD, Azure Pipelines, C++20, OpenCV]
+      - de: >-
+          Zentrale CI/CD-Templates eingeführt: einheitliche Pipelines statt Einzellösungen,
+          Sicherheitsprüfungen (SAST, SBOM, Image-Signing) standardmäßig in jedem Build.
+        en: ''
+      - de: 'ISO-27001-Audit: Entwicklungsseite vertreten, Nachweise geliefert, Abweichungen nachbereitet.'
+        en: ''
+      - de: >-
+          Entscheidungen als ADRs und Doku per Docs-as-Code (MkDocs) festgehalten, damit Wissen nicht
+          an Einzelpersonen hängt; Code-Reviews mit Fokus auf Design.
+        en: ''
+    tech:
+      [
+        Python,
+        FastAPI,
+        Microservices,
+        Docker,
+        GitLab CI/CD,
+        Azure DevOps,
+        SAST,
+        SBOM,
+        Image Signing,
+        ISO 27001,
+        MkDocs,
+      ]
+  - company: Siempelkamp
+    role: { de: Hardwarenaher Fullstack-Entwickler, en: '' }
+    period: { de: '04/2022 – 04/2025', en: '' }
+    highlights:
+      - de: >-
+          Optische Inspektionseinheit für Stahlbänder in C++20/OpenCV entwickelt, die
+          Oberflächenfehler in Echtzeit erkennt: acht Kamerastreams mit je 150 Bildern/s, inklusive
+          Web-Frontend.
+        en: ''
+      - de: Architektur entworfen; Kameras, Sensorik und Anlage über eigene Treiber und I/O angebunden.
+        en: ''
+    tech: [C++20, OpenCV, Multithreading, I/O-Module, GitLab CI/CD, HTML/CSS/JS]
   - company: Schleupen SE
-    role: { de: Softwareentwickler Energie- & Wasserwirtschaft, en: '' }
+    role: { de: Softwareentwickler Energie- und Wasserwirtschaft, en: '' }
     period: { de: '04/2020 – 04/2022', en: '' }
     highlights:
-      - de: ERP-System für die Energie- und Wasserwirtschaft mit C#/.NET weiterentwickelt.
+      - de: ERP-Software für Stadtwerke in C#/.NET weiterentwickelt, Fachdomänen nach DDD modelliert.
         en: ''
-      - de: Fachlogik nach Domain Driven Design umgesetzt.
-        en: ''
-      - de: Änderungen mit automatisierten Tests und Code-Reviews abgesichert.
+      - de: Im agilen Team testgetrieben (TDD) entwickelt; Code-Reviews sicherten Änderungen früh ab.
         en: ''
     tech: [C#, .NET, MSSQL, TDD, DDD]

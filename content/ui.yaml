@@ -17,6 +17,10 @@ prompt:
   interact: { de: E drücken, en: '' }
 panel:
   close: { de: Schließen, en: '' }
+  competencies: { de: Kernkompetenzen, en: '' }
+  private: { de: Privat, en: '' }
+  toProjects: { de: Mehr dazu unter „Eigene Projekte“, en: '' }
+  cvHint: { de: Den vollständigen Lebenslauf können Sie als PDF herunterladen., en: '' }
   education: { de: Ausbildung, en: '' }
   skills: { de: Skills, en: '' }
   languages: { de: Sprachen, en: '' }
@@ -24,6 +28,8 @@ project:
   open: { de: Zum Projekt, en: '' }
   repo: { de: Quellcode, en: '' }
   comingSoon: { de: Bald verfügbar, en: '' }
+cv:
+  download: { de: Lebenslauf (PDF), en: '' }
 hud:
   contact: { de: Kontakt, en: '' }
   legal: { de: Impressum · Datenschutz, en: '' }
