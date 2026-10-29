@@ -1,4 +1,4 @@
-# Real projects; no url → no "Zum Projekt" button, status wip → "In Arbeit" badge
+# Real projects; buttons only for url/repoUrl, status wip → "In Arbeit" badge
 entries:
   - name: Ryft
     summary:
@@ -9,9 +9,15 @@ entries:
     accent: '#c8553d'
   - name: Climora
     summary:
-      de: Schimmelprävention mit eigenen Sensoren. Arduino-Sensoren messen Temperatur und Luftfeuchte, eine lokale KI entscheidet, ob gelüftet oder geheizt werden soll, und schickt die Empfehlung als Push-Nachricht aufs Handy.
+      de: Schimmelprävention mit eigenen Sensoren. Arduino-Sensoren messen Temperatur und Luftfeuchte, eine lokale KI entscheidet, ob gelüftet oder geheizt werden soll, und schickt die Empfehlung als Push-Nachricht aufs Handy. Über einen eigenen MCP-Server kann ein KI-Agent auch längere Verläufe auswerten.
       en: ''
-    tech: [Arduino, MQTT, Python, FastAPI, InfluxDB, Ollama, ntfy, Docker]
+    tech: [Arduino, MQTT, Python, FastAPI, InfluxDB, Ollama, MCP, ntfy, Docker]
     status: wip
     diagram: climora
     accent: '#3d7ac8'
+  - name: Homepage
+    summary:
+      de: Du stehst gerade drin – ein Lebenslauf als begehbare Low-Poly-Insel, im Browser und auf dem Handy. Inhalte kommen aus YAML und werden beim Build geprüft; gebaut nach Spec, ADRs und Issues mit Akzeptanzkriterien, ausgeliefert per GitHub Actions.
+      en: ''
+    tech: [TypeScript, React, three.js, React Three Fiber, Rapier, Vite, GitHub Actions]
+    accent: '#e0a63a'
