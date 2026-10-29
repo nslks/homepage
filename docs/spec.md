@@ -1,6 +1,6 @@
 # Homepage — Product Specification
 
-> Status: agreed · Owner: @nslks · Last updated: 2026-10-28
+> Status: agreed · Owner: @nslks · Last updated: 2026-10-29
 
 ## 1. Vision
 
@@ -16,20 +16,24 @@ Recruiters must be able to reach everything important **without having to walk**
 
 ## 2. Scope
 
+### In scope for mobile support (milestone `M1.1 – Mobile`)
+
+The same 3D island on phones and tablets — see [§5.5](#55-mobile--touch).
+
 ### In scope for the MVP (milestone `M1 – MVP`)
 
-- Desktop browsers only (see [§7 Constraints](#7-constraints)).
+- Desktop browsers (see [§7 Constraints](#7-constraints)); phones and tablets follow in `M1.1 – Mobile`.
 - German content only; all content is modelled bilingually (`de`/`en`) from day one.
 - Floating low-poly island with four stations plus a welcome sign.
 - Character (male/female toggle), keyboard controls, isometric follow camera.
 - Day/night mode with animated transition.
 - Loading screen, intro camera flight, controls hint, HUD, content panels.
 - Legal modal (Impressum + Datenschutz).
-- Notice for non-desktop devices.
+- Notice for non-desktop devices (replaced by full mobile support in M1.1, [§5.5](#55-mobile--touch)).
 
 ### Explicitly out of scope for the MVP (own epics, see [§9](#9-milestones--roadmap))
 
-Azure hosting, CI expansion, English translation, mobile support, classic fallback view and
+Azure hosting, CI expansion, English translation, classic fallback view and
 extended accessibility, sound, world polish, real project links, coupling to `cvgenerator`,
 custom domain, analytics (never planned, see [ADR 0004](adr/0004-no-cookies-no-tracking.md)).
 
@@ -50,8 +54,8 @@ custom domain, analytics (never planned, see [ADR 0004](adr/0004-no-cookies-no-t
                  N
           [ Work experience ]
                  |
- [ Career ] ---- + ---- [ Projects ]
-  (timeline)     |       (row of doors)
+ [ About me ] -- + -- [ Projects ]
+  (signpost)     |     (houses with doors)
                  |
      [ Mailbox ] [ Welcome sign ]
               SPAWN
@@ -106,6 +110,8 @@ A visitor must recognise **what** a station is and **that** it is interactive at
 | `E` / `Enter` | Open the station in range |
 | `Esc` | Close the open panel |
 | Click on a station label | Open that station's panel directly, from any distance |
+| Click / tap on the ground | Walk there along a path around obstacles (M1.1, [§5.5](#55-mobile--touch)) |
+| Click / tap on a station model or a project door | Open that station / that project directly (M1.1) |
 
 - **No jumping.**
 - Movement is blocked while a panel is open.
@@ -113,7 +119,8 @@ A visitor must recognise **what** a station is and **that** it is interactive at
 ### 4.3 Camera
 
 - Elevated, isometric-like angle that **smoothly follows** the character.
-- A large part of the island is always visible.
+- A large part of the island is always visible; the distance adapts to the aspect ratio, so
+  portrait screens zoom out (M1.1).
 
 ## 5. UI
 
@@ -151,10 +158,35 @@ A visitor must recognise **what** a station is and **that** it is interactive at
 - "Impressum · Datenschutz" opens a modal with two switchable tabs, minimal required content,
   sourced from YAML.
 
-### 5.5 Non-desktop notice
+### 5.5 Mobile & touch
 
-- Devices not matching the desktop query (see §7) get a plain card instead of the 3D world:
-  "Diese Seite ist für Desktop gemacht" + name, one sentence about me, contact links.
+*MVP:* devices not matching the desktop query get a plain card ("Diese Seite ist für Desktop
+gemacht"). *M1.1* replaces it with the full experience:
+
+- **No device split:** keyboard, mouse and touch work at the same time on every device; only the
+  layout follows the viewport width. The card remains only for devices without WebGL
+  (*Fallback* epic).
+- **Tap-to-move:** tapping (or clicking) the ground walks the character there along a path found
+  on a navigation grid of the island (A\*), around trees, rocks and buildings. A pulsing ring in
+  the accent colour marks the target until the character arrives; unreachable spots resolve to
+  the nearest reachable point.
+- **Tap targets:** tapping a station label or model opens its panel; tapping a project door opens
+  that project.
+- **Gestures:** pinch and drag on the 3D canvas do nothing (no accidental zoom, no camera
+  rotation — see Polish #63); browser zoom stays available outside the canvas.
+- **Camera:** portrait first; distance adapts to the aspect ratio; rotating the device updates
+  camera and layout immediately, an open panel stays open.
+- **Panels as bottom sheets** on narrow screens: full width, ~90 % height, content scrolls inside;
+  closed by swiping down, tapping the dimmed backdrop or the close button. The legal modal too.
+- **Compact HUD:** name top left, toggles top right, bottom bar with icons only (LinkedIn,
+  Kontakt, ⓘ for Impressum/Datenschutz); safe-area insets respected; touch targets ≥ 44 px.
+- **Controls hint on touch:** "Tippe auf den Boden, um zu laufen · Tippe auf ein Schild, um es zu
+  öffnen" instead of keyboard keys.
+- **Adaptive quality:** start at *medium*; if the frame rate stays below 30 fps for a few seconds,
+  step down, step up again when it is stable. Tiers control pixel ratio, shadow resolution, the
+  number of real lantern lights at night and the number of fireflies. Rendering pauses while
+  the tab is hidden.
+- **No haptics** (would feel cheap; inconsistent support anyway).
 
 ## 6. Content
 
@@ -185,9 +217,9 @@ summary:
 
 | Area | Constraint |
 |---|---|
-| Devices | MVP: desktop only = `(pointer: fine) and (min-width: 1024px)` |
-| Browsers | Current Chrome, Firefox, Safari, Edge (desktop) with WebGL 2 |
-| Performance | 60 fps on an average laptop · initial payload < 5 MB · interactive after ~3 s |
+| Devices | MVP: desktop only = `(pointer: fine) and (min-width: 1024px)` · M1.1: all devices with WebGL 2, layout by viewport width |
+| Browsers | Current Chrome, Firefox, Safari, Edge with WebGL 2 — desktop, and from M1.1 iOS Safari and Android Chrome |
+| Performance | 60 fps on an average laptop · 30+ fps on a mid-range phone from ~2023 (M1.1) · initial payload < 5 MB · interactive after ~3 s |
 | Privacy | No cookies, no analytics, no tracking, no third-party requests (fonts/assets self-hosted) |
 | Persistence | User preferences (theme, character) are stored in `localStorage` — no cookies, nothing transmitted |
 | Development | Only inside the dev container (local OrbStack or GitHub Codespaces), nothing installed on the host |
@@ -206,6 +238,7 @@ summary:
 | Milestone | Content |
 |---|---|
 | **M0 – Foundation** | Dev container, Vite + R3F skeleton, minimal CI (lint, typecheck, build), deploy to GitHub Pages |
-| **M1 – MVP** | Everything in §2 *In scope* |
+| **M1 – MVP** | Everything in §2 *In scope for the MVP* |
+| **M1.1 – Mobile** | Phones and tablets: tap-to-move with pathfinding, bottom sheets, compact HUD, adaptive quality ([§5.5](#55-mobile--touch)) |
 | **M2 – Azure Hosting** | Terraform, Azure Static Web Apps, deployment pipeline, switch-over |
-| **Backlog** | Epics: CI expansion · i18n (EN) · Mobile · Fallback & accessibility · Sound · Polish · Real projects & links · `cvgenerator` coupling · Custom domain |
+| **Backlog** | Epics: CI expansion · i18n (EN) · Fallback & accessibility · Sound · Polish · Real projects & links · `cvgenerator` coupling · Custom domain |
