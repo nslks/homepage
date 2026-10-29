@@ -6,6 +6,7 @@ import {
   paths,
   plazas,
   type Point,
+  pond,
 } from './layout'
 import { createRandom } from './random'
 
@@ -42,6 +43,8 @@ function isFree(p: Point, clearance: number, placed: Point[]) {
       ({ center, radius }) => Math.hypot(p.x - center.x, p.z - center.z) < radius + clearance,
     )
   )
+    return false
+  if (pond && Math.hypot(p.x - pond.center.x, p.z - pond.center.z) < pond.radius + 0.4 + clearance)
     return false
   return placed.every((q) => Math.hypot(p.x - q.x, p.z - q.z) > clearance * 1.6)
 }

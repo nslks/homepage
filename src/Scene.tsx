@@ -19,6 +19,7 @@ import { Island } from './world/Island'
 import { Lanterns } from './world/Lanterns'
 import { Lighting } from './world/Lighting'
 import { Paths } from './world/Paths'
+import { Pond } from './world/Pond'
 import { Sky } from './world/Sky'
 
 // Append ?debug to the URL to render physics colliders
@@ -46,6 +47,7 @@ export function Scene() {
       <Physics debug={debug}>
         <Island />
         <Paths />
+        <Pond />
         <Decor />
         <Lanterns />
         <Player />
