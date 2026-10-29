@@ -1,10 +1,11 @@
 import { X } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { localize, site, ui } from '../content'
 import { useAppStore } from '../state/store'
 import './panel.css'
 import { RichText } from './RichText'
 import { trapTab } from './trapTab'
+import { useSwipeToClose } from './useSwipeToClose'
 
 type Tab = 'impressum' | 'datenschutz'
 const tabs: Tab[] = ['impressum', 'datenschutz']
@@ -19,6 +20,10 @@ export function LegalModal() {
     impressum: null,
     datenschutz: null,
   })
+  useSwipeToClose(
+    dialog,
+    useCallback(() => setOpen(false), [setOpen]),
+  )
 
   useEffect(() => {
     const element = dialog.current
@@ -46,6 +51,7 @@ export function LegalModal() {
     >
       {open && (
         <>
+          <div className="panel__grip" aria-hidden="true" />
           <header className="panel__header">
             <div className="tabs" role="tablist" onKeyDown={onTabKey}>
               {tabs.map((id) => (
