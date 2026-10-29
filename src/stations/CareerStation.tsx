@@ -177,9 +177,9 @@ function ArcLamp() {
         <cylinderGeometry args={[0.03, 0.03, 2, 6]} />
         <meshStandardMaterial color="#2f3145" flatShading />
       </mesh>
-      {/* quarter arc from the pole top towards the chair */}
+      {/* half circle from the pole top over to the shade, which hangs from its end */}
       <mesh position={[0.45, 2.05, 0]}>
-        <torusGeometry args={[0.45, 0.025, 6, 16, Math.PI / 2]} />
+        <torusGeometry args={[0.45, 0.025, 6, 16, Math.PI]} />
         <meshStandardMaterial color="#2f3145" flatShading />
       </mesh>
       <mesh position={[0.9, 1.92, 0]} material={shade} castShadow>

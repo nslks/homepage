@@ -221,7 +221,7 @@ export function Decor() {
         meshRef={(mesh) => (crownMeshes.current.clouds = mesh)}
       />
 
-      {/* colliders unchanged from the per-mesh version */}
+      {/* colliders: trees and rocks block, bushes don't */}
       <RigidBody type="fixed" colliders={false}>
         {trees.map((tree, i) => (
           <CylinderCollider key={i} args={[1, 0.3 * tree.scale]} position={[tree.x, 1, tree.z]} />
@@ -229,15 +229,11 @@ export function Decor() {
         {rocks.map((rock, i) => (
           <CylinderCollider
             key={i}
-            args={[0.5, rock.scale * 0.85]}
+            args={[0.5, rock.scale * 0.7]}
             position={[rock.x, 0.5, rock.z]}
           />
         ))}
-        {bushes.map((bush, i) => (
-          <group key={i} position={[bush.x, 0, bush.z]} scale={bush.scale}>
-            <CylinderCollider args={[0.5, 0.9]} position={[0.2, 0.5, 0]} />
-          </group>
-        ))}
+        {/* bushes are walk-through on purpose: soft vegetation should not snag the character */}
       </RigidBody>
     </>
   )

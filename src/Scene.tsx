@@ -11,6 +11,8 @@ import { playerPosition } from './player/playerPosition'
 import { Stations } from './stations/Stations'
 import { Decor } from './world/Decor'
 import { environment } from './world/environment'
+import { lanterns, plazas, polylines, stationSigns } from './world/layout'
+import { bushes, rocks, trees } from './world/decorPlacement'
 import { findPath } from './navigation/grid'
 import { navigation } from './navigation/navigation'
 import { autopilot, walkTo } from './player/autopilot'
@@ -27,6 +29,7 @@ const debug = new URLSearchParams(window.location.search).has('debug')
 // exposes live state for manual and automated checks in debug mode
 if (debug)
   Object.assign(window, {
+    __layoutDebug: { polylines, plazas, lanterns, stationSigns, decor: { trees, rocks, bushes } },
     __homepage: {
       playerPosition,
       store: useAppStore,

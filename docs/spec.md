@@ -103,7 +103,7 @@ follows the character and sits at the closest lanterns.
 |---|---|
 | `?layout=kreuz` | **Kreuz** — the original: spawn in the south, a crossing, one station per direction |
 | `?layout=rundweg` | **Rundweg** — a winding loop around a pond in the middle, stations at irregular angles off the loop |
-| *(none)* or `?layout=wanderweg` | **Wanderweg (default)** — a longer island, an S-shaped trail from south to north; stations alternate left and right in story order: Über mich → Berufserfahrung → Eigene Projekte → Kontakt at the end; lanterns every few metres and one at every station |
+| *(none)* or `?layout=wanderweg` | **Wanderweg (default)** — a longer island, an S-shaped trail from south to north; Kontakt (the most important station) right beside the spawn, then Über mich (left) and Berufserfahrung (right) along the trail, Eigene Projekte at the end; lanterns every few metres and one at every station |
 
 ## 4. Character & controls
 
@@ -162,7 +162,7 @@ follows the character and sits at the closest lanterns.
 │                                                              │
 │                        (3D world)                            │
 │                                                              │
-│        LinkedIn · Kontakt              Impressum · Datenschutz│
+│        Kontakt                         Impressum · Datenschutz│
 └──────────────────────────────────────────────────────────────┘
 ```
 

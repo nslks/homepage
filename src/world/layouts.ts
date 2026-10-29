@@ -90,13 +90,13 @@ const kreuz: LayoutPreset = {
   ],
   junctions: [{ center: { x: 0, z: 0 }, radius: 2 }],
   lanterns: [
-    { x: 1.6, z: 7 },
-    { x: -1.9, z: 1.9 },
-    { x: 1.9, z: -1.9 },
-    { x: -6.8, z: -1.5 },
-    { x: 1.5, z: -6.8 },
-    { x: 6.8, z: 1.5 },
-    { x: -2.6, z: 11.5 },
+    { x: 2, z: 7 },
+    { x: -2.3, z: 2.3 },
+    { x: 2.3, z: -2.3 },
+    { x: -6.8, z: -2 },
+    { x: 2, z: -6.6 },
+    { x: 6.8, z: 2 },
+    { x: -2.4, z: 12.3 },
   ],
 }
 
@@ -163,8 +163,9 @@ const rundweg: LayoutPreset = {
   pond: { center: { x: 0, z: 0.5 }, radius: 3.3 },
 }
 
-// A hike: a longer island and an S-shaped trail from the south to the northern tip; the stations
-// alternate left and right in story order — who I am, where I worked, what I build, get in touch
+// A hike: a longer island and an S-shaped trail from the south to the northern tip. Contact —
+// the most important station — sits right beside the spawn; then the trail leads past who I am
+// (left) and where I worked (right) to what I build at the end
 const trail: Point[] = [
   { x: 0.5, z: 12.8 },
   { x: -1.5, z: 9.6 },
@@ -174,7 +175,7 @@ const trail: Point[] = [
   { x: 2.2, z: -2.2 },
   { x: -0.6, z: -4.8 },
   { x: -1.4, z: -8 },
-  { x: 0.2, z: -11.2 },
+  { x: 0.3, z: -11.2 },
 ]
 
 const wanderweg: LayoutPreset = {
@@ -184,18 +185,26 @@ const wanderweg: LayoutPreset = {
   stationLanterns: true,
   spawn: { x: 0.5, z: 12.8 },
   stations: {
-    career: { x: -6.4, z: 7.4, facing: 0.55 },
+    contact: { x: 4.3, z: 10.6, facing: -0.3 },
+    career: { x: -5.8, z: 7, facing: 0.55 },
     work: { x: 5.8, z: 2.6, facing: -0.4 },
-    projects: { x: -5.4, z: -4.6, facing: 0.35 },
-    contact: { x: 0.4, z: -12.9, facing: 0 },
+    projects: { x: 0.3, z: -11.2, facing: 0 },
   },
   routes: [
     { points: trail, curved: true },
     {
       points: [
+        { x: 0.5, z: 12.8 },
+        { x: 2.5, z: 11.8 },
+        { x: 4.3, z: 10.6 },
+      ],
+      curved: true,
+    },
+    {
+      points: [
         { x: -3.2, z: 6.4 },
-        { x: -4.9, z: 7.1 },
-        { x: -6.4, z: 7.4 },
+        { x: -4.6, z: 6.8 },
+        { x: -5.8, z: 7 },
       ],
       curved: true,
     },
@@ -206,20 +215,6 @@ const wanderweg: LayoutPreset = {
         { x: 5.8, z: 2.6 },
       ],
       curved: true,
-    },
-    {
-      points: [
-        { x: -0.6, z: -4.8 },
-        { x: -3, z: -4.5 },
-        { x: -5.4, z: -4.6 },
-      ],
-      curved: true,
-    },
-    {
-      points: [
-        { x: 0.2, z: -11.2 },
-        { x: 0.4, z: -12.9 },
-      ],
     },
   ],
   junctions: [],

@@ -32,15 +32,17 @@ function distanceToSegment(p: Point, a: Point, b: Point) {
 // they stand either clearly inside the walkable area or beyond the wall
 const WALL_GAP = 1.4
 
-function isFree(p: Point, clearance: number, placed: Point[]) {
+// `pathMargin`: distance kept from path edges and plazas — at least the collider plus the
+// character's width, so path corridors stay free
+function isFree(p: Point, clearance: number, placed: Point[], pathMargin = clearance) {
   const radius = Math.hypot(p.x, p.z)
   const wall = islandRadiusAt(p) - BOUNDARY_INSET
   if (radius > Math.min(MAX_RADIUS, islandRadiusAt(p) - 0.6)) return false
   if (radius > wall - WALL_GAP - clearance && radius < wall + clearance) return false
-  if (paths.some(([a, b]) => distanceToSegment(p, a, b) < PATH_WIDTH / 2 + clearance)) return false
+  if (paths.some(([a, b]) => distanceToSegment(p, a, b) < PATH_WIDTH / 2 + pathMargin)) return false
   if (
     plazas.some(
-      ({ center, radius }) => Math.hypot(p.x - center.x, p.z - center.z) < radius + clearance,
+      ({ center, radius }) => Math.hypot(p.x - center.x, p.z - center.z) < radius + pathMargin,
     )
   )
     return false
@@ -72,6 +74,7 @@ function scatter<T extends Point>(
   placed: Point[],
   accept: (p: Point) => boolean,
   create: (p: Point, random: () => number) => T,
+  pathMargin = clearance,
 ): T[] {
   const random = createRandom(seed)
   const result: T[] = []
@@ -79,7 +82,7 @@ function scatter<T extends Point>(
     const angle = random() * Math.PI * 2
     const radius = Math.sqrt(random()) * MAX_RADIUS
     const p = { x: Math.cos(angle) * radius, z: Math.sin(angle) * radius }
-    if (!accept(p) || !isFree(p, clearance, placed)) continue
+    if (!accept(p) || !isFree(p, clearance, placed, pathMargin)) continue
     const item = create(p, random)
     result.push(item)
     placed.push(item)
@@ -112,6 +115,7 @@ export const rocks: Rock[] = scatter(
   placed,
   () => true,
   (p, random) => ({ ...p, scale: 0.35 + random() * 0.45, rotation: random() * Math.PI }),
+  1.7,
 )
 
 export const bushes: Bush[] = scatter(

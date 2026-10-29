@@ -48,8 +48,8 @@ export const stations = preset.stations
 export const pond = preset.pond ?? null
 
 export const PATH_WIDTH = 1.8
-export const STATION_PLAZA_RADIUS = 2.6
-const CONTACT_PLAZA_RADIUS = 1.4
+export const STATION_PLAZA_RADIUS = 3
+const CONTACT_PLAZA_RADIUS = 2
 const plazaRadius = (id: StationId) =>
   id === 'contact' ? CONTACT_PLAZA_RADIUS : STATION_PLAZA_RADIUS
 
@@ -57,7 +57,8 @@ const plazaRadius = (id: StationId) =>
 export const interactionRadius = Object.fromEntries(
   (Object.keys(stations) as StationId[]).map((id) => [
     id,
-    plazaRadius(id) + (id === 'contact' ? 0.9 : 0.6),
+    // generous: no need to walk up to the furniture
+    plazaRadius(id) + 1,
   ]),
 ) as Record<StationId, number>
 
@@ -147,7 +148,8 @@ export const lanterns: Point[] =
   preset.lanterns ??
   (() => {
     const SPACING = preset.lanternSpacing ?? 6.5
-    const OFFSET = 1.45
+    // far enough from the path edge that walking along it never brushes a lantern post
+    const OFFSET = 1.95
     const placed: Point[] = []
     polylines.forEach((line, l) => {
       // distance still to walk until the next lantern, carried across segments

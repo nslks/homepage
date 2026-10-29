@@ -22,7 +22,7 @@ type AppState = {
   // the camera flight after loading; movement is locked until it is done or skipped
   introDone: boolean
   finishIntro: () => void
-  // the welcome card is shown once per browser
+  // the welcome card is shown on every visit (owner feedback: it seemed to never appear)
   welcomeSeen: boolean
   dismissWelcome: () => void
   // Impressum / Datenschutz modal; movement is locked while it is open
@@ -97,11 +97,17 @@ export const useAppStore = create<AppState>()(
       name: 'homepage-preferences',
       storage: createJSONStorage(() => safeLocalStorage),
       // only explicit user preferences are stored (ADR 0004)
-      partialize: ({ character, theme, welcomeSeen }) => ({
-        character,
-        theme,
-        welcomeSeen,
-      }),
+      partialize: ({ character, theme }) => ({ character, theme }),
+      // only these two come back from storage — older visits also stored e.g. `welcomeSeen`,
+      // which would otherwise keep the welcome card hidden for good
+      merge: (persisted, current) => {
+        const stored = (persisted ?? {}) as Partial<AppState>
+        return {
+          ...current,
+          ...(stored.character && { character: stored.character }),
+          ...(stored.theme && { theme: stored.theme }),
+        }
+      },
     },
   ),
 )
