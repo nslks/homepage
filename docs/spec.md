@@ -53,7 +53,7 @@ Azure hosting, CI expansion, English translation, extended accessibility and SEO
           [ Work experience ]
                  |
  [ About me ] -- + -- [ Projects ]
-  (reading corner) |   (lab)
+  (reading corner) |   (desk + maker bench)
                  |
      [ Mailbox ]
               SPAWN
@@ -65,7 +65,7 @@ Azure hosting, CI expansion, English translation, extended accessibility and SEO
 | **Contact** | Next to spawn | Mailbox | Links: LinkedIn, GitHub, mail |
 | **About me** ("Über mich") | West | Reading corner: armchair, floor lamp, books on a rug | Intro, core competencies, private projects teaser, education, skills, languages |
 | **Work experience** ("Berufserfahrung") | North | Glass-front office block | Roles and bullet points as in the CV — jobs appear only here |
-| **Projects** ("Eigene Projekte") | East | Open lab pavilion: workbench with one monitor per project, soldering station, board, oscilloscope | Summary, tech, link |
+| **Projects** ("Eigene Projekte") | East | Desk with office chair and curved monitor next to a maker bench (soldering station, Arduino, breadboard, multimeter, pegboard) | All projects in one panel: summary, tech, link |
 
 Station positions are code constants (see [ADR 0003](adr/0003-content-in-yaml.md)).
 
@@ -109,7 +109,7 @@ A visitor must recognise **what** a station is and **that** it is interactive at
 | `Esc` | Close the open panel |
 | Click on a station label | Open that station's panel directly, from any distance |
 | Click / tap on the ground | Walk there along a path around obstacles (M1.1, [§5.5](#55-mobile--touch)) |
-| Click / tap on a station model or a project monitor | Open that station / that project directly (M1.1) |
+| Click / tap on a station model | Open that station directly (M1.1) |
 
 - **No jumping.**
 - Movement is blocked while a panel is open.
@@ -179,8 +179,8 @@ gemacht"). *M1.1* replaces it with the full experience:
   on a navigation grid of the island (A\*), around trees, rocks and buildings. A pulsing ring in
   the accent colour marks the target until the character arrives; unreachable spots resolve to
   the nearest reachable point.
-- **Tap targets:** tapping a station label or model opens its panel; tapping a project monitor opens
-  that project.
+- **Tap targets:** tapping a station label or model opens its panel; the projects station lists all
+  projects in one panel.
 - **Gestures:** pinch and drag on the 3D canvas do nothing (no accidental zoom, no camera
   rotation — see Polish #63); browser zoom stays available outside the canvas.
 - **Camera:** portrait first; distance adapts to the aspect ratio; rotating the device updates
@@ -213,7 +213,7 @@ summary:
 | `site.yaml` | `name`, `title`, `tagline`, `legal.impressum`, `legal.datenschutz` |
 | `career.yaml` | `intro`, `education[]: { period, title, place }`, `skills[]: { group, items[] }`, `languages[]` |
 | `work.yaml` | `entries[]: { company, role, period, highlights[] (3–5), tech[] }` |
-| `projects.yaml` | `entries[]: { name, summary, tech[], url?, repoUrl?, accent? }` — **max 6**, one monitor each in the lab |
+| `projects.yaml` | `entries[]: { name, summary, tech[], url?, repoUrl?, accent? }` — listed together in one panel |
 | `contact.yaml` | `links[]: { kind, label, url }` |
 | `ui.yaml` | all UI strings (button labels, prompts, hints) |
 

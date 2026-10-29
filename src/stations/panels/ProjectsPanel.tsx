@@ -1,7 +1,6 @@
 import { Code, ExternalLink } from 'lucide-react'
 import { localize, projects, ui } from '../../content'
 import type { Projects } from '../../content/schema'
-import { useAppStore } from '../../state/store'
 
 type Project = Projects['entries'][number]
 
@@ -49,13 +48,11 @@ function ProjectCard({ project }: { project: Project }) {
   )
 }
 
-// Opened at a door: that project. Opened via the station label: all projects
+// All projects in one panel — scales with any number of entries
 export function ProjectsPanel() {
-  const selected = useAppStore((state) => state.focusProject)
-  const shown = selected !== null ? [projects.entries[selected]!] : projects.entries
   return (
     <ul className="projects">
-      {shown.map((project) => (
+      {projects.entries.map((project) => (
         <ProjectCard key={project.name} project={project} />
       ))}
     </ul>

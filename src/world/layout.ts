@@ -50,7 +50,8 @@ export const stations: Record<StationId, Placement> = {
   // turned towards the camera, so the armchair is seen from the front
   career: { x: -10, z: 0, facing: Math.PI / 4 },
   work: { x: 0, z: -10, facing: 0 },
-  projects: { x: 10, z: 0, facing: -Math.PI / 2 },
+  // desk and maker bench face the camera
+  projects: { x: 10, z: 0, facing: 0 },
   contact: { x: -4.6, z: 10.4, facing: 0 },
 }
 
