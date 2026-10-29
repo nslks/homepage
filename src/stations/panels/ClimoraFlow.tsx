@@ -8,30 +8,68 @@ const prefersReducedMotion = () => {
   }
 }
 
-// one cycle: a measurement travels from the sensor to the phone, then the push shows up
-const CYCLE = '6s'
+// one cycle: a measurement travels from the sensor to the phone, then the push stays up a while
+const CYCLE = '8s'
 
 type Node = { x: number; y: number; w: number; label: string; sub: string }
 
-const W = 150
 const H = 44
-const nodes: Node[] = [
-  { x: 85, y: 8, w: W, label: 'Sensor', sub: 'Arduino' },
-  { x: 85, y: 84, w: W, label: 'MQTT', sub: 'Mosquitto' },
-  { x: 85, y: 160, w: W, label: 'Collector', sub: 'prüft die Messung' },
-  { x: 85, y: 236, w: W, label: 'Processor', sub: 'FastAPI' },
-  { x: 10, y: 312, w: 130, label: 'InfluxDB', sub: 'speichert' },
-  { x: 180, y: 312, w: 130, label: 'Ollama', sub: 'entscheidet' },
-  { x: 180, y: 388, w: 130, label: 'ntfy', sub: 'Push aufs Handy' },
-  { x: 10, y: 388, w: 130, label: 'MCP-Server', sub: 'liest den Verlauf' },
-  { x: 10, y: 464, w: 130, label: 'KI-Agent', sub: 'wertet Wochen aus' },
+// shared ingest: sensor → broker → collector → API
+const ingest: Node[] = [
+  { x: 75, y: 8, w: 170, label: 'ESP32', sub: 'DHT11: Temperatur & Feuchte' },
+  { x: 75, y: 76, w: 170, label: 'MQTT', sub: 'Broker, Publish/Subscribe' },
+  { x: 75, y: 144, w: 170, label: 'Data Collector', sub: 'Python, prüft Messwerte' },
+  { x: 75, y: 212, w: 170, label: 'API', sub: 'FastAPI' },
 ]
 
-// both paths run through node centres; the nodes are drawn on top, so dots "enter" each box
-const mainPath = 'M160 30 V258 L245 334 V410'
-const storePath = 'M160 258 L75 334'
-// the agent asks for history through the MCP server (via the processor API) and gets it back
-const historyPath = 'M75 486 V334'
+// after the API the flow splits into two scenarios, each in its own lane
+// titles sit at the outer edge so the lines can enter each lane on the inner side
+type Lane = { x: number; title: string; titleX: number; anchor: 'start' | 'end'; nodes: Node[] }
+const LANE_Y = 268
+const LANE_H = 220
+const lanes: Lane[] = [
+  {
+    x: 4,
+    title: 'Echtzeit → handeln',
+    titleX: 14,
+    anchor: 'start',
+    nodes: [
+      { x: 12, y: 300, w: 136, label: 'Ollama', sub: 'lokales Sprachmodell' },
+      { x: 12, y: 368, w: 136, label: 'ntfy', sub: 'Push aufs Handy' },
+    ],
+  },
+  {
+    x: 164,
+    title: 'Verlauf → Learnings',
+    titleX: 306,
+    anchor: 'end',
+    nodes: [
+      { x: 172, y: 300, w: 136, label: 'InfluxDB', sub: 'Zeitreihen-DB' },
+      { x: 172, y: 368, w: 136, label: 'MCP-Server', sub: 'liest den Verlauf' },
+      { x: 172, y: 436, w: 136, label: 'KI-Agent', sub: 'wertet Wochen aus' },
+    ],
+  },
+]
+
+// paths run through node centres; the nodes are drawn on top, so dots "enter" each box
+const mainPath = 'M160 30 V262 H140 V322 H80 V390'
+const storePath = 'M160 262 H180 V322 H240'
+// the agent asks for history through the MCP server and gets it back
+const historyPath = 'M240 458 V322'
+
+function FlowNode({ node }: { node: Node }) {
+  return (
+    <g>
+      <rect className="flow__node" x={node.x} y={node.y} width={node.w} height={H} rx="10" />
+      <text className="flow__label" x={node.x + node.w / 2} y={node.y + 19}>
+        {node.label}
+      </text>
+      <text className="flow__sub" x={node.x + node.w / 2} y={node.y + 35}>
+        {node.sub}
+      </text>
+    </g>
+  )
+}
 
 // Animated system diagram for Climora (no UI of its own, so the flow is what there is to see)
 export function ClimoraFlow() {
@@ -39,10 +77,24 @@ export function ClimoraFlow() {
   return (
     <svg
       className="flow"
-      viewBox="0 0 320 516"
+      viewBox="0 0 320 496"
       role="img"
       aria-label={localize(ui.project.climoraDiagram)}
     >
+      {lanes.map((lane) => (
+        <g key={lane.title}>
+          <rect className="flow__lane" x={lane.x} y={LANE_Y} width="152" height={LANE_H} rx="14" />
+          <text
+            className="flow__lane-title"
+            x={lane.titleX}
+            y={LANE_Y + 19}
+            textAnchor={lane.anchor}
+          >
+            {lane.title}
+          </text>
+        </g>
+      ))}
+
       <path className="flow__line" d={mainPath} />
       <path className="flow__line" d={storePath} />
       <path className="flow__line" d={historyPath} />
@@ -52,14 +104,14 @@ export function ClimoraFlow() {
           <circle className="flow__dot" r="6">
             <animateMotion dur={CYCLE} repeatCount="indefinite" path={mainPath} />
           </circle>
-          {/* waits at the processor until the main dot arrives (half of the main path) */}
+          {/* waits below the API until the main dot gets there (about half of the main path) */}
           <circle className="flow__dot" r="6">
             <animateMotion
               dur={CYCLE}
               repeatCount="indefinite"
               path={storePath}
               keyPoints="0;0;1;1"
-              keyTimes="0;0.5;0.65;1"
+              keyTimes="0;0.53;0.7;1"
               calcMode="linear"
             />
           </circle>
@@ -77,30 +129,24 @@ export function ClimoraFlow() {
         </>
       )}
 
-      {nodes.map((node) => (
-        <g key={node.label}>
-          <rect className="flow__node" x={node.x} y={node.y} width={node.w} height={H} rx="10" />
-          <text className="flow__label" x={node.x + node.w / 2} y={node.y + 19}>
-            {node.label}
-          </text>
-          <text className="flow__sub" x={node.x + node.w / 2} y={node.y + 35}>
-            {node.sub}
-          </text>
-        </g>
+      {ingest.map((node) => (
+        <FlowNode key={node.label} node={node} />
       ))}
+      {lanes.map((lane) => lane.nodes.map((node) => <FlowNode key={node.label} node={node} />))}
 
+      {/* appears when the dot reaches ntfy and stays for about 3.5 s */}
       <g className="flow__push">
-        <rect x="170" y="440" width="150" height="26" rx="13" />
-        <text x="245" y="457">
-          Bad: 78 % – lüften
+        <rect x="12" y="424" width="136" height="26" rx="13" />
+        <text x="80" y="441">
+          Bad: 78 % – lüften!
         </text>
         {animate && (
           <animate
             attributeName="opacity"
             dur={CYCLE}
             repeatCount="indefinite"
-            values="1;0;0;1;1"
-            keyTimes="0;0.1;0.88;0.92;1"
+            values="1;1;0;0;1"
+            keyTimes="0;0.4;0.45;0.96;1"
           />
         )}
       </g>

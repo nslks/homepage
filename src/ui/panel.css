@@ -171,10 +171,17 @@
 
 .projects {
   display: grid;
-  gap: 20px;
+  gap: 28px;
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+/* a clear divider between projects; they used to run into each other */
+.project + .project {
+  padding-top: 28px;
+  border-top: 1px solid var(--text-muted);
+  border-top-color: color-mix(in srgb, var(--text-muted) 35%, transparent);
 }
 
 .project__name {
@@ -221,6 +228,17 @@
   stroke: var(--text-muted);
   stroke-width: 2;
   stroke-dasharray: 4 4;
+}
+
+.flow__lane {
+  fill: var(--tag-bg);
+}
+
+.flow__lane-title {
+  fill: var(--text);
+  font-family: var(--font);
+  font-size: 12px;
+  font-weight: 700;
 }
 
 .flow__node {
