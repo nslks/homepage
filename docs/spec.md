@@ -90,6 +90,18 @@ A visitor must recognise **what** a station is and **that** it is interactive at
 - Toggling plays an animated transition of ~1–2 s (sun sets, moon rises, lanterns switch on).
 - The choice is persisted (see [§7](#7-constraints), *Persistence*).
 
+### 3.5 Layout variants
+
+The same island style, stations, content and camera in different arrangements, chosen at load time
+with `?layout=…` (presets in `src/world/layouts.ts`; positions, paths, lanterns and label anchors
+are derived from the preset; decor, colliders and the navigation grid follow automatically):
+
+| URL | Layout |
+|---|---|
+| *(none)* or `?layout=kreuz` | **Kreuz** — the original: spawn in the south, a crossing, one station per direction |
+| `?layout=rundweg` | **Rundweg** — a winding loop around a pond in the middle, stations at irregular angles off the loop |
+| `?layout=wanderweg` | **Wanderweg** — a longer island, an S-shaped trail from south to north; stations alternate left and right in story order: Über mich → Berufserfahrung → Eigene Projekte → Kontakt at the end |
+
 ## 4. Character & controls
 
 ### 4.1 Character
