@@ -9,7 +9,7 @@ import { StationPanel } from './ui/StationPanel'
 export function App() {
   return (
     <KeyboardControls map={controlsMap}>
-      <Canvas shadows camera={{ fov: 40 }}>
+      <Canvas shadows="soft" camera={{ fov: 40, far: 1000 }}>
         <Suspense fallback={null}>
           <Scene />
         </Suspense>
