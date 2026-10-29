@@ -116,7 +116,7 @@ export const uiSchema = z.strictObject({
     projects: localized,
     contact: localized,
   }),
-  prompt: z.strictObject({ interact: localized }),
+  prompt: z.strictObject({ interact: localized, tap: localized }),
   panel: z.strictObject({
     close: localized,
     competencies: localized,

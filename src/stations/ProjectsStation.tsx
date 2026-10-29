@@ -245,10 +245,7 @@ export function ProjectsStation() {
 
   return (
     <>
-      {/* above the roof */}
-      <Station id="projects" labelHeight={3.9}>
-        {null}
-      </Station>
+      <Station id="projects">{null}</Station>
       <Pavilion />
       <Props />
       {monitors.map((monitor, i) => (

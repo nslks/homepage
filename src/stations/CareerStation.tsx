@@ -127,7 +127,7 @@ function ReadingCorner() {
 
 export function CareerStation() {
   return (
-    <Station id="career" labelHeight={3}>
+    <Station id="career">
       <ReadingCorner />
     </Station>
   )
