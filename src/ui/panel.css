@@ -192,6 +192,75 @@
   background: #c8553d;
 }
 
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* construction-sign yellow, same in day and night */
+.badge--wip {
+  background: #f2c14e;
+  color: #3a2e00;
+}
+
+/* Climora system diagram (ClimoraFlow) */
+.flow {
+  display: block;
+  width: 100%;
+  max-width: 340px;
+  margin: 16px auto 0;
+}
+
+.flow__line {
+  fill: none;
+  stroke: var(--text-muted);
+  stroke-width: 2;
+  stroke-dasharray: 4 4;
+}
+
+.flow__node {
+  fill: var(--surface-panel);
+  stroke: var(--text-muted);
+  stroke-width: 1.5;
+}
+
+.flow__label,
+.flow__sub,
+.flow__push text {
+  font-family: var(--font);
+  text-anchor: middle;
+}
+
+.flow__label {
+  fill: var(--text);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.flow__sub {
+  fill: var(--text-muted);
+  font-size: 11px;
+}
+
+.flow__dot {
+  fill: var(--accent);
+}
+
+.flow__push rect {
+  fill: var(--button-bg);
+}
+
+.flow__push text {
+  fill: var(--button-text);
+  font-size: 12px;
+  font-weight: 600;
+}
+
 .project__summary {
   margin: 0 0 10px;
   font-size: 14px;

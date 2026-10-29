@@ -40,6 +40,10 @@ project:
   open: { de: Zum Projekt, en: '' }
   repo: { de: Quellcode, en: '' }
   comingSoon: { de: Bald verfügbar, en: '' }
+  wip: { de: In Arbeit, en: '' }
+  climoraDiagram:
+    de: 'Ablauf: Sensor misst, MQTT überträgt, Collector prüft, Processor speichert in InfluxDB und fragt Ollama, ntfy schickt die Empfehlung aufs Handy'
+    en: ''
 cv:
   download: { de: Lebenslauf (PDF), en: '' }
 hud:

@@ -1,20 +1,17 @@
-# Placeholders until the "Real projects & links" epic; no URLs → button shows "Bald verfügbar"
+# Real projects; no url → no "Zum Projekt" button, status wip → "In Arbeit" badge
 entries:
-  - name: Projekt A
+  - name: Ryft
     summary:
-      de: Platzhalter für ein eigenes Projekt. Hier steht bald eine kurze Beschreibung.
+      de: Trainingstagebuch fürs Handy für Hybrid-Training – Gym und Laufen in einem Wochenplan. Läufe kommen per Polar-Anbindung direkt vom Pulsgurt, Krafttraining wird am Plan entlang geloggt. Ein Spiegel, kein Coach.
       en: ''
-    tech: [Python, FastAPI, Docker]
+    tech: [Python, FastAPI, SQLite, Polar OAuth, nginx, Docker]
+    status: wip
     accent: '#c8553d'
-  - name: Projekt B
+  - name: Climora
     summary:
-      de: Platzhalter für ein eigenes Projekt. Hier steht bald eine kurze Beschreibung.
+      de: Schimmelprävention mit eigenen Sensoren. Arduino-Sensoren messen Temperatur und Luftfeuchte, eine lokale KI entscheidet, ob gelüftet oder geheizt werden soll, und schickt die Empfehlung als Push-Nachricht aufs Handy.
       en: ''
-    tech: [TypeScript, React, three.js]
+    tech: [Arduino, MQTT, Python, FastAPI, InfluxDB, Ollama, ntfy, Docker]
+    status: wip
+    diagram: climora
     accent: '#3d7ac8'
-  - name: Projekt C
-    summary:
-      de: Platzhalter für ein eigenes Projekt. Hier steht bald eine kurze Beschreibung.
-      en: ''
-    tech: [Terraform, Azure, GitHub Actions]
-    accent: '#e0a63a'

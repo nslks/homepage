@@ -72,6 +72,10 @@ export const projectsSchema = z.object({
         tech: z.array(z.string().min(1)),
         url: url.optional(),
         repoUrl: url.optional(),
+        // still being built: shows the "In Arbeit" badge instead of a disabled button
+        status: z.enum(['wip']).optional(),
+        // an animated diagram shown in the card (see ProjectsPanel)
+        diagram: z.enum(['climora']).optional(),
         accent: z
           .string()
           .regex(/^#[0-9a-fA-F]{6}$/)
@@ -132,6 +136,8 @@ export const uiSchema = z.strictObject({
     open: localized,
     repo: localized,
     comingSoon: localized,
+    wip: localized,
+    climoraDiagram: localized,
   }),
   cv: z.strictObject({ download: localized }),
   hud: z.strictObject({
