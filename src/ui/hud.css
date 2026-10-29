@@ -11,8 +11,8 @@
 
 .hud__name {
   position: absolute;
-  top: 16px;
-  left: 16px;
+  top: calc(16px + env(safe-area-inset-top));
+  left: calc(16px + env(safe-area-inset-left));
   margin: 0;
   padding: 8px 14px;
   border-radius: var(--radius-pill);
@@ -26,8 +26,8 @@
 
 .hud__toggles {
   position: absolute;
-  top: 16px;
-  right: 16px;
+  top: calc(16px + env(safe-area-inset-top));
+  right: calc(16px + env(safe-area-inset-right));
   display: flex;
   gap: 8px;
 }
@@ -50,8 +50,8 @@
 
 .hud__bar {
   position: absolute;
-  bottom: 16px;
-  left: 16px;
+  bottom: calc(16px + env(safe-area-inset-bottom));
+  left: calc(16px + env(safe-area-inset-left));
   display: flex;
   gap: 8px;
 }
@@ -75,8 +75,10 @@
 
 .hud__legal {
   position: absolute;
-  right: 16px;
-  bottom: 16px;
+  right: calc(16px + env(safe-area-inset-right));
+  bottom: calc(16px + env(safe-area-inset-bottom));
+  display: inline-flex;
+  align-items: center;
   padding: 6px 10px;
   border: none;
   border-radius: var(--radius-sm);
@@ -98,4 +100,40 @@
 .hud__legal:focus-visible {
   outline: 3px solid var(--focus);
   outline-offset: 2px;
+}
+
+.hud__icon-narrow {
+  display: none;
+}
+
+/* Narrow screens: icon-only controls, every target at least 44 × 44 px (spec §5.5) */
+@media (max-width: 600px) {
+  .hud__name {
+    font-size: 13px;
+    padding: 7px 12px;
+  }
+
+  .hud__link,
+  .hud__legal {
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px var(--shadow);
+  }
+
+  .hud__icon-narrow {
+    display: block;
+  }
+
+  /* labels stay available to screen readers */
+  .hud__text {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
 }
