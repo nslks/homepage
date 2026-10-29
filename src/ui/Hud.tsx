@@ -1,4 +1,4 @@
-import { Link, Mail, Moon, Sun } from 'lucide-react'
+import { Info, Link, Mail, Moon, Sun } from 'lucide-react'
 import { contact, localize, site, ui } from '../content'
 import { useAppStore } from '../state/store'
 import './hud.css'
@@ -52,17 +52,18 @@ export function Hud() {
         {linkedIn && (
           <a className="hud__link" href={linkedIn.url} target="_blank" rel="noopener noreferrer">
             <Link size={16} aria-hidden="true" />
-            {localize(linkedIn.label)}
+            <span className="hud__text">{localize(linkedIn.label)}</span>
           </a>
         )}
         <button type="button" className="hud__link" onClick={() => setOpenStation('contact')}>
           <Mail size={16} aria-hidden="true" />
-          {localize(ui.hud.contact)}
+          <span className="hud__text">{localize(ui.hud.contact)}</span>
         </button>
       </nav>
 
       <button type="button" className="hud__legal" onClick={() => setLegalOpen(true)}>
-        {localize(ui.hud.legal)}
+        <Info size={18} aria-hidden="true" className="hud__icon-narrow" />
+        <span className="hud__text">{localize(ui.hud.legal)}</span>
       </button>
     </div>
   )
