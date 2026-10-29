@@ -9,11 +9,7 @@ function ProjectCard({ project }: { project: Project }) {
   return (
     <li className="project">
       <h3 className="project__name">
-        <span
-          className="project__door"
-          style={{ background: project.doorColor }}
-          aria-hidden="true"
-        />
+        <span className="project__door" style={{ background: project.accent }} aria-hidden="true" />
         {project.name}
       </h3>
       <p className="project__summary">{localize(project.summary)}</p>
