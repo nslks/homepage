@@ -72,7 +72,7 @@ export const projectsSchema = z.object({
         tech: z.array(z.string().min(1)),
         url: url.optional(),
         repoUrl: url.optional(),
-        // still being built: shows the "In Arbeit" badge instead of a disabled button
+        // still being built: shows the "In Arbeit" badge
         status: z.enum(['wip']).optional(),
         // an animated diagram shown in the card (see ProjectsPanel)
         diagram: z.enum(['climora']).optional(),
@@ -135,7 +135,6 @@ export const uiSchema = z.strictObject({
   project: z.strictObject({
     open: localized,
     repo: localized,
-    comingSoon: localized,
     wip: localized,
     climoraDiagram: localized,
   }),

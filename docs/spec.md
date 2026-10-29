@@ -176,7 +176,8 @@ follows the character and sits at the closest lanterns.
 - Self-hosted **Inter** font (no Google Fonts, no CDN).
 - Keyboard operable: focus moves into the panel, `Tab` cycles within it, `Esc` closes.
 - **Project panels:** summary, tech stack, button "Zum Projekt" opening the link in a **new tab**
-  (`rel="noopener noreferrer"`). Without a URL the button is disabled and reads "Bald verfügbar".
+  (`rel="noopener noreferrer"`); without a URL there is no button. `status: wip` adds a yellow
+  "In Arbeit" badge; `diagram: climora` adds the animated Climora system diagram.
 
 ### 5.4 Legal
 
@@ -242,7 +243,7 @@ summary:
 - Initial content is a **one-time draft import** from `cvgenerator/data/cv.yaml`, shortened
   for the web and approved by me. After that the homepage YAML is its own source of truth.
 - Title for now: **Software Engineer**.
-- Projects start as placeholders **Projekt A, B, C** without URLs.
+- Projects: Ryft and Climora (in progress, private repos, no links) and this homepage.
 
 ## 7. Constraints
 

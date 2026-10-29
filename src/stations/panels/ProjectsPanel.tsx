@@ -6,8 +6,6 @@ import { ClimoraFlow } from './ClimoraFlow'
 type Project = Projects['entries'][number]
 
 function ProjectCard({ project }: { project: Project }) {
-  // a project in progress without links needs no disabled "Bald verfügbar" button
-  const hasActions = Boolean(project.url || project.repoUrl || project.status !== 'wip')
   return (
     <li className="project">
       <h3 className="project__name">
@@ -31,17 +29,13 @@ function ProjectCard({ project }: { project: Project }) {
         </ul>
       )}
       {project.diagram === 'climora' && <ClimoraFlow />}
-      {hasActions && (
+      {(project.url || project.repoUrl) && (
         <div className="project__actions">
-          {project.url ? (
+          {project.url && (
             <a className="button" href={project.url} target="_blank" rel="noopener noreferrer">
               {localize(ui.project.open)}
               <ExternalLink size={16} aria-hidden="true" />
             </a>
-          ) : (
-            <button type="button" className="button" disabled>
-              {localize(ui.project.comingSoon)}
-            </button>
           )}
           {project.repoUrl && (
             <a

@@ -22,12 +22,16 @@ const nodes: Node[] = [
   { x: 85, y: 236, w: W, label: 'Processor', sub: 'FastAPI' },
   { x: 10, y: 312, w: 130, label: 'InfluxDB', sub: 'speichert' },
   { x: 180, y: 312, w: 130, label: 'Ollama', sub: 'entscheidet' },
-  { x: 85, y: 388, w: W, label: 'ntfy', sub: 'Push aufs Handy' },
+  { x: 180, y: 388, w: 130, label: 'ntfy', sub: 'Push aufs Handy' },
+  { x: 10, y: 388, w: 130, label: 'MCP-Server', sub: 'liest den Verlauf' },
+  { x: 10, y: 464, w: 130, label: 'KI-Agent', sub: 'wertet Wochen aus' },
 ]
 
 // both paths run through node centres; the nodes are drawn on top, so dots "enter" each box
-const mainPath = 'M160 30 V258 L245 334 L160 410'
+const mainPath = 'M160 30 V258 L245 334 V410'
 const storePath = 'M160 258 L75 334'
+// the agent asks for history through the MCP server (via the processor API) and gets it back
+const historyPath = 'M75 486 V334'
 
 // Animated system diagram for Climora (no UI of its own, so the flow is what there is to see)
 export function ClimoraFlow() {
@@ -35,12 +39,13 @@ export function ClimoraFlow() {
   return (
     <svg
       className="flow"
-      viewBox="0 0 320 470"
+      viewBox="0 0 320 516"
       role="img"
       aria-label={localize(ui.project.climoraDiagram)}
     >
       <path className="flow__line" d={mainPath} />
       <path className="flow__line" d={storePath} />
+      <path className="flow__line" d={historyPath} />
 
       {animate && (
         <>
@@ -55,6 +60,17 @@ export function ClimoraFlow() {
               path={storePath}
               keyPoints="0;0;1;1"
               keyTimes="0;0.5;0.65;1"
+              calcMode="linear"
+            />
+          </circle>
+          {/* a history query: up to InfluxDB and back down to the agent */}
+          <circle className="flow__dot flow__dot--query" r="6">
+            <animateMotion
+              dur={CYCLE}
+              repeatCount="indefinite"
+              path={historyPath}
+              keyPoints="0;0;1;0;0"
+              keyTimes="0;0.1;0.35;0.6;1"
               calcMode="linear"
             />
           </circle>
@@ -74,9 +90,9 @@ export function ClimoraFlow() {
       ))}
 
       <g className="flow__push">
-        <rect x="60" y="440" width="200" height="26" rx="13" />
-        <text x="160" y="457">
-          Bad: 78 % – jetzt lüften
+        <rect x="170" y="440" width="150" height="26" rx="13" />
+        <text x="245" y="457">
+          Bad: 78 % – lüften
         </text>
         {animate && (
           <animate

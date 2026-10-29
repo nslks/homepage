@@ -251,6 +251,10 @@
   fill: var(--accent);
 }
 
+.flow__dot--query {
+  fill: var(--text-muted);
+}
+
 .flow__push rect {
   fill: var(--button-bg);
 }
