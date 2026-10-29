@@ -3,7 +3,7 @@ import { Canvas } from '@react-three/fiber'
 import { Suspense } from 'react'
 import { controlsMap } from './player/controls'
 import { Scene } from './Scene'
-import { ControlsHint } from './ui/ControlsHint'
+import { WelcomeCard } from './ui/WelcomeCard'
 import { DebugBadge } from './ui/DebugBadge'
 import { Hud } from './ui/Hud'
 import { IntroSkip } from './ui/IntroSkip'
@@ -25,7 +25,7 @@ export default function Experience() {
       <StationPanel />
       <LoadingScreen />
       <IntroSkip />
-      <ControlsHint />
+      <WelcomeCard />
       <DebugBadge />
     </KeyboardControls>
   )
