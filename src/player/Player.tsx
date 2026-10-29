@@ -16,6 +16,7 @@ import { playerPosition } from './playerPosition'
 import { spawn } from '../world/layout'
 import { autopilot, stopAutopilot } from './autopilot'
 import type { Control } from './controls'
+import { joystick } from './joystick'
 
 // always at running pace; there is no separate walk (owner feedback, #74)
 const SPEED = 7
@@ -67,8 +68,8 @@ export function Player() {
 
     input.set(0, 0, 0)
     if (!locked) {
-      input.z = Number(keys.back) - Number(keys.forward)
-      input.x = Number(keys.right) - Number(keys.left)
+      input.z = Number(keys.back) - Number(keys.forward) + joystick.y
+      input.x = Number(keys.right) - Number(keys.left) + joystick.x
     }
 
     // camera-relative: W moves "up on screen"
@@ -79,7 +80,7 @@ export function Player() {
     movement.copy(cameraRight).multiplyScalar(input.x).addScaledVector(cameraForward, -input.z)
 
     const steering = movement.lengthSq() > 0
-    // keys take over from a tapped path; panels, the legal modal and the intro cancel it
+    // Manual steering takes over from a tapped path; panels, modals and the intro cancel it.
     if (steering || locked) stopAutopilot()
     if (steering) movement.normalize().multiplyScalar(SPEED * dt)
 

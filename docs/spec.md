@@ -152,7 +152,8 @@ follows the character and sits at the closest lanterns.
 - The button appears only when the file exists; reachable from the welcome card, the HUD and the
   card for browsers without WebGL 2.
 - The PDF is a **public variant** from `cvgenerator`: no address, phone, birth date or photo.
-- The whole site addresses visitors with **"Sie"**.
+- Prefer personal, informative wording without directly addressing visitors. Where a direct address
+  is needed, use **"du"**, never **"Sie"**.
 
 ### 5.2 HUD
 
@@ -196,16 +197,22 @@ gemacht"). *M1.1* replaces it with the full experience:
   the nearest reachable point.
 - **Tap targets:** tapping a station label or model opens its panel; the projects station lists all
   projects in one panel.
+- **Mobile joystick:** a compact, translucent 88 px thumbstick at the lower-left edge on
+  viewports below 1024 px, including browser previews. Contact moves to the upper left.
+  Camera-relative movement with a dead zone; manual steering cancels
+  tap-to-move. Release, cancellation, loss of focus, rotation to desktop layout and opening a
+  panel reset input. Hidden during loading, intro, welcome and open panels/modals.
 - **Gestures:** pinch and drag on the 3D canvas do nothing (no accidental zoom, no camera
   rotation — see Polish #63); browser zoom stays available outside the canvas.
 - **Camera:** portrait first; distance adapts to the aspect ratio; rotating the device updates
-  camera and layout immediately, an open panel stays open.
+  camera and layout immediately, an open panel stays open. Mobile framing is closer: 10 m minimum
+  visible width instead of 17 m, with a 25 % shorter base camera offset in landscape.
 - **Panels as bottom sheets** on narrow screens: full width, ~90 % height, content scrolls inside;
   closed by swiping down, tapping the dimmed backdrop or the close button. The legal modal too.
 - **Compact HUD:** name top left, toggles top right, bottom bar with icons only (LinkedIn,
   Kontakt, ⓘ for Impressum/Datenschutz); safe-area insets respected; touch targets ≥ 44 px.
-- **Controls hint on touch:** "Tippe auf den Boden, um zu laufen · Tippe auf ein Schild, um es zu
-  öffnen" instead of keyboard keys.
+- **Controls hint on mobile:** "Joystick links unten: frei laufen", "Tippen auf den Boden: laufen"
+  and "Tippen auf ein Schild: Station öffnen" instead of keyboard keys.
 - **Adaptive quality:** start at *medium*; if the frame rate stays below 30 fps for a few seconds,
   step down, step up again when it is stable. Tiers control pixel ratio, shadow resolution, the
   number of real lantern lights at night and the number of fireflies. Rendering pauses while

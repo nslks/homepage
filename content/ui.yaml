@@ -6,17 +6,18 @@ controls:
   move: { de: 'WASD / Pfeiltasten: laufen', en: '' }
   interact: { de: 'E / Enter: Station öffnen', en: '' }
   tapMove: { de: 'Tippen auf den Boden: laufen', en: '' }
+  joystickMove: { de: 'Joystick links unten: frei laufen', en: '' }
   tapOpen: { de: 'Tippen auf ein Schild: Station öffnen', en: '' }
   dismiss: { de: Los geht's, en: '' }
 welcome:
   title: { de: Willkommen auf meiner Insel!, en: '' }
   text:
     de: >-
-      Diese Seite ist interaktiv: Erkunden Sie die kleine Insel und besuchen Sie die Stationen, um
-      mehr über mich, meine Berufserfahrung und meine Projekte zu erfahren.
+      Auf dieser kleinen Insel gibt es mehr über mich, meine Berufserfahrung und meine Projekte
+      zu entdecken – an den Stationen entlang des Weges.
     en: ''
   cvAlternative:
-    de: Lieber gleich alle Fakten auf einen Blick? Mein Lebenslauf steht auch als PDF bereit.
+    de: Alle Fakten auf einen Blick gibt es im Lebenslauf – als PDF zum Download.
     en: ''
 stations:
   career: { de: Über mich, en: '' }
@@ -31,7 +32,7 @@ panel:
   competencies: { de: Kernkompetenzen, en: '' }
   private: { de: Privat, en: '' }
   toProjects: { de: Mehr dazu unter „Eigene Projekte“, en: '' }
-  cvHint: { de: Den vollständigen Lebenslauf können Sie als PDF herunterladen., en: '' }
+  cvHint: { de: Mein vollständiger Lebenslauf steht als PDF zum Download bereit., en: '' }
   education: { de: Ausbildung, en: '' }
   skills: { de: Skills, en: '' }
   languages: { de: Sprachen, en: '' }

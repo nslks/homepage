@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { localize, site, ui } from '../content'
 import { controlsMap } from '../player/controls'
+import { useMobileControls } from '../player/useMobileControls'
 import { useAppStore } from '../state/store'
 import { CvLink } from './CvLink'
 import './welcome-card.css'
@@ -15,13 +16,16 @@ const isTouch = (() => {
     return false
   }
 })()
-const controls = isTouch
-  ? [ui.controls.tapMove, ui.controls.tapOpen]
-  : [ui.controls.move, ui.controls.interact]
 
 // Shown once, as soon as the island has loaded (spec §5.1): who this is, that the page is
 // interactive — or take the CV as PDF. Walking off, Esc, the backdrop or "Los geht's" dismiss it
 export function WelcomeCard() {
+  const mobile = useMobileControls()
+  const controls = mobile
+    ? [ui.controls.joystickMove, ui.controls.tapMove, ui.controls.tapOpen]
+    : isTouch
+      ? [ui.controls.tapMove, ui.controls.tapOpen]
+      : [ui.controls.move, ui.controls.interact]
   const visible = useAppStore((state) => state.sceneReady && !state.welcomeSeen)
   const dismiss = useAppStore((state) => state.dismissWelcome)
 

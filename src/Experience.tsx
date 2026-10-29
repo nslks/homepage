@@ -7,6 +7,7 @@ import { WelcomeCard } from './ui/WelcomeCard'
 import { DebugBadge } from './ui/DebugBadge'
 import { Hud } from './ui/Hud'
 import { IntroSkip } from './ui/IntroSkip'
+import { Joystick } from './ui/Joystick'
 import { LoadingScreen } from './ui/LoadingScreen'
 import { StationPanel } from './ui/StationPanel'
 import { usePreventCanvasGestures } from './ui/usePreventCanvasGestures'
@@ -22,6 +23,7 @@ export default function Experience() {
         </Suspense>
       </Canvas>
       <Hud />
+      <Joystick />
       <StationPanel />
       <LoadingScreen />
       <IntroSkip />
