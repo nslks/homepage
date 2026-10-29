@@ -28,6 +28,9 @@ type AppState = {
   // the controls hint is shown once per browser
   controlsHintSeen: boolean
   dismissControlsHint: () => void
+  // Impressum / Datenschutz modal; movement is locked while it is open
+  legalOpen: boolean
+  setLegalOpen: (open: boolean) => void
 }
 
 export type Theme = 'day' | 'night'
@@ -87,6 +90,8 @@ export const useAppStore = create<AppState>()(
       finishIntro: () => set({ introDone: true }),
       controlsHintSeen: false,
       dismissControlsHint: () => set({ controlsHintSeen: true }),
+      legalOpen: false,
+      setLegalOpen: (legalOpen) => set({ legalOpen }),
     }),
     {
       name: 'homepage-preferences',

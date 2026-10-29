@@ -1,8 +1,27 @@
-/* minimal styling; the full HUD and design system follow in #34 and #35 */
 .hud {
   position: fixed;
   inset: 0;
+  z-index: 15;
   pointer-events: none;
+}
+
+.hud > * {
+  pointer-events: auto;
+}
+
+.hud__name {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  margin: 0;
+  padding: 8px 14px;
+  border-radius: var(--radius-pill);
+  background: var(--surface-control);
+  backdrop-filter: blur(8px);
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 700;
+  box-shadow: 0 2px 8px var(--shadow);
 }
 
 .hud__toggles {
@@ -11,32 +30,22 @@
   right: 16px;
   display: flex;
   gap: 8px;
-  pointer-events: auto;
 }
 
 .hud__toggle {
+  display: grid;
+  place-items: center;
   width: 44px;
   height: 44px;
   border: none;
   border-radius: 50%;
   background: var(--surface-control);
   backdrop-filter: blur(8px);
-  display: grid;
-  place-items: center;
+  color: var(--text);
   font-size: 22px;
   line-height: 1;
-  color: var(--text);
   cursor: pointer;
   box-shadow: 0 2px 8px var(--shadow);
-}
-
-.hud__toggle:hover {
-  background: var(--surface-control-hover);
-}
-
-.hud__toggle:focus-visible {
-  outline: 3px solid var(--focus);
-  outline-offset: 2px;
 }
 
 .hud__bar {
@@ -45,28 +54,48 @@
   left: 16px;
   display: flex;
   gap: 8px;
-  pointer-events: auto;
 }
 
 .hud__link {
-  padding: 8px 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 15px;
   border: none;
   border-radius: var(--radius-pill);
   background: var(--surface-control);
   backdrop-filter: blur(8px);
   color: var(--text);
-  font: inherit;
   font-size: 14px;
   font-weight: 600;
+  text-decoration: none;
   cursor: pointer;
   box-shadow: 0 2px 8px var(--shadow);
 }
 
-.hud__link:hover {
+.hud__legal {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  padding: 6px 10px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--surface-control);
+  backdrop-filter: blur(8px);
+  color: var(--text);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.hud__toggle:hover,
+.hud__link:hover,
+.hud__legal:hover {
   background: var(--surface-control-hover);
 }
 
-.hud__link:focus-visible {
+.hud__toggle:focus-visible,
+.hud__link:focus-visible,
+.hud__legal:focus-visible {
   outline: 3px solid var(--focus);
   outline-offset: 2px;
 }

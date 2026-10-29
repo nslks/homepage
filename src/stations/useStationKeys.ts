@@ -10,8 +10,8 @@ export function useStationKeys() {
       const focused = document.activeElement
       const focusOnControl = focused?.matches('button, a, input, textarea, select') ?? false
       if (event.key === 'Enter' && focusOnControl) return
-      const { nearStation, openStation, setOpenStation } = useAppStore.getState()
-      if (nearStation && !openStation) {
+      const { nearStation, openStation, legalOpen, setOpenStation } = useAppStore.getState()
+      if (nearStation && !openStation && !legalOpen) {
         event.preventDefault()
         setOpenStation(nearStation)
       }
