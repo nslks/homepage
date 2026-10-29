@@ -1,0 +1,60 @@
+/* minimal panel styling; the design system (#35) refines it */
+.panel {
+  width: min(640px, calc(100vw - 32px));
+  max-height: min(720px, calc(100vh - 64px));
+  padding: 0;
+  border: none;
+  border-radius: 16px;
+  background: rgb(255 255 255 / 0.92);
+  color: #2b2d42;
+  box-shadow: 0 20px 60px rgb(0 0 0 / 0.25);
+  font-family: system-ui, sans-serif;
+}
+
+.panel::backdrop {
+  background: rgb(20 24 40 / 0.35);
+}
+
+.panel__header {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 24px 12px;
+  background: inherit;
+}
+
+.panel__title {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-size: 22px;
+}
+
+.panel__close {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.panel__close:hover {
+  background: rgb(0 0 0 / 0.06);
+}
+
+.panel__close:focus-visible {
+  outline: 3px solid #e07a5f;
+  outline-offset: 2px;
+}
+
+.panel__body {
+  padding: 0 24px 24px;
+}
