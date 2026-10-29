@@ -1,7 +1,8 @@
 import { useFrame, useThree } from '@react-three/fiber'
 import { useLayoutEffect, useRef } from 'react'
 import { Vector3 } from 'three'
-import { playerPosition, useAppStore } from '../state/store'
+import { useAppStore } from '../state/store'
+import { playerPosition } from './playerPosition'
 import { spawn } from '../world/layout'
 
 // Elevated, isometric-like view from the south; the angle never changes, only the position follows
