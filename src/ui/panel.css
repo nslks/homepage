@@ -153,3 +153,47 @@
   padding-left: 18px;
   line-height: 1.7;
 }
+
+.jobs {
+  display: grid;
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.job__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+}
+
+.job__company {
+  margin: 0;
+  font-size: 18px;
+}
+
+.job__role {
+  margin: 2px 0 0;
+  color: #6b6f85;
+  font-size: 14px;
+}
+
+.job__period {
+  flex-shrink: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #6b6f85;
+}
+
+.job__highlights {
+  margin: 10px 0 12px;
+  padding-left: 18px;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.job__highlights li + li {
+  margin-top: 4px;
+}

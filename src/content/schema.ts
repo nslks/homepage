@@ -1,7 +1,8 @@
 import { z } from 'zod'
 
-// Every user-facing text exists in German and English; English may stay empty until the i18n epic
-export const localized = z.object({
+// Every user-facing text exists in German and English; English may stay empty until the i18n epic.
+// Strict: an unquoted comma in a YAML flow mapping would otherwise silently cut the text
+export const localized = z.strictObject({
   de: z.string().min(1),
   en: z.string(),
 })
