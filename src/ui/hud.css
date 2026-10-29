@@ -9,21 +9,6 @@
   pointer-events: auto;
 }
 
-.hud__name {
-  position: absolute;
-  top: calc(16px + env(safe-area-inset-top));
-  left: calc(16px + env(safe-area-inset-left));
-  margin: 0;
-  padding: 8px 14px;
-  border-radius: var(--radius-pill);
-  background: var(--surface-control);
-  backdrop-filter: blur(8px);
-  color: var(--text);
-  font-size: 15px;
-  font-weight: 700;
-  box-shadow: 0 2px 8px var(--shadow);
-}
-
 .hud__toggles {
   position: absolute;
   top: calc(16px + env(safe-area-inset-top));
@@ -108,11 +93,6 @@
 
 /* Narrow screens: icon-only controls, every target at least 44 × 44 px (spec §5.5) */
 @media (max-width: 600px) {
-  .hud__name {
-    font-size: 13px;
-    padding: 7px 12px;
-  }
-
   .hud__link,
   .hud__legal {
     justify-content: center;

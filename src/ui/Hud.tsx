@@ -1,5 +1,5 @@
 import { Info, Mail, Moon, Sun } from 'lucide-react'
-import { contact, localize, site, ui } from '../content'
+import { contact, localize, ui } from '../content'
 import { useAppStore } from '../state/store'
 import { BrandIcon } from './BrandIcon'
 import { CvLink } from './CvLink'
@@ -23,8 +23,6 @@ export function Hud() {
 
   return (
     <div className="hud">
-      <p className="hud__name">{site.name}</p>
-
       <div className="hud__toggles">
         <button
           type="button"

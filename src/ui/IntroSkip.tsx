@@ -16,6 +16,8 @@ export function IntroSkip() {
   const ready = useAppStore((state) => state.sceneReady)
   const introDone = useAppStore((state) => state.introDone)
   const finishIntro = useAppStore((state) => state.finishIntro)
+  // the welcome card covers the flight; a second hint below it would only compete with it
+  const welcomeOpen = useAppStore((state) => !state.welcomeSeen)
 
   useEffect(() => {
     if (introDone) return
@@ -32,6 +34,6 @@ export function IntroSkip() {
     }
   }, [ready, introDone, finishIntro])
 
-  if (!ready || introDone) return null
+  if (!ready || introDone || welcomeOpen) return null
   return <p className="intro-skip">{localize(ui.intro.skip)}</p>
 }

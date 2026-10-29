@@ -9,7 +9,7 @@ controls:
   tapOpen: { de: 'Tippen auf ein Schild: Station öffnen', en: '' }
   dismiss: { de: Los geht's, en: '' }
 welcome:
-  title: { de: Willkommen auf meiner Insel, en: '' }
+  title: { de: Willkommen auf meiner Insel!, en: '' }
   text:
     de: >-
       Diese Seite ist interaktiv: Erkunden Sie die kleine Insel und besuchen Sie die Stationen, um
