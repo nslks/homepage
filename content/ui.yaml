@@ -32,10 +32,10 @@ hud:
 legal:
   impressum: { de: Impressum, en: '' }
   datenschutz: { de: Datenschutz, en: '' }
-desktopNotice:
-  title: { de: Diese Seite ist für Desktop gemacht, en: '' }
+unsupportedNotice:
+  title: { de: 3D wird in diesem Browser nicht unterstützt, en: '' }
   text:
     de: >-
-      Die 3D-Insel braucht Maus, Tastatur und einen größeren Bildschirm. Schau gern am Rechner
-      vorbei – oder melde dich direkt:
+      Die Insel braucht einen Browser mit WebGL 2 – zum Beispiel ein aktuelles Chrome, Firefox,
+      Safari oder Edge. Kontakt gibt es trotzdem direkt hier:
     en: ''
