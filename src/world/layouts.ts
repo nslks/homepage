@@ -28,8 +28,11 @@ export type LayoutPreset = {
   routes: Route[]
   // extra plazas, e.g. a crossing
   junctions: { center: Point; radius: number }[]
-  // placed along the routes when left out
+  // placed along the routes when left out, every `lanternSpacing` metres (default 6.5)
   lanterns?: Point[]
+  lanternSpacing?: number
+  // an extra lantern beside every station plaza
+  stationLanterns?: boolean
   pond?: { center: Point; radius: number }
 }
 
@@ -176,6 +179,9 @@ const trail: Point[] = [
 
 const wanderweg: LayoutPreset = {
   island: { rx: 12.5, rz: 16, seed: 23 },
+  // well lit at night: lanterns close together and one at every station
+  lanternSpacing: 3.6,
+  stationLanterns: true,
   spawn: { x: 0.5, z: 12.8 },
   stations: {
     career: { x: -6.4, z: 7.4, facing: 0.55 },

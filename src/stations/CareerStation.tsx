@@ -167,7 +167,8 @@ function ArcLamp() {
     shade.emissiveIntensity = 0.12 + (1 - environment.daylight) * 1.5
   })
   return (
-    <group position={[-0.95, 0, -0.55]}>
+    // beside the bookshelf (not in it), the shade hangs over the armchair
+    <group position={[-1.3, 0, -0.25]}>
       <mesh position-y={0.04}>
         <cylinderGeometry args={[0.2, 0.22, 0.08, 10]} />
         <meshStandardMaterial color="#2f3145" flatShading />
@@ -294,7 +295,7 @@ export function CareerStation() {
         <CylinderCollider args={[S(0.6), S(0.65)]} position={[0, S(0.6), S(-0.1)]} />
         <CylinderCollider args={[S(0.4), S(0.28)]} position={[S(0.9), S(0.4), S(0.15)]} />
         <CylinderCollider args={[S(0.6), S(0.2)]} position={[S(1.05), S(0.6), S(-0.8)]} />
-        <CylinderCollider args={[S(1), S(0.22)]} position={[S(-0.95), S(1), S(-0.55)]} />
+        <CylinderCollider args={[S(1), S(0.22)]} position={[S(-1.3), S(1), S(-0.25)]} />
       </RigidBody>
     </Station>
   )
