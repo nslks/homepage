@@ -8,9 +8,11 @@ import { Hud } from './ui/Hud'
 import { IntroSkip } from './ui/IntroSkip'
 import { LoadingScreen } from './ui/LoadingScreen'
 import { StationPanel } from './ui/StationPanel'
+import { usePreventCanvasGestures } from './ui/usePreventCanvasGestures'
 
 // Everything 3D: loaded only on desktop (spec §7), as its own chunk
 export default function Experience() {
+  usePreventCanvasGestures()
   return (
     <KeyboardControls map={controlsMap}>
       <Canvas shadows="soft" dpr={[1, 1.5]} camera={{ fov: 40, far: 1000 }}>
