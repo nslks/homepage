@@ -4,6 +4,7 @@ import { Suspense } from 'react'
 import { controlsMap } from './player/controls'
 import { Scene } from './Scene'
 import { Hud } from './ui/Hud'
+import { IntroSkip } from './ui/IntroSkip'
 import { LoadingScreen } from './ui/LoadingScreen'
 import { StationPanel } from './ui/StationPanel'
 import { ThemeAttribute } from './ui/ThemeAttribute'
@@ -20,6 +21,7 @@ export function App() {
       <StationPanel />
       <ThemeAttribute />
       <LoadingScreen />
+      <IntroSkip />
     </KeyboardControls>
   )
 }

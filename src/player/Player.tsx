@@ -56,7 +56,8 @@ export function Player() {
     if (!body.current || !collider.current || !model.current) return
     const dt = Math.min(delta, 0.05)
     const keys = getKeys()
-    const locked = useAppStore.getState().openStation !== null
+    const { openStation, introDone } = useAppStore.getState()
+    const locked = openStation !== null || !introDone
 
     input.set(0, 0, 0)
     if (!locked) {
