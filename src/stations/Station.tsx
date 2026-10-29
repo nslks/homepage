@@ -7,6 +7,7 @@ import { useAppStore } from '../state/store'
 import { playerPosition } from '../player/playerPosition'
 import { interactionRadius, type StationId, stations } from '../world/layout'
 import { stationMeta } from './stationMeta'
+import { useTapTarget } from './useTapTarget'
 import './stations.css'
 
 const RING_WIDTH = 0.22
@@ -28,6 +29,8 @@ export function Station({ id, labelHeight, children }: Props) {
   const ring = useRef<Mesh<never, MeshBasicMaterial>>(null)
   const label = useRef<Group>(null)
   const { icon: Icon, title } = stationMeta[id]
+  // the model itself opens the panel too, like its label
+  const tapTarget = useTapTarget(() => setOpenStation(id))
 
   useFrame(({ clock }) => {
     const distance = Math.hypot(playerPosition.x - placement.x, playerPosition.z - placement.z)
@@ -45,7 +48,9 @@ export function Station({ id, labelHeight, children }: Props) {
 
   return (
     <group position={[placement.x, 0, placement.z]}>
-      <group rotation-y={placement.facing}>{children}</group>
+      <group rotation-y={placement.facing} {...tapTarget}>
+        {children}
+      </group>
 
       <mesh ref={ring} rotation-x={-Math.PI / 2} position-y={0.05}>
         <ringGeometry args={[radius - RING_WIDTH, radius, 40]} />

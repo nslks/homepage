@@ -7,6 +7,7 @@ import { playerPosition } from '../player/playerPosition'
 import { fonts } from '../world/fonts'
 import { stations } from '../world/layout'
 import { Station } from './Station'
+import { useTapTarget } from './useTapTarget'
 
 const ARC_RADIUS = 3
 // Houses on an arc along the northern edge of the plaza, doors facing its centre — so every door
@@ -37,15 +38,27 @@ const houses = projects.entries.map((project, i) => {
   }
 })
 
-function House({ house, near }: { house: (typeof houses)[number]; near: boolean }) {
+function House({
+  house,
+  index,
+  near,
+}: {
+  house: (typeof houses)[number]
+  index: number
+  near: boolean
+}) {
   const doorColor = house.project.doorColor ?? DEFAULT_DOOR
   const front = HOUSE.depth / 2 + 0.01
+  // a tap on the house opens exactly its project
+  const setOpenStation = useAppStore((state) => state.setOpenStation)
+  const tapTarget = useTapTarget(() => setOpenStation('projects', index))
   return (
     <RigidBody
       type="fixed"
       colliders={false}
       position={[house.x, 0, house.z]}
       rotation-y={house.rotationY}
+      {...tapTarget}
     >
       <mesh position-y={HOUSE.height / 2} castShadow receiveShadow>
         <boxGeometry args={[HOUSE.width, HOUSE.height, HOUSE.depth]} />
@@ -118,11 +131,12 @@ export function ProjectsStation() {
 
   return (
     <>
-      <Station id="projects" labelHeight={3.4}>
+      {/* above the roofs, so the label never covers a door */}
+      <Station id="projects" labelHeight={4.6}>
         {null}
       </Station>
       {houses.map((house, i) => (
-        <House key={i} house={house} near={nearProject === i} />
+        <House key={i} house={house} index={i} near={nearProject === i} />
       ))}
     </>
   )

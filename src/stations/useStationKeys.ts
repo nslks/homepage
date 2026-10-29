@@ -10,10 +10,12 @@ export function useStationKeys() {
       const focused = document.activeElement
       const focusOnControl = focused?.matches('button, a, input, textarea, select') ?? false
       if (event.key === 'Enter' && focusOnControl) return
-      const { nearStation, openStation, legalOpen, setOpenStation } = useAppStore.getState()
+      const { nearStation, nearProject, openStation, legalOpen, setOpenStation } =
+        useAppStore.getState()
       if (nearStation && !openStation && !legalOpen) {
         event.preventDefault()
-        setOpenStation(nearStation)
+        // at the projects station, E opens the project behind the closest door
+        setOpenStation(nearStation, nearStation === 'projects' ? nearProject : null)
       }
     }
     window.addEventListener('keydown', onKeyDown)
