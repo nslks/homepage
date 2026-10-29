@@ -5,11 +5,41 @@ title:
 tagline:
   de: Backend, DevOps & Technical Delivery
   en: ''
-# filled in with the legal modal (#39)
+# Rendered with simple markup: blank line = new block, "## " = heading, "- " = list item.
+# Drafts, not legal advice — have them checked before relying on them.
 legal:
   impressum:
-    de: TODO
+    de: |-
+      ## Angaben gemäß § 5 DDG
+      Enes Alkis
+      [Anschrift – TODO vor Veröffentlichung ergänzen]
+
+      ## Kontakt
+      E-Mail: [E-Mail-Adresse – TODO vor Veröffentlichung ergänzen]
+
+      ## Verantwortlich für den Inhalt
+      Enes Alkis, Anschrift wie oben.
     en: ''
   datenschutz:
-    de: TODO
+    de: |-
+      ## Verantwortlicher
+      Verantwortlich für diese Website ist die im Impressum genannte Person.
+
+      ## Keine Cookies, kein Tracking
+      Diese Website setzt keine Cookies, nutzt keine Analyse- oder Tracking-Dienste und lädt keine Inhalte von Drittanbietern. Schriften und 3D-Modelle werden vom selben Server ausgeliefert wie die Website.
+
+      ## Hosting
+      Die Website wird über GitHub Pages bereitgestellt (GitHub Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA). Beim Aufruf verarbeitet GitHub technisch notwendige Daten – insbesondere IP-Adresse, Datum und Uhrzeit sowie die aufgerufene Seite –, um die Website auszuliefern und vor Missbrauch zu schützen (Art. 6 Abs. 1 lit. f DSGVO). Dabei kann eine Übermittlung in die USA stattfinden. Weitere Informationen enthält die Datenschutzerklärung von GitHub.
+
+      ## Lokal gespeicherte Einstellungen
+      Wenn Sie den Tag-/Nachtmodus oder die Figur wechseln oder den Steuerungshinweis schließen, speichert Ihr Browser diese Auswahl im lokalen Speicher (localStorage), damit sie beim nächsten Besuch erhalten bleibt. Diese Daten verlassen Ihr Gerät nicht und lassen sich jederzeit über die Browsereinstellungen löschen. Die Speicherung ist für die von Ihnen gewünschte Funktion erforderlich (§ 25 Abs. 2 Nr. 2 TDDDG).
+
+      ## Externe Links
+      Links zu anderen Websites, etwa GitHub oder LinkedIn, werden erst nach einem Klick aufgerufen. Ab dann gelten die Datenschutzbestimmungen des jeweiligen Anbieters.
+
+      ## Ihre Rechte
+      - Auskunft über die verarbeiteten Daten
+      - Berichtigung, Löschung oder Einschränkung der Verarbeitung
+      - Widerspruch gegen die Verarbeitung
+      - Beschwerde bei einer Datenschutz-Aufsichtsbehörde
     en: ''

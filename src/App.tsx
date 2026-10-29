@@ -5,6 +5,7 @@ import { controlsMap } from './player/controls'
 import { Scene } from './Scene'
 import { ControlsHint } from './ui/ControlsHint'
 import { Hud } from './ui/Hud'
+import { LegalModal } from './ui/LegalModal'
 import { IntroSkip } from './ui/IntroSkip'
 import { LoadingScreen } from './ui/LoadingScreen'
 import { StationPanel } from './ui/StationPanel'
@@ -20,6 +21,7 @@ export function App() {
       </Canvas>
       <Hud />
       <StationPanel />
+      <LegalModal />
       <ThemeAttribute />
       <LoadingScreen />
       <IntroSkip />
