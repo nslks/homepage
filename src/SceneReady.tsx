@@ -8,10 +8,11 @@ const debug = new URLSearchParams(window.location.search).has('debug')
 // Rendered inside the Suspense boundary: its first frame means everything has loaded
 export function SceneReady() {
   const gl = useThree((state) => state.gl)
-  // debug mode: expose renderer statistics (draw calls, triangles) for performance checks
+  const camera = useThree((state) => state.camera)
+  // debug mode: expose renderer statistics and the camera for performance checks and tests
   useEffect(() => {
-    if (debug) Object.assign(window, { __renderer: gl })
-  }, [gl])
+    if (debug) Object.assign(window, { __renderer: gl, __camera: camera })
+  }, [gl, camera])
 
   useFrame(() => {
     const { sceneReady, setSceneReady, character } = useAppStore.getState()
