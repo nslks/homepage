@@ -3,7 +3,6 @@
   position: fixed;
   inset: 0;
   pointer-events: none;
-  font-family: system-ui, sans-serif;
 }
 
 .hud__toggles {
@@ -36,7 +35,7 @@
 }
 
 .hud__toggle:focus-visible {
-  outline: 3px solid var(--accent);
+  outline: 3px solid var(--focus);
   outline-offset: 2px;
 }
 
@@ -52,7 +51,7 @@
 .hud__link {
   padding: 8px 14px;
   border: none;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: var(--surface-control);
   backdrop-filter: blur(8px);
   color: var(--text);
@@ -68,6 +67,6 @@
 }
 
 .hud__link:focus-visible {
-  outline: 3px solid var(--accent);
+  outline: 3px solid var(--focus);
   outline-offset: 2px;
 }

@@ -1,5 +1,10 @@
-/* Colour tokens for all HTML UI; <html data-theme> follows the day/night mode */
+/* Design tokens for all HTML UI; <html data-theme> follows the day/night mode.
+   Text colours meet WCAG AA (4.5:1) on their surfaces, focus rings 3:1 */
 :root {
+  --font: 'Inter', system-ui, sans-serif;
+  --radius-sm: 8px;
+  --radius: 16px;
+  --radius-pill: 999px;
   --text: #2b2d42;
   --text-muted: #6b6f85;
   --accent: #e07a5f;
@@ -12,6 +17,8 @@
   --button-text: #fff;
   --button-secondary-bg: rgb(61 64 91 / 0.1);
   --button-disabled-bg: rgb(61 64 91 / 0.15);
+  --button-disabled-text: #55596e;
+  --focus: #c25a3a;
   --prompt-bg: #2b2d42;
   --prompt-text: #fff;
   --shadow: rgb(0 0 0 / 0.18);
@@ -31,8 +38,25 @@
   --button-text: #1b1f3b;
   --button-secondary-bg: rgb(255 255 255 / 0.12);
   --button-disabled-bg: rgb(255 255 255 / 0.08);
+  --button-disabled-text: #a9aed3;
+  --focus: #f0936f;
   --prompt-bg: #f0936f;
   --prompt-text: #1b1f3b;
   --shadow: rgb(0 0 0 / 0.4);
   color-scheme: dark;
+}
+
+html {
+  font-family: var(--font);
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+a {
+  font-family: inherit;
+}
+
+::selection {
+  background: var(--accent);
+  color: #fff;
 }
