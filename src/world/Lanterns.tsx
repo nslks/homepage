@@ -5,23 +5,42 @@ import type { MeshStandardMaterial, PointLight } from 'three'
 import { qualitySettings } from '../quality/tiers'
 import { useAppStore } from '../state/store'
 import { environment } from './environment'
+import { playerPosition } from '../player/playerPosition'
 import { lanterns } from './layout'
 
 const GLOW = '#ffb45e'
 const LIGHT_INTENSITY = 9
 
-// Warm lanterns along the paths; they switch on as daylight fades
+// how often (frames) the light pool is reassigned to the closest lanterns
+const REASSIGN_EVERY = 10
+const LIGHT_HEIGHT = 1.8
+
+// Warm lanterns along the paths; they switch on as daylight fades. Every lantern's glass glows,
+// but only a small pool of real point lights (per quality tier) exists — it follows the character
+// and sits at the lanterns closest to it, so wherever one walks is well lit at little cost
 export function Lanterns() {
   const lights = useRef<(PointLight | null)[]>([])
-  // lower tiers keep the glowing glass everywhere but real lights only on the first lanterns
-  const lightCount = useAppStore((state) => qualitySettings[state.quality].lanternLights)
+  const lightCount = useAppStore((state) =>
+    Math.min(lanterns.length, qualitySettings[state.quality].lanternLights),
+  )
   const glass = useRef<(MeshStandardMaterial | null)[]>([])
+  const frame = useRef(0)
 
   useFrame(() => {
     const night = 1 - environment.daylight
-    lights.current
-      .slice(0, lightCount)
-      .forEach((light) => light && (light.intensity = night * LIGHT_INTENSITY))
+    if (frame.current++ % REASSIGN_EVERY === 0) {
+      const closest = lanterns
+        .map((lantern, i) => ({
+          i,
+          d: (lantern.x - playerPosition.x) ** 2 + (lantern.z - playerPosition.z) ** 2,
+        }))
+        .sort((a, b) => a.d - b.d)
+      lights.current.forEach((light, slot) => {
+        const lantern = lanterns[closest[slot]?.i ?? 0]!
+        light?.position.set(lantern.x, LIGHT_HEIGHT, lantern.z)
+      })
+    }
+    lights.current.forEach((light) => light && (light.intensity = night * LIGHT_INTENSITY))
     glass.current.forEach(
       (material) => material && (material.emissiveIntensity = 0.1 + night * 1.3),
     )
@@ -50,20 +69,20 @@ export function Lanterns() {
             <coneGeometry args={[0.24, 0.16, 4]} />
             <meshStandardMaterial color="#2f3145" flatShading />
           </mesh>
-          {i < lightCount && (
-            <pointLight
-              ref={(light) => {
-                lights.current[i] = light
-              }}
-              position-y={1.8}
-              color={GLOW}
-              intensity={0}
-              distance={7}
-              decay={2}
-            />
-          )}
           <CylinderCollider args={[0.9, 0.15]} position-y={0.9} />
         </group>
+      ))}
+      {Array.from({ length: lightCount }, (_, slot) => (
+        <pointLight
+          key={slot}
+          ref={(light) => {
+            lights.current[slot] = light
+          }}
+          color={GLOW}
+          intensity={0}
+          distance={7}
+          decay={2}
+        />
       ))}
     </RigidBody>
   )

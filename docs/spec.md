@@ -93,14 +93,17 @@ A visitor must recognise **what** a station is and **that** it is interactive at
 ### 3.5 Layout variants
 
 The same island style, stations, content and camera in different arrangements, chosen at load time
-with `?layout=…` (presets in `src/world/layouts.ts`; positions, paths, lanterns and label anchors
-are derived from the preset; decor, colliders and the navigation grid follow automatically):
+with `?layout=…`; the default is the Wanderweg (owner's pick, 2026-10-29). Presets live in `src/world/layouts.ts`. Positions, paths, lanterns and label anchors
+are derived from the preset; decor, colliders and the navigation grid follow automatically.
+
+At night every lantern's glass glows; a small pool of real point lights (count per quality tier)
+follows the character and sits at the closest lanterns.
 
 | URL | Layout |
 |---|---|
-| *(none)* or `?layout=kreuz` | **Kreuz** — the original: spawn in the south, a crossing, one station per direction |
+| `?layout=kreuz` | **Kreuz** — the original: spawn in the south, a crossing, one station per direction |
 | `?layout=rundweg` | **Rundweg** — a winding loop around a pond in the middle, stations at irregular angles off the loop |
-| `?layout=wanderweg` | **Wanderweg** — a longer island, an S-shaped trail from south to north; stations alternate left and right in story order: Über mich → Berufserfahrung → Eigene Projekte → Kontakt at the end |
+| *(none)* or `?layout=wanderweg` | **Wanderweg (default)** — a longer island, an S-shaped trail from south to north; stations alternate left and right in story order: Über mich → Berufserfahrung → Eigene Projekte → Kontakt at the end; lanterns every few metres and one at every station |
 
 ## 4. Character & controls
 

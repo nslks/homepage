@@ -5,8 +5,9 @@ export type { Placement, Point, StationId } from './layouts'
 
 // Active layout from ?layout=… (spec §3.5); everything below is derived from it once at load
 const requested = new URLSearchParams(window.location.search).get('layout')
+// the owner's pick (2026-10-29); ?layout=kreuz and ?layout=rundweg stay available
 export const layoutId: LayoutId =
-  requested && requested in layouts ? (requested as LayoutId) : 'kreuz'
+  requested && requested in layouts ? (requested as LayoutId) : 'wanderweg'
 const preset = layouts[layoutId]
 
 const OUTLINE_SEGMENTS = 28
@@ -59,6 +60,16 @@ export const interactionRadius = Object.fromEntries(
     plazaRadius(id) + (id === 'contact' ? 0.9 : 0.6),
   ]),
 ) as Record<StationId, number>
+
+function distanceToSegment(p: Point, a: Point, b: Point) {
+  const dx = b.x - a.x
+  const dz = b.z - a.z
+  const t = Math.max(
+    0,
+    Math.min(1, ((p.x - a.x) * dx + (p.z - a.z) * dz) / (dx * dx + dz * dz || 1)),
+  )
+  return Math.hypot(p.x - (a.x + t * dx), p.z - (a.z + t * dz))
+}
 
 // Uniform Catmull-Rom spline through the control points, sampled about every metre
 function sampleRoute(route: Route): Point[] {
@@ -135,7 +146,7 @@ export const stationSigns: Record<StationId, Point> =
 export const lanterns: Point[] =
   preset.lanterns ??
   (() => {
-    const SPACING = 6.5
+    const SPACING = preset.lanternSpacing ?? 6.5
     const OFFSET = 1.45
     const placed: Point[] = []
     polylines.forEach((line, l) => {
@@ -159,12 +170,34 @@ export const lanterns: Point[] =
               ({ center, radius }) => Math.hypot(p.x - center.x, p.z - center.z) > radius + 0.6,
             ) &&
             (!pond || Math.hypot(p.x - pond.center.x, p.z - pond.center.z) > pond.radius + 0.8) &&
-            placed.every((q) => Math.hypot(p.x - q.x, p.z - q.z) > 3) &&
+            placed.every((q) => Math.hypot(p.x - q.x, p.z - q.z) > SPACING * 0.5) &&
             Math.hypot(p.x, p.z) < islandRadiusAt(p) - BOUNDARY_INSET - 0.5
           if (clear) placed.push(p)
         }
         untilNext = d - length
       }
     })
+    if (preset.stationLanterns) {
+      // beside every station plaza: the first free spot around it, preferring the camera side
+      for (const id of Object.keys(stations) as StationId[]) {
+        const station = stations[id]
+        const radius = plazaRadius(id) + 0.7
+        const candidates = Array.from({ length: 16 }, (_, k) => {
+          const angle = (k / 16) * Math.PI * 2
+          return {
+            x: station.x + Math.cos(angle) * radius,
+            z: station.z + Math.sin(angle) * radius,
+          }
+        }).sort((a, b) => b.z - a.z)
+        const spot = candidates.find(
+          (p) =>
+            paths.every(([a, b]) => distanceToSegment(p, a, b) > PATH_WIDTH / 2 + 0.5) &&
+            Math.hypot(p.x - stationSigns[id].x, p.z - stationSigns[id].z) > 1.5 &&
+            placed.every((q) => Math.hypot(p.x - q.x, p.z - q.z) > 1.5) &&
+            Math.hypot(p.x, p.z) < islandRadiusAt(p) - BOUNDARY_INSET - 0.5,
+        )
+        if (spot) placed.push(spot)
+      }
+    }
     return placed
   })()
