@@ -9,7 +9,7 @@ entries:
     accent: '#c8553d'
   - name: Climora
     summary:
-      de: Schimmelprävention mit eigenen Sensoren. ESP32-Sensoren messen Temperatur und Luftfeuchte und senden per MQTT. Zwei Wege – in Echtzeit entscheidet ein lokales Sprachmodell, ob gelüftet oder geheizt werden soll, und schickt die Empfehlung aufs Handy; für den Verlauf wertet ein KI-Agent über einen eigenen MCP-Server die Zeitreihen aus und zieht Learnings.
+      de: Schimmelprävention mit eigenen Sensoren. ESP32-Sensoren messen Temperatur und Luftfeuchte und senden per MQTT. Danach zwei unabhängige Wege – in Echtzeit entscheidet ein lokales Sprachmodell, ob gelüftet oder geheizt werden soll, und schickt die Empfehlung aufs Handy; jede Messung landet in InfluxDB, wo ein KI-Agent über einen eigenen MCP-Server den Verlauf auswertet und Learnings zieht.
       en: ''
     tech: [ESP32, MQTT, Python, FastAPI, InfluxDB, Ollama, MCP, ntfy, Docker]
     status: wip

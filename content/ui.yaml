@@ -41,7 +41,7 @@ project:
   repo: { de: Quellcode, en: '' }
   wip: { de: In Arbeit, en: '' }
   climoraDiagram:
-    de: 'Ablauf: Ein ESP32 mit DHT11 misst, MQTT überträgt, ein Python-Data-Collector prüft, die FastAPI-API verteilt. Echtzeit: ein lokales Sprachmodell (Ollama) entscheidet, ntfy schickt die Empfehlung aufs Handy. Verlauf: InfluxDB speichert die Zeitreihen, ein KI-Agent liest sie über einen MCP-Server und wertet sie aus'
+    de: 'Ablauf: Ein ESP32 mit DHT11 misst, MQTT überträgt, ein Python-Data-Collector prüft die Messung. Danach zwei unabhängige Wege. Echtzeit: ein FastAPI-Processor prüft Schwellwerte, ein lokales Sprachmodell (Ollama) entscheidet, ntfy schickt die Empfehlung aufs Handy. Verlauf: InfluxDB speichert jede Messung, ein KI-Agent liest sie über einen MCP-Server mit reinem Lesezugriff und wertet sie aus'
     en: ''
 cv:
   download: { de: Lebenslauf (PDF), en: '' }
