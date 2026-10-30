@@ -14,19 +14,18 @@ const CYCLE = '8s'
 type Node = { x: number; y: number; w: number; label: string; sub: string }
 
 const H = 44
-// shared ingest: sensor → broker → collector → API
+// shared ingest: sensor → broker → collector (target architecture: every measurement is stored on ingest)
 const ingest: Node[] = [
   { x: 75, y: 8, w: 170, label: 'ESP32', sub: 'DHT11: Temperatur & Feuchte' },
   { x: 75, y: 76, w: 170, label: 'MQTT', sub: 'Broker, Publish/Subscribe' },
-  { x: 75, y: 144, w: 170, label: 'Data Collector', sub: 'Python, prüft Messwerte' },
-  { x: 75, y: 212, w: 170, label: 'API', sub: 'FastAPI' },
+  { x: 75, y: 144, w: 170, label: 'Data Collector', sub: 'Python, prüft & normalisiert' },
 ]
 
-// after the API the flow splits into two scenarios, each in its own lane
+// after the collector the flow splits into two independent scenarios, each in its own lane
 // titles sit at the outer edge so the lines can enter each lane on the inner side
 type Lane = { x: number; title: string; titleX: number; anchor: 'start' | 'end'; nodes: Node[] }
-const LANE_Y = 268
-const LANE_H = 256
+const LANE_Y = 200
+const LANE_H = 296
 const lanes: Lane[] = [
   {
     x: 4,
@@ -34,8 +33,9 @@ const lanes: Lane[] = [
     titleX: 14,
     anchor: 'start',
     nodes: [
-      { x: 12, y: 304, w: 136, label: 'Ollama', sub: 'lokales Sprachmodell' },
-      { x: 12, y: 384, w: 136, label: 'ntfy', sub: 'Push aufs Handy' },
+      { x: 12, y: 236, w: 136, label: 'Processor', sub: 'FastAPI: Schwellwerte' },
+      { x: 12, y: 316, w: 136, label: 'Ollama', sub: 'lokal, via AI-Service' },
+      { x: 12, y: 396, w: 136, label: 'ntfy', sub: 'Push aufs Handy' },
     ],
   },
   {
@@ -44,18 +44,18 @@ const lanes: Lane[] = [
     titleX: 306,
     anchor: 'end',
     nodes: [
-      { x: 172, y: 304, w: 136, label: 'InfluxDB', sub: 'Zeitreihen-DB' },
-      { x: 172, y: 384, w: 136, label: 'MCP-Server', sub: 'liest den Verlauf' },
-      { x: 172, y: 464, w: 136, label: 'KI-Agent', sub: 'wertet Wochen aus' },
+      { x: 172, y: 236, w: 136, label: 'InfluxDB', sub: 'jede Messung' },
+      { x: 172, y: 316, w: 136, label: 'MCP-Server', sub: 'nur Lesezugriff' },
+      { x: 172, y: 396, w: 136, label: 'KI-Agent', sub: 'wertet Verlauf aus' },
     ],
   },
 ]
 
 // paths run through node centres; the nodes are drawn on top, so dots "enter" each box
-const mainPath = 'M160 30 V262 H140 V326 H80 V406'
-const storePath = 'M160 262 H180 V326 H240'
-// the agent asks for history through the MCP server and gets it back
-const historyPath = 'M240 486 V326'
+const mainPath = 'M160 30 V194 H140 V258 H80 V418'
+const storePath = 'M160 194 H180 V258 H240'
+// the agent reads history through the MCP server and gets it back
+const historyPath = 'M240 418 V258'
 
 function FlowNode({ node }: { node: Node }) {
   return (
@@ -77,7 +77,7 @@ export function ClimoraFlow() {
   return (
     <svg
       className="flow"
-      viewBox="0 0 320 532"
+      viewBox="0 0 320 504"
       role="img"
       aria-label={localize(ui.project.climoraDiagram)}
     >
@@ -104,14 +104,14 @@ export function ClimoraFlow() {
           <circle className="flow__dot" r="6">
             <animateMotion dur={CYCLE} repeatCount="indefinite" path={mainPath} />
           </circle>
-          {/* waits below the API until the main dot gets there (about half of the main path) */}
+          {/* waits below the collector until the main dot gets there (about a third of the main path) */}
           <circle className="flow__dot" r="6">
             <animateMotion
               dur={CYCLE}
               repeatCount="indefinite"
               path={storePath}
               keyPoints="0;0;1;1"
-              keyTimes="0;0.51;0.68;1"
+              keyTimes="0;0.35;0.52;1"
               calcMode="linear"
             />
           </circle>
@@ -136,8 +136,8 @@ export function ClimoraFlow() {
 
       {/* appears when the dot reaches ntfy and stays for about 3.5 s */}
       <g className="flow__push">
-        <rect x="12" y="448" width="136" height="28" rx="14" />
-        <text x="80" y="466">
+        <rect x="12" y="456" width="136" height="28" rx="14" />
+        <text x="80" y="474">
           Bad: 78 % – lüften!
         </text>
         {animate && (
