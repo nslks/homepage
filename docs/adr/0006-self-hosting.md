@@ -1,6 +1,6 @@
 # ADR 0006 — Self-hosted container on a VPS
 
-- Status: accepted
+- Status: accepted, live since 2026-11-27
 - Date: 2026-11-27
 - Supersedes: the GitHub Pages part of ADR 0005, once the own domain is live
 
