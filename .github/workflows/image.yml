@@ -3,6 +3,7 @@ name: Container image
 on:
   push:
     branches: [main]
+    tags: ['v*']
   workflow_dispatch:
 
 permissions:
@@ -10,7 +11,7 @@ permissions:
   packages: write
 
 concurrency:
-  group: image
+  group: image-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -25,14 +26,15 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      # latest for the server to pull, the commit SHA for rollbacks
+      # release tag (v1.2.3) for deploying, commit SHA for tracing, latest = newest release
       - id: meta
         uses: docker/metadata-action@v5
         with:
           images: ghcr.io/${{ github.repository }}
           tags: |
-            type=raw,value=latest,enable={{is_default_branch}}
+            type=ref,event=tag
             type=sha
+            type=raw,value=latest,enable=${{ startsWith(github.ref, 'refs/tags/v') }}
       - uses: docker/build-push-action@v6
         with:
           context: .
@@ -50,8 +52,9 @@ jobs:
   deploy:
     name: Deploy to the server
     needs: image
+    if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
-    # DEPLOY_SSH_KEY lives in the production environment; the required approval is set there too.
+    # DEPLOY_SSH_KEY lives in the production environment, which only release tags (v*) may use.
     environment: production
     concurrency:
       group: deploy-server
@@ -66,6 +69,6 @@ jobs:
           # pinned host key: the pipeline only talks to exactly this server
           echo "2.29.56.74 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG6NYZTfOoiPNm2J577LZoHLep0wv8HQAcnU0eg/3EsL" > ~/.ssh/known_hosts
       # the key may only run ci-deploy.sh on the server, which only updates known services
-      # roll out exactly the image of this commit, not "latest" (tag as in metadata-action: sha-<7 chars>)
+      # roll out exactly this release: the image carries the release tag (v1.2.3)
       - name: Deploy
-        run: ssh -i ~/.ssh/deploy -o IdentitiesOnly=yes nslks@2.29.56.74 "homepage sha-${GITHUB_SHA:0:7}"
+        run: ssh -i ~/.ssh/deploy -o IdentitiesOnly=yes nslks@2.29.56.74 "homepage $GITHUB_REF_NAME"
