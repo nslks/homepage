@@ -45,9 +45,24 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
+  # Same steps as the shared deploy workflow in nslks/server. A public repo can't call a
+  # workflow from a private one, so they are spelled out here.
   deploy:
+    name: Deploy to the server
     needs: image
-    uses: nslks/server/.github/workflows/deploy.yml@main
-    with:
-      services: homepage
-    secrets: inherit
+    runs-on: ubuntu-latest
+    concurrency:
+      group: deploy-server
+      cancel-in-progress: false
+    steps:
+      - name: Prepare SSH
+        env:
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$DEPLOY_SSH_KEY" > ~/.ssh/deploy && chmod 600 ~/.ssh/deploy
+          # pinned host key: the pipeline only talks to exactly this server
+          echo "2.29.56.74 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG6NYZTfOoiPNm2J577LZoHLep0wv8HQAcnU0eg/3EsL" > ~/.ssh/known_hosts
+      # the key may only run ci-deploy.sh on the server, which only updates known services
+      - name: Deploy
+        run: ssh -i ~/.ssh/deploy -o IdentitiesOnly=yes nslks@2.29.56.74 homepage
