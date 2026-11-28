@@ -51,6 +51,8 @@ jobs:
     name: Deploy to the server
     needs: image
     runs-on: ubuntu-latest
+    # DEPLOY_SSH_KEY lives in the production environment; the required approval is set there too.
+    environment: production
     concurrency:
       group: deploy-server
       cancel-in-progress: false
@@ -64,5 +66,6 @@ jobs:
           # pinned host key: the pipeline only talks to exactly this server
           echo "2.29.56.74 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG6NYZTfOoiPNm2J577LZoHLep0wv8HQAcnU0eg/3EsL" > ~/.ssh/known_hosts
       # the key may only run ci-deploy.sh on the server, which only updates known services
+      # roll out exactly the image of this commit, not "latest" (tag as in metadata-action: sha-<7 chars>)
       - name: Deploy
-        run: ssh -i ~/.ssh/deploy -o IdentitiesOnly=yes nslks@2.29.56.74 homepage
+        run: ssh -i ~/.ssh/deploy -o IdentitiesOnly=yes nslks@2.29.56.74 "homepage sha-${GITHUB_SHA:0:7}"
