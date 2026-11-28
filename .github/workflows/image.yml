@@ -44,3 +44,10 @@ jobs:
             IMPRESSUM_EMAIL=${{ vars.IMPRESSUM_EMAIL }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+  deploy:
+    needs: image
+    uses: nslks/server/.github/workflows/deploy.yml@main
+    with:
+      services: homepage
+    secrets: inherit
